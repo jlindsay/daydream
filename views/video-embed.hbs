@@ -1,0 +1,61 @@
+<style>
+iframe html, body{
+  margin:0px;
+  padding:0px;
+  border:0px;
+}
+</style>
+
+<div class="video-area" style="height:100%;">Loadding...</div>
+
+<script type="text/javascript">
+    //console.log("embed:videplayer...");
+
+
+
+    var _vid          = '{{vid}}';
+    var _userid       = '{{user.userid}}';
+    var _autoplay     = '{{autoplay}}';
+    var _showplaylist = '{{showplaylist}}';
+    var _useRTMP      = '{{useRTMP}}';
+    var _useRTMPT     = '{{useRTMPT}}';
+    var _useHLS       = '{{useHLS}}';
+    var _useFlash     = '{{useFlash}}';
+    var _embed_url    = '{{embed_url}}';
+    var _host         = window.location.hostname + ":" + window.location.port
+    var _video        = {{{json video}}};
+
+
+
+    $(document).ready(initUI)
+
+
+    function initUI(){
+
+              var _vp = new VideoPlayer( { host : _host });
+              console.log("_video:", _video);
+
+              var video_html = _vp.getHTML( _vid, { width:'100%',
+                                                     height:'100%',
+                                                     userid: _userid,
+                                                     video_src:_video.video_url,
+                                                     thumbnail_url:_video.thumbnail_url })
+
+              $('.video-area').html(video_html);
+
+              $( document ).on( 'keydown', function ( e ) {
+                  if ( e.keyCode === 32 ) {
+                      if (video.paused == true) {
+                          // Play the video
+                          video.play();
+                      }else{
+                          if(video.play == true){
+                          video.pause();
+                          }
+                      }
+                  }
+              });
+
+  }
+
+</script>

@@ -1,0 +1,275 @@
+<!--h1>post_catagory::{{post_catagory}}</h1-->
+
+    <div class="navbar-static-top">
+
+        <div class="actions top-right">
+
+        {{#if user.is_loggedin }}
+            <a href="/logout">
+              <span class="material-icons">logout</span>
+              logout
+            </a>
+            <a id="user_account" href="#user_account">
+                Hey {{user.first_name}}<img class="profile_photo" src="{{user.profile_url}}" />
+            </a>
+        {{else}}
+            <a href="/signup">
+              <span class="material-icons">login</span>
+              signup
+            </a>
+            <a href="/login">
+              <span class="material-icons">login</span>
+              login
+            </a>
+        {{/if}}
+        </div>
+
+        <div class="top-left">
+            <div class="actions">
+                {{#if user.is_loggedin }}
+                <!--a href="/settings" alt="settings" >
+                    <i class="glyphicon glyphicon-cog" class="icon-shadow"></i>
+                </a-->
+                {{/if}}
+                <a href="/" alt="home" >
+                    <span class="material-icons">home</span>
+                </a>
+            </div>
+
+
+        </div>
+
+        <div class="dashboard-blocks">
+            <div class="block block-1"></div>
+            <div class="block block-2"></div>
+            <div class="block block-3"></div>
+            <div class="block block-4"></div>
+            <div class="block block-5"></div>
+        </div>
+    </div>
+
+
+    <div class="row-fluid post-content" style="background: rgba(0, 0, 0, .60 );  height:100%;">
+
+      <div class="hero hidden" style="color:#fff;min-height:400px;">
+          <div class="center">
+              <div id="main-message" style="opacity: 1;">
+                  <h1 style="font-size:64px;">permission is denied</h1>
+              </div>
+              <div class="greeting" style="opacity: 1;">
+                  <h2>Howdy<span class="period"></span>, <span class="name">{{user.first_name}}.</span></h2>
+                  <p>Lets find something else, shall we?</p>
+                  <div class="actions">
+                          <form action="/" style="display:inline-block;">
+                              <span class="material-icons">search</span>
+                              <input type="hidden" name="userid" value="{{user.userid}}">
+                              <input type="search" autocomplete="on" name="q" placeholder="Search?">
+                          </form>
+                      </div>
+              </div>
+          </div>
+      </div>
+
+      <div id="posts-unit" class="posts-unit overlay" >
+        <div id="post" class="post-items" style="position: relative;">
+            <img src="/img/spinner.gif" />
+        </div>
+
+        <div class="search-title">NewsFeed</div>
+        <div id="related-posts-container">
+            <div id="related-posts">
+                <img src="/img/spinner.gif" />
+            </div>
+        </div>
+        <div style="margin-top:20px;">
+              <a id="back-to-top" href="#search-resutls" class="btn big-btn primary-btn">back to top</a>
+        </div>
+      </div>
+</div>
+
+
+<div id="edit-metadata-modal" class="modal fade">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit</h5>
+        <button type="button" class="btn btn-close btn-light" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+
+      </div>
+      <div class="dashboard-blocks">
+          <div class="block block-1"></div>
+          <div class="block block-2"></div>
+          <div class="block block-3"></div>
+          <div class="block block-4"></div>
+          <div class="block block-5"></div>
+      </div>
+      <div class="modal-body">
+
+        <input id="pid" type="hidden" class="form-control" value="" >
+        <input id="post-type" type="hidden" class="form-control" value="" >
+
+        <div class="form-group">
+          <label id="title" for="title-input">Title</label>
+          <input id="title-input" type="text" class="form-control" placeholder="title..." style="width: 100%" >
+        </div>
+
+        <div class="form-group">
+            <label for="description-input">Description</label>
+            <textarea id="description-input" class="form-control" placeholder="Description..."  rows="7" style=";"></textarea>
+        </div>
+
+
+        <div class="form-group">
+          <label id="keywords" for="keywords-input">Keywords</label>
+          <input id="keywords-input" type="text" class="form-control" placeholder="keywords..." >
+        </div>
+
+        <div class="form-group">
+          <label id="is_public" for="is-public-input">Public</label>
+          <input id="is-public-input" type="checkbox" class="form-control" placeholder="keywords..." >
+        </div>
+
+        <div class="form-group">
+          <label id="thumbnail" for="thumbnail-img">thumbnail</label><br/>
+          <img id="thumbnail-img" src="" style="max-width:150px; max-height:150px;" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="edit-metadata-modal-cancel-btn" type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button id="edit-metadata-modal-save-btn" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+    body{
+        background-color: #eee;
+    }
+
+    post{
+      outline:none;
+    }
+</style>
+
+<script>
+
+    var _userid               =   '{{user.userid}}';
+    var _is_loggedin          = ( '{{user.is_loggedin}}' )? true : false;
+    var _is_admin             = ( '{{user.is_admin}}' )? true : false;
+    var _is_staff             = ( '{{user.is_staff}}' )? true : false;
+    var _is_moderator         = ( '{{user.is_moderator}}' )? true : false;
+    //var _user_profile_info  =   '{{user_profile_info.userid}}';
+
+    var _pid      = '{{pid}}';
+    var _post = {{{json post}}};
+
+    var _limit = 10;
+    var _offset = 0;
+
+    var _vm = new VideoManager();
+    var _newsfeed;
+    //var _state  = 'related-posts';
+
+    var _show_post_ui = Boolean( _is_loggedin )
+    var _show_video_ui = Boolean( _is_loggedin )
+    var _post_feed;
+
+    $(initUI);
+
+    function initUI(e)
+    {
+        console.log("initUI()");
+        _url = $.url( $(document).location );
+        _hash = $(location).attr('hash').split("#")[1];
+
+        _q = _url.param().q;
+//        _state = parseHashState();
+
+//        initBGB();
+        initActions();
+
+        _post_feed  = $('#post').newsfeed( _userid, { state : 'get-post', pid: _pid })
+
+        _newsfeed   = $('#related-posts').newsfeed( _userid, { state          : 'news-feed',
+                                                               show_post_ui   : _show_post_ui   })
+
+    }
+
+    function initActions()
+    {
+        console.log("initActions()");
+/*
+        $(".actions a").on("click",function(e){
+                //e.preventDefault();
+            var elm = $(e.target).closest("a");
+                $(".actions a").removeClass("active");
+                elm.addClass("active");
+                console.log("elm:", elm, ", href:",  $(elm).attr("href") );
+            var state = $(elm).attr("href").split("#").join("");
+                console.log("debug:state:",state)
+                _newsfeed.focus(state);
+        });
+
+
+        $("#user_account").click( function(e){
+            e.preventDefault();
+            //showUserOptions();
+        });
+*/
+    }
+
+    function initBGB()
+    {
+        if( Modernizr.touch ) {
+            _vm.initBG();
+        }else{
+            _vm.initBGV();
+        }
+    }
+
+
+    function parseHashState()
+    {
+        var hash = $(location).attr('hash').split("#")[1];
+        var state = _state;
+
+        switch(hash)
+        {
+            case "news-feed":
+                state = "news-feed";
+                break;
+            case "my-news-feed":
+                state = "my-news-feed";
+                break;
+            case "my-videos":
+                state = hash;
+                break;
+            case "history":
+                state = hash;
+                break;
+            case "search":
+                state = hash;
+                break;
+            case "tv":
+                state = hash;
+                break;
+            case "movies":
+                state = hash;
+                break;
+            case "audiobooks":
+                state = hash;
+                break;
+            case "channel-comments":
+                state = hash;
+                break;
+            case "new-videos":
+            default:
+                state = "new-videos";
+                break;
+
+        }
+        return state;
+    }
+
+</script>

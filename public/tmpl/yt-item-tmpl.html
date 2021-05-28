@@ -1,0 +1,55 @@
+<script id="yt-item-tmpl"  type="text/x-jquery-tmpl">
+    <div id="yt-${id}" class="yt-item-tmpl box ytcard">
+
+        <input id="id" value="${id}" type="hidden" />
+        <input id="link" value="${link}" type="hidden" />
+        <input id="kind" value="${kind}" type="hidden" />
+        <input id="channelId" value="${channelId}" type="hidden" />
+        <input id="channelTitle" value="${channelTitle}" type="hidden" />
+        <input id="title" value="${title}" type="hidden" />
+        <input id="description" value="${description}" type="hidden" />
+        <input id="thumbnail_url" value="${thumbnail_url}" type="hidden" />
+        <input id="publishedAt" value="${publishedAt}" type="hidden" />
+
+        <div class="yt-item-thumbnail-container">
+
+            <a href="${link}"><button class="play-icon" ></button></a>
+
+            <a href="${link}">
+              <div>
+                <img class="thumbnail-img" src="${thumbnail_url}" class="yt-item-thumbnail" />
+              </div>
+            </a>
+
+        </div>
+
+
+        <div class="yt-item-metadata">
+            <div class="yt-item-actions" >
+                <div class="yt-item-summary">
+
+                    <div id="yt-item-title-${id}" class="yt-item-title">
+                        <button class="icon-edit" ></button>
+                        <ul id="yt-title-edit-dropdown-menu-${id}" class="edit-dropdown-menu">
+                            <li><a tabindex="-1" href="#action-edit-title">Edit</a></li>
+                        </ul>
+                        <a href="${link}" class="yt-item-title">${title}</a>
+                    </div>
+
+                    <div id="yt-item-description-${id}" class="yt-item-description">
+                        <button class="icon-edit" ></button>
+                        <ul id="yt-description-edit-dropdown-menu-${id}" class="edit-dropdown-menu">
+                            <li><a tabindex="-1" href="#action-edit-description">Edit</a></li>
+                        </ul>
+                        <pre style="word-break: break-word;">${description}</pre>
+                    </div>
+
+                    <div id="actions-container" class="float-end">
+                      <button id="post-btn" type="button" class="btn btn-primary">Post</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</script>

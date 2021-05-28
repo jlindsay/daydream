@@ -1,0 +1,39 @@
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss">
+    <channel>
+        <title>{{title}}</title>
+        <link>http://{{host}}/w/{{vid}}</link>
+        <description>{{video.description}}</description>
+        <language>en-us</language>
+    <item>
+        <title>{{video.title}}</title>
+        <link>http://{{host}}/w/{{vid}}</link>
+        <description>{{video.description}}</description>
+
+        {{#if useRTMP}}
+            <enclosure url="{{video.rtmp_url}}" length="{{video.duration}}" type="{{video.video_type}}" />
+        {{else}}
+            <enclosure url="{{video.video_url}}" length="{{video.duration}}" type="{{video.video_type}}" />
+        {{/if}}
+
+        <category>{{video.catagory}}</category>
+        <pubDate>{{video.date_created}}</pubDate>
+        <guid >{{vid}}</guid>
+        <media:thumbnail url="{{video.thumbnail_url}}" width="" height="" />
+
+        {{#if useRTMP}}
+            <media:content url="{{video.rtmp_url}}" fileSize="{{video.filesize}}" type="{{video.video_type}}" expression="full" duration="{{video.duration}}" width="{{video.width}}" height="'{{video.height}}">
+        {{else}}
+            <media:content url="{{video.video_url}}" fileSize="{{video.filesize}}" type="{{video.video_type}}" expression="full" duration="{{video.duration}}" width="{{video.width}}" height="{{video.height}}">
+        {{/if}}
+
+        <media:title>{{video.title}}</media:title>
+            <media:keywords>{{video.keywords}}</media:keywords>
+            <media:thumbnail url="{{video.thumbnail_url}}" width="{{video.width}}" height="{{video.height}}" />
+            <media:player url="http://{{host}}/swf/videoplayer.swf" width="{{video.width}}" height="{{video.height}}" />
+            <media:category scheme=""></media:category>
+            <media:text type="plain"></media:text>
+            <media:hash algo="md5"></media:hash>
+            <media:copyright url=""></media:copyright>
+        </media:content>
+    </item>
+</channel></rss>

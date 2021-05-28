@@ -1,0 +1,430 @@
+<div class="top-right" style="z-index:200;">
+    <div class="actions" style="margin-top:20px;margin-right:20px;">
+    {{#if user.is_loggedin }}
+
+        <div class="btn-group" id="notifications">
+            <button id="badge" type="button" class="btn dropdown-toggle rounded-pill bg-light text-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="material-icons">notifications</span>
+                <span class="count"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <!--li><a class="dropdown-item" href="#">Action</a></li-->
+            </ul>
+        </div>
+
+        <a href="/logout">
+          <span class="material-icons">logout</span>
+          <span>Logout</span>
+        </a>
+        <a id="user_account" href="#user_account" >
+            Hey {{user.first_name}}<img class="profile_photo" src="{{user.profile_url}}" />
+        </a>
+    {{else}}
+        <a href="/signup">
+          <span class="material-icons">login</span>
+          signup
+        </a>
+        <a href="/login">
+          <span class="material-icons">login</span>
+          login
+        </a>
+    {{/if}}
+    </div>
+</div>
+
+
+<div class="top-left">
+    <div class="actions" style="margin-top:20px;margin-left:20px;">
+        {{#if user.is_loggedin }}
+        <a href="/" alt="home" >
+          <span class="material-icons">home</span>
+        </a>
+        {{/if}}
+    </div>
+</div>
+
+
+<div class="bottom-left">
+    <!--
+        stuff goes here...
+    -->
+</div>
+
+<div class="bottom-right">
+    <!--
+        stuff goes here...
+    -->
+</div>
+
+<div class="hero" style="color:#fff;min-height:300px;">
+    <div class="center">
+        <div id="main-message" style="opacity: 1;">
+            <h1 style="font-size:64px;">Lindsay Film</h1>
+        </div>
+        <div class="greeting" style="opacity: 1;">
+            <h2>{{greeting}}<span class="period"></span>, <span class="name">{{user.first_name}}.</span></h2>
+            <p>{{message}}</p>
+            <div class="actions">
+                    <form action="/#search" style="display:inline-block;">
+                        <span class="material-icons">search</span>
+                        <input type="search" autocomplete="on" name="q" placeholder="Search?"  >
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+
+    {{#if user.is_loggedin }}
+    <div id="nav" class="actions" style="text-align:center;padding:15px;">
+        <a id="news-feed" href="#news-feed">
+          <span class="material-icons" class="icon-shadow">feed</span>
+          NewsFeed
+        </a>
+        <a id="my-news-feed" href="#my-news-feed">
+          <span class="material-icons" class="icon-shadow">feed</span>
+          My NewsFeed Posts
+        </a>
+        <a id="new-videos" href="#new-videos">
+          <span class="material-icons" class="icon-shadow">smart_display</span>
+          New Videos
+        </a>
+        <a id="my-videos" href="#my-videos">
+          <span class="material-icons" class="icon-shadow">live_tv</span>
+          My Videos
+        </a>
+
+        <a id="history" href="#history">
+          <span class="material-icons" class="icon-shadow">history</span>
+          History
+        </a>
+        <a id="tv" href="#tv">
+          <span class="material-icons" class="icon-shadow">tv</span>
+          TV
+        </a>
+        <a id="movies" href="#movies">
+          <span class="material-icons" class="icon-shadow">theaters</span>
+          Movies
+        </a>
+        <a id="audiobooks" href="#audiobooks">
+          <span class="material-icons" class="icon-shadow">auto_stories</span>
+          Audio Books
+        </a>
+
+        <a id="channel-comments" href="#channel-comments">
+          <span class="material-icons" class="icon-shadow">chat_bubble</span>
+          Comments
+        </a>
+
+        <a id="upload" href="#upload" data-bs-toggle="modal" data-bs-target="#upload-modal">
+          <span class="material-icons" class="icon-shadow">cloud_upload</span>
+          Upload
+        </a>
+
+    </div>
+    {{else}}
+
+        <div id="nav" class="actions" style="text-align:center;padding:15px;">
+          <a id="news-feed" href="#news-feed">
+            <span class="material-icons" class="icon-shadow">feed</span>
+            NewsFeed
+          </a>
+          <a id="new-videos" href="#new-videos">
+            <span class="material-icons" class="icon-shadow">smart_display</span>
+            New Videos
+          </a>
+        </div>
+    {{/if}}
+
+<div class="row-fluid" style="background: rgba(255, 255, 255);background: rgba(255, 255, 255, .80);">
+    <div class="dashboard-blocks">
+        <div class="block block-1"></div>
+        <div class="block block-2"></div>
+        <div class="block block-3"></div>
+        <div class="block block-4"></div>
+        <div class="block block-5"></div>
+    </div>
+
+    <div class="videos-unit"  style="background: rgba(255, 255, 255);background: rgba(255, 255, 255, .5);-moz-border-radius: 5px; border-radius: 5px; width:930px; margin-left:auto; margin-right:auto; min-height:400px; margin-top:30px; bottom:0px; height:100%;">
+        <h1 id="title" style="display:inline-block;">title goes here...</h1>
+
+        <div id="search-ui" class="collapse"></div>
+        <div id="search-results" class="video-items" style="min-height:100%;clear:both;">search results...</div>
+
+        <div style="margin-top:20px;"><a id="back-to-top" href="#search-resutls" class="btn big-btn primary-btn">back to top</a></div>
+    </div>
+</div>
+
+
+<div id="upload-modal" class="modal fade">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Upload</h4>
+
+      </div>
+      <div class="dashboard-blocks">
+          <div class="block block-1"></div>
+          <div class="block block-2"></div>
+          <div class="block block-3"></div>
+          <div class="block block-4"></div>
+          <div class="block block-5"></div>
+      </div>
+      <div class="modal-body">
+        <div>
+          <form id="mydropzone" action="/upload/video" enctype="multipart/form-data" class="dropzone">
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+a:focus, a:hover {
+outline: none;
+border: none;
+}
+
+</style>
+
+<script>
+
+    var _userid           = '{{user.userid}}';
+    var _is_loggedin      = ( '{{user.is_loggedin}}' )? true : false;
+    var _is_admin         = ( '{{user.is_admin}}' )? true : false;
+    var _is_staff         = ( '{{user.is_staff}}' )? true : false;
+    var _is_moderator     = ( '{{user.is_moderator}}' )? true : false;
+
+    var _vm = new VideoManager();
+    var _newsfeed;
+    var _state  = 'news-feed';
+    var _url;
+    var _hash;
+    var _q;
+
+    var _show_post_ui = Boolean( _is_loggedin )
+
+    $(document).ready(initUI);
+
+    function initUI()
+    {
+        _url    = $.url( $(document).location );
+        _hash   = $(location).attr('hash').split("#")[1];
+
+        _q      = _url.param().q;
+        _state  = parseHashState();
+        _interval = 30000;
+
+        $("#nav.actions a#"+_state).addClass("active");
+
+        initBGB();
+        initActions();
+
+        _newsfeed = $('#search-results').newsfeed( _userid, { state         : _state,
+                                                              show_post_ui  : _show_post_ui,
+                                                              interval      : _interval,
+                                                              onNotes       : onNotes })
+    }
+
+    function onNotes($e,$notes)
+    {
+      //console.log("onNotes:e:", $e, ", notes:", $notes);
+      $("#notifications #badge .count").html($notes.length)
+      var html = "";
+      for(var i=0; i< $notes.length ; i++){
+        var note = $notes[i]
+        html += '<li><a class="dropdown-item" href="#'+note.nid+'">'+note.note+'</a></li>'
+      }
+
+      $("#notifications ul.dropdown-menu").html(html)
+
+
+    }
+
+    function initActions()
+    {
+      //  console.log("initActions()");
+        $("#nav.actions a").on("click",function(e){
+                e.preventDefault();
+            var elm = $(e.target).closest("a");
+                $("#nav.actions a").removeClass("active");
+                elm.addClass("active");
+
+            var state = $(elm).attr("href").split("#").join("");
+
+                _newsfeed.focus(state);
+        });
+
+
+        $("#user_account").click( function(e){
+            e.preventDefault();
+            //showUserOptions();
+        });
+
+        $(document).on("click", "#notifications ul.dropdown-menu li a", function(e){
+            e.preventDefault();
+            var elm = $(e.target)
+            var nid = elm.attr("href").split("#").join('')
+
+            _newsfeed.markNoteAsRead( _userid, nid, {success:function($data){
+              console.log("markNoteAsRead:success:data:", $data);
+              elm.remove();
+            }})
+        })
+
+    }
+
+    function initBGB()
+    {
+        if( Modernizr.touch ) {
+            _vm.initBG();
+        }else{
+            _vm.initBGV();
+        }
+    }
+
+
+    function parseHashState()
+    {
+        var hash = $(location).attr('hash').split("#")[1];
+        var state = _state;
+
+        switch(hash)
+        {
+            case "news-feed":
+                state = hash;
+                break;
+            case "my-news-feed":
+                state = hash;
+                break;
+            case "my-videos":
+                state = hash;
+                break;
+            case "history":
+                state = hash;
+                break;
+            case "search":
+                state = hash;
+                break;
+            case "tv":
+                state = hash;
+                break;
+            case "movies":
+                state = hash;
+                break;
+            case "audiobooks":
+                state = hash;
+                break;
+            case "channel-comments":
+                state = hash;
+                break;
+            case "new-videos":
+            default:
+                state = "new-videos";
+                break;
+
+        }
+        return state;
+    }
+
+
+</script>
+
+<script>
+
+  Dropzone.options.mydropzone = {
+    maxFilesize: 1000,
+    accept: function(file, done)
+    {
+      //console.log("dropzone:accept()");
+      done();
+    },
+    init: function()
+    {
+      //console.log("dropzone:init()");
+      var self = this;
+      this.on("success", function(e) {
+
+        var video = $.parseJSON( e.xhr.response )
+            //console.log("success:video.userid:", video );
+            $(location).attr('hash', 'my-videos');
+            focus( 'my-videos', 0, _limit );
+            $('#upload-modal').modal('hide');
+            self.removeAllFiles();
+            //console.log("ping")
+      });
+    },
+    error: function(e)
+    {
+      console.log("dropzone:error():e:", e );
+    },
+    processing : function(e)
+    {
+      console.log("dropzone:processing():e:", e );
+    },
+    uploadprogress : function(e, progress, bytesSent){
+      console.log("dropzone:uploadprogress():e:", e, ", progress:", progress, ", bytesSent:", bytesSent );
+    },
+    sending : function(e)
+    {
+      console.log("dropzone:sending():e:", e );
+    },
+    success : function(e)
+    {
+      console.log("dropzone:success():e:", e );
+    },
+    complete : function(e)
+    {
+      console.log("dropzone:complete():e:", e );
+    },
+    canceled : function(e)
+    {
+      console.log("dropzone:canceled():e:", e );
+    },
+    maxfilesreached : function(e)
+    {
+      console.log("dropzone:maxfilesreached():e:", e );
+    },
+    maxfilesexceeded : function(e)
+    {
+      console.log("dropzone:maxfilesexceeded():e:", e );
+    },
+    processingmultiple : function(e)
+    {
+      console.log("dropzone:processingmultiple():e:", e );
+    },
+    sendingmultiple : function(e)
+    {
+      console.log("dropzone:sendingmultiple():e:", e );
+    },
+    successmultiple : function(e)
+    {
+      console.log("dropzone:successmultiple():e:", e );
+    },
+    completemultiple : function(e)
+    {
+      console.log("dropzone:completemultiple():e:", e );
+    },
+    canceledmultiple : function(e)
+    {
+      console.log("dropzone:canceledmultiple():e:", e );
+    },
+    totaluploadprogress	 : function(e)
+    {
+      console.log("dropzone:totaluploadprogress():e:", e );
+    },
+    reset : function(e)
+    {
+      console.log("dropzone:reset():e:", e );
+    },
+    queuecomplete : function(e)
+    {
+      console.log("dropzone:queuecomplete():e:", e );
+    },
+  };
+</script>

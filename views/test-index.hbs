@@ -1,0 +1,140 @@
+<style>
+    @import url( "/css/profile_info.css" );
+</style>
+
+<div class="top-right">
+    <div class="actions" style="margin-top:20px;margin-right:20px;">
+    {{#if user.is_loggedin }}
+        <a href="/logout">
+          <span class="material-icons">logout</span>
+          logout
+        </a>
+        <a id="user_account" href="#user_account" >
+            Hey {{user.first_name}}<img class="profile_photo" src="{{user.profile_url}}" />
+        </a>
+    {{else}}
+        <a href="/signup" >
+          <span class="material-icons">login</span>
+          signup
+        </a>
+        <a href="/login">
+          <span class="material-icons">login</span>
+          login
+        </a>
+    {{/if}}
+    </div>
+</div>
+
+
+<div class="top-left">
+    <div class="actions" style="margin-top:20px;margin-left:20px;">
+        {{#if user.is_loggedin }}
+        <a href="/" alt="home" >
+          <span class="material-icons">home</span>
+        </a>
+        {{/if}}
+    </div>
+</div>
+
+
+<div class="bottom-left">
+    <!--
+        stuff goes here...
+    -->
+</div>
+
+<div class="bottom-right">
+    <!--
+        stuff goes here...
+    -->
+</div>
+
+<div class="hero" style="color:#fff;min-height:300px;">
+    <div class="center">
+        <div id="main-message" style="opacity: 1;">
+            <div class="profile_info">
+                <img class="main_profile_photo" src="{{user_profile_info.profile_url}}" />
+            </div>
+            <h1 style="font-size:64px;">{{user_profile_info.full_name}}</h1>
+        </div>
+
+        <div style="color:#4499FE;font-weight:900;">
+          <a href="#followers">followers:{{user_profile_info.total_followers}}</a>
+          <a href="#following">following:{{user_profile_info.total_following}}</a>
+        </div>
+
+    </div>
+</div>
+
+    {{#if user.is_loggedin }}
+    <div class="actions" style="text-align:center;padding:15px;">
+
+        <a id="my-videos" href="#my-videos">
+          <i class="glyphicon glyphicon-film" class="icon-shadow"></i>
+          My Videos
+        </a>
+
+    </div>
+    {{/if}}
+
+<div class="row-fluid" style="background: rgba(255, 255, 255);background: rgba(255, 255, 255, .80);">
+    <div class="dashboard-blocks">
+        <div class="block block-1"></div>
+        <div class="block block-2"></div>
+        <div class="block block-3"></div>
+        <div class="block block-4"></div>
+        <div class="block block-5"></div>
+    </div>
+
+    <div class="videos-unit"  style="background: rgba(255, 255, 255);background: rgba(255, 255, 255, .5);-moz-border-radius: 5px; border-radius: 5px; width:930px; margin-left:auto; margin-right:auto; min-height:400px; margin-top:30px; bottom:0px; height:100%;">
+        <h1 id="title" style="display:inline-block;">title goes here...</h1>
+        <div class="actions float-end" >
+            <span >
+                <span class="material-icons" style="color:#fff; text-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6); margin-right:-28px;">search</span>
+                <input id="filterVideos" class="filter" type="search" placeholder="Filter?" style="background:none; color:#fff; border:1px solid #fff; box-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6);; text-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6); display:inline-block;" >
+                <i id="remove-filter" class="glyphicon glyphicon-remove" style="color:#fff; text-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6); margin-left:-35px; "></i>
+            </span>
+
+        </div>
+
+        <div id="search-results" class="video-items" style="min-height:100%;clear:both;">search results...</div>
+
+        <div style="margin-top:20px;"><a id="back-to-top" href="#search-resutls" class="btn big-btn primary-btn">back to top</a></div>
+    </div>
+</div>
+
+
+<script src="/bower/masonry/dist/masonry.pkgd.js"></script>
+<script src="/bower/imagesloaded/imagesloaded.pkgd.js"></script>
+<script src="/bower/purl/purl.js"></script>
+<script src="/js/jquery/jquery.tmpl.js"></script>
+<script src="/js/VideoManager.js"></script>
+<script src="/js/NewsFeedManager.js"></script>
+<script src="/js/newsfeed.jquery.js"></script>
+
+
+
+<script>
+
+
+    var _userid = '{{user.userid}}';
+
+    $(document).ready(function(){
+        console.log('init()')
+        var _newsfeed = $('#search-results').newsfeed( _userid, {state:"news-feed"})
+        //var _newsfeed = $('#search-results').newsfeed( _userid, {state:"my-videos"})
+        //var _newsfeed = $('#search-results').newsfeed( _userid, {state:"new-videos"})
+        //var _newsfeed = $('#search-results').newsfeed( _userid, {state:"history"})
+        //var _newsfeed = $('#search-results').newsfeed( _userid, {state:"tv"})
+        //var _newsfeed = $('#search-results').newsfeed( _userid, {state:"movies"})
+        //var _newsfeed = $('#search-results').newsfeed( _userid, {state:"audiobooks"})
+        //var _newsfeed = $('#search-results').newsfeed( _userid, {state:"channel-comments"})
+        //var _newsfeed = $('#search-results').newsfeed( _userid, {state:"search"})
+
+        //updateFeed(action, offset, limit)
+        //_newsfeed.focus("my-videos",0,10)
+
+    })
+
+
+</script>

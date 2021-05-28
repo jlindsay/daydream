@@ -1,0 +1,79 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.mapPannel{
+	/* font-weight:bold;*/
+	width:600px;
+	float:left;
+	margin-left:10px;
+
+}
+
+.input_label
+{
+	width:100px;
+	font-weight: bold;
+	font-color:#333;
+
+}
+
+.input_value
+{
+	width: 200px;
+}
+
+.mapform
+{
+	float:left;
+}
+
+.mapList
+{
+	width:200px;
+	float:left; 
+}
+
+.map_editor {
+	color:#ff0000;
+}
+
+
+.tabs-container
+{
+/*	float:left; */
+/*	max-width:900px; */
+}
+
+#mapbuilder
+{
+	min-width:600px;
+	min-height:400px;
+}
+
+.tab-panel{
+/*	background-color:#cccccc; */
+	color:#333;
+	min-width:1000px;
+	min-height:600px;
+	
+}
+
+#doc_output{
+	color:#ff0000;
+	width:100%;
+}
+
+
+
+#feedback { font-size: 1em; }
+#map-sets .ui-selecting { background: #FECA40; }
+#map-sets .ui-selected { background: #F39814; color: white; }
+#map-sets { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+#map-sets li { margin: 3px; padding: 0.4em; font-size: 1em; height: 14px; }
+
+#feedback { font-size: 1.4em; }
+#maps-li .ui-selecting { background: #FECA40; }
+#maps-li .ui-selected { background: #F39814; color: white; }
+#maps-li { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+#maps-li li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }

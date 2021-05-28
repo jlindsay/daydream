@@ -1,0 +1,100 @@
+.profile-container{
+	background-color:#ffffff; 
+	color:#333333;
+/*	min-width:75px;
+	min-height:75px;
+*/	width:600px;
+	height:400px;
+	display:inline-block;
+
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;	
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+	border:1px solid #cccccc;
+	
+	padding-left:20px;
+	padding-right:20px;
+	padding-bottom:20px;
+	padding-top:20px;		
+/*    text-align: center;	*/
+}
+
+.profile-thumbnail
+{
+	width:200px;
+	height:200px;	
+/*	float:left;*/
+	display:inline-block;
+	background-color:#333;
+
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;	
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+
+/*	border:#fff solid 1px; */
+}
+
+.account-profile{
+	display:inline-block;
+	width:200px;
+	height:300px;
+	float:left;
+	background-color:#333;
+	color:#cccccc;
+
+/*	padding-left:20px;
+	padding-right:20px;
+	padding-bottom:20px;
+	padding-top:20px;		
+*/	
+}
+
+.account-info{
+	display:inline-block;
+	width:200px;
+	height:300px;
+	float:left;
+	
+	padding-left:20px;
+}
+
+.account-label-profile
+{
+	color:#ccc;
+	font-size:12px;
+	font-weight:bold; 
+    font-family:sans-serif;
+    text-shadow: 0px 1px 0px #000;
+	height:40px;
+	vertical-align:top;	
+}
+
+.account-label
+{
+	color:#444;
+	font-size:12px;
+	font-weight:bold; 
+    font-family:sans-serif;
+    text-shadow: 0px 1px 0px #fff;
+	height:40px;
+	vertical-align:top;	
+/*	float:left;
+	display:inline;	
+*/
+}
+
+.account-title
+{
+	color:#444;
+	font-size:24px;
+	font-weight:bold; 
+    font-family:sans-serif;
+    text-shadow: 0px 1px 0px #fff;
+	height:40px;
+	vertical-align:top;	
+/*	float:left;
+	display:inline;	
+*/
+}

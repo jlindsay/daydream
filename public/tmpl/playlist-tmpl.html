@@ -1,0 +1,57 @@
+<script id="playlist-tmpl" type="text/x-jquery-tmpl">
+    <div id="playlist-${uid}" class="playlist-tmpl box">
+        <input id="pid" type="hidden" value="${uid}"/>
+        <input id="userid" type="hidden" value="${userid}"/>
+        <input id="is_author" type="hidden" value="${is_author}"/>
+        <input id="is_admin" type="hidden" value="${is_admin}"/>
+        <input id="profile_url" type="hidden" value="${profile_url}"/>
+        <div id="pid-${uid}" class="playlist-thumbnail-container">
+            <a href="/profile/${userid}" alt="${full_name}"><img class="playlist-author" src="${profile_url}" /></a>
+            <a href="/plist/${uid}"><button class="play-icon" ></button></a>
+            {{if is_author == "true"}}
+                <button class="icon-white-edit" ></button>
+                <ul class="edit-dropdown-menu" >
+                    <li><a href="#action-edit-playlist-metadata">edit information</a></li>
+                    <!--li><a href="#action-delete-playlist">delete</a></li-->
+                </ul>
+            {{/if}}
+            <a href="/plist/${uid}">
+                <img src="${thumbnail_url}" class="playlist-thumbnail" />
+            </a>
+        </div>
+
+        <div class="playlist-metadata">
+            <div class="playlist-summary">
+                <div><a href="/w/${uid}" class="playlist-title">${title}</a></div>
+                <div class="playlist-description">${description}</div>
+            </div>
+            <div class="playlist-actions" >
+                <div class="likes-btn-wrapper">
+                    <button class="icon-likes" ></button>
+                    <div class="count">${total_likes}</div>
+                </div>
+                <!--div class="message-btn-wrapper" >
+                    <button class="icon-message" data-bs-toggle="collapse" data-bs-target="#comment-post-${uid}"></button>
+                    <div class="count">${total_comments}</div>
+                </div>
+
+                <div id="comment-post-${uid}" class="comment-wrapper collapse clearfix" >
+                    <textarea placeholder="What's up?"></textarea>
+                </div-->
+            </div>
+
+
+            <div id="playlist-videos-${uid}" class="playlist-videos-wrapper">
+                {{tmpl(videos) "#playlist-videos-tmpl"}}
+            </div>
+
+        </div>
+
+    </div>
+</script>
+
+<script id="playlist-videos-tmpl"  type="text/x-jquery-tmpl">
+    <div class="playlist-video-${uid}">
+        <a href="/pl/${pid}?vid=${vid}"><img src="${thumbnail_url}" class="playlist-video-thumbnail-url" /></a>
+    </div>
+</script>

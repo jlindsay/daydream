@@ -1,0 +1,800 @@
+.yt-content
+{
+    position: relative;
+    top:40px;
+    width:100%;
+}
+
+.yt-item
+{
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-left:20px;
+    padding-right: 20px;
+
+    min-height:140px;
+    min-width:400px;
+    background: #eeeeee;
+    border-top:#fff solid 1px;
+    border-bottom:1px #ccc solid;
+    display:block;
+}
+
+.yt-item:hover{
+    background-color:#fefeda;
+}
+
+.yt-unit
+{
+    font-size:18px;
+    font-weight:200;
+    background-color:#eee;
+    padding-left:60px;
+    padding-right:60px;
+    padding-top:30px;
+    padding-bottom:30px;
+}
+
+.yt-item-thumbnail-container
+{
+    float:left;
+    display:inline;
+}
+
+.yt-item-title
+{
+    color:#444;
+    font-size:18px;
+    font-weight:bold;
+    font-family:sans-serif;
+    text-shadow: 0px 1px 0px #fff;
+    padding: 0 20px;
+    padding-top: 10px;
+}
+
+
+
+.yt-item-description
+{
+    font-size:14px;
+    vertical-align:top;
+    vertical-align:top;
+    text-shadow: 0px 1px 0px #fff;
+    word-break: break-word;
+    padding: 0 20px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.yt-item-description pre
+{
+      white-space: pre-wrap;
+      background-color:#fff;
+
+      font-size: inherit;
+      color: inherit;
+      border: initial;
+      font-family: inherit;
+      overflow-x:hidden;
+      text-align: left;
+}
+
+.yt-item-tmpl .comment-card .card a{
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 12pt;
+  color: #4499fe;
+}
+
+.yt-item-thumbnail
+{
+    width:120px;
+    height:90px;
+    float:left;
+    display:inline;
+    background-color:#333;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    vertical-align:top;
+}
+
+.yt-item-analytics
+{
+    width:75px;
+    float:right;
+    display:inline;
+    text-shadow: 0px 1px 0px #fff;
+    text-align:right;
+}
+
+
+.yt-item-tmpl .yt-item-actions,
+.yt-item-tmpl .yt-item-comment-actions
+{
+    border-top:#fff solid 1px;
+    text-align:right;
+}
+
+.yt-item-comments .yt-item-comment-actions
+{
+    border-top:#fff solid 1px;
+    text-align:right;
+}
+
+.yt-item-comments .yt-item-comment-actions .dislikes{}
+
+.yt-item-tmpl .comment-wrapper{}
+
+.yt-item-tmpl .reply-2-yt-comment
+{
+  margin-left:20px;
+  text-align: left;
+}
+
+.yt-item-tmpl .yt-item-actions .comment-wrapper textarea,
+.yt-item-tmpl .yt-item-comment-actions .comment-wrapper textarea,
+.yt-item-tmpl .comment-container textarea
+{
+    width:100%;
+
+    background-position: bottom right;
+    color:#666;
+
+    background-color:#fff;
+
+    border:none;
+    border: 1px solid #eee;
+    border-top-color: #efefef;
+
+    padding:5px;
+    -moz-box-shadow: 0 1px 0 #fff,inset 0 1px 1px rgba(0,0,0,.17);
+    -ms-box-shadow: 0 1px 0 #fff,inset 0 1px 1px rgba(0,0,0,.17);
+    -webkit-box-shadow: 0 1px 0 white,inset 0 1px 1px rgba(0, 0, 0, .17);
+    box-shadow: 0 1px 0 white,inset 0 1px 1px rgba(0, 0, 0, .17);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+    resize: none;
+    overflow-x:auto;
+    font-size:80%;
+    position:relative;
+
+}
+
+.yt-item-tmpl
+{
+    vertical-align:top;
+    text-align:left;
+    display:inline-block;
+
+    color:#666;
+    background-color:#fff;
+    margin:10px;
+    border:#ccc 1px solid;
+
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -khtml-border-radius: 8px;
+    border-radius: 8px;
+    width:100%;
+
+}
+
+.ytcard{
+   max-width:250px;
+}
+
+
+.yt-item-tmpl .yt-item-thumbnail-container
+{
+    display:inline-block;
+    height:auto;
+    width:auto;
+}
+
+
+
+
+.yt-item-tmpl .yt-item-thumbnail-container .play-icon
+{
+    background:none;
+    border:none;
+    background-image:url("/img/v1/play-icon.png");
+
+    background-position:0px 0px;
+    -webkit-box-shadow:none;
+    width:53px;
+    height:53px;
+
+    left:50%;
+
+    margin-left: -27px;
+    margin-top: 60px;
+    opacity:0;
+    z-index:20px;
+    display:inline-block;
+    position:absolute;
+
+    -webkit-transition: opacity 0.25s ease-out;
+       -moz-transition: opacity 0.25s ease-out;
+        -ms-transition: opacity 0.25s ease-out;
+         -o-transition: opacity 0.25s ease-out;
+            transition: opacity 0.25s ease-out;
+
+    -webkit-filter: brightness(3) blur(2px);
+       -moz-filter: brightness(3) blur(2px);
+        -ms-filter: brightness(3) blur(2px);
+         -o-filter: brightness(3) blur(2px);
+            filter: brightness(3) blur(2px);
+}
+
+.yt-item-tmpl:hover .play-icon
+{
+    opacity:1;
+    -webkit-filter: brightness(1) blur(0px);
+       -moz-filter: brightness(1) blur(0px);
+        -ms-filter: brightness(1) blur(0px);
+         -o-filter: brightness(1) blur(0px);
+            filter: brightness(1) blur(0px);
+
+}
+
+.yt-item-tmpl .icon-edit ,
+.yt-item-tmpl .icon-white-edit ,
+.yt-item-tmpl .yt-item-author
+{
+    background:url("/img/v1/yt-icons.png");
+    background-position: -30px -60px;
+
+    width:30px;
+    height:30px;
+    border:none;
+    display:inline-block;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    float:right;
+
+}
+
+.yt-item-tmpl .yt-item-author
+{
+  -webkit-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.yt-item-comment .comment-author-container .comment-author{
+  #-webkit-border-radius: 50%;
+  #-khtml-border-radius: 50%;
+  #-moz-border-radius: 50%;
+#  border-radius: 50%;
+}
+
+
+.yt-item-tmpl .likes-btn-wrapper,
+.yt-item-tmpl .dislikes-btn-wrapper,
+.yt-item-tmpl .reply-btn-wrapper,
+.yt-item-tmpl .message-btn-wrapper,
+.yt-item-tmpl .views-btn-wrapper,
+.yt-item-tmpl .follow-btn-wrapper
+{
+    display:inline-block;
+
+    font-weight:bold;
+    font-size:18px;
+    color:#4499fe;
+    cursor:pointer;
+    margin-right:5px;
+}
+
+.yt-item-tmpl .views-btn-wrapper{
+  color:#868686;
+}
+
+
+.yt-item-tmpl .count
+{
+    background:none;
+    display:inline-block;
+
+    line-height:30px;
+    vertical-align:top;
+    margin-top:0px;
+
+}
+
+.yt-item-tmpl .icon-likes,
+.yt-item-tmpl .icon-dislikes,
+.yt-item-tmpl .icon-reply,
+.yt-item-tmpl .icon-message,
+.yt-item-tmpl .icon-views,
+.yt-item-tmpl .icon-follow
+{
+    background:url("/img/v1/yt-icons.png") no-repeat;
+    background-position:-150px 0px;
+    opacity: 1;
+    width:30px;
+    height:30px;
+    border:none;
+    display:inline-block;
+    margin:0px;
+    padding:0px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.yt-item-tmpl .icon-likes
+{
+  background-position:-30px -00px;
+}
+
+.yt-item-tmpl .icon-dislikes
+{
+  background-position:-60px -0px;
+}
+
+.yt-item-tmpl .icon-follow
+{
+  background-position:-90px -120px;
+
+}
+
+.yt-item-tmpl .icon-views
+{
+  background-position:-120px -120px;
+}
+
+.yt-item-tmpl .icon-reply
+{
+  background-position:-180px -120px;
+}
+
+.yt-item-tmpl .views-btn-wrapper:hover .icon-views
+{
+    background-position:-120px -150px;
+
+    opacity: 1;
+    -webkit-transition: opacity 0.25s ease-out;
+       -moz-transition: opacity 0.25s ease-out;
+        -ms-transition: opacity 0.25s ease-out;
+         -o-transition: opacity 0.25s ease-out;
+            transition: opacity 0.25s ease-out;
+
+}
+
+.yt-item-tmpl .reply-btn-wrapper:hover .icon-reply
+{
+    background-position:-180px -150px;
+
+    opacity: 1;
+    -webkit-transition: opacity 0.25s ease-out;
+       -moz-transition: opacity 0.25s ease-out;
+        -ms-transition: opacity 0.25s ease-out;
+         -o-transition: opacity 0.25s ease-out;
+            transition: opacity 0.25s ease-out;
+
+}
+
+.yt-item-tmpl .follow-btn-wrapper:hover .icon-follow
+{
+    background-position:-90px -150px;
+
+    opacity: 1;
+    -webkit-transition: opacity 0.25s ease-out;
+       -moz-transition: opacity 0.25s ease-out;
+        -ms-transition: opacity 0.25s ease-out;
+         -o-transition: opacity 0.25s ease-out;
+            transition: opacity 0.25s ease-out;
+
+}
+
+.yt-item-tmpl .likes-btn-wrapper:hover .count,
+.yt-item-tmpl .dislikes-btn-wrapper:hover .count,
+.yt-item-tmpl .follow-btn-wrapper:hover .count,
+.yt-item-tmpl .reply-btn-wrapper:hover .count,
+.yt-item-tmpl .message-btn-wrapper:hover .count
+{
+    color:#de00ff;
+}
+
+
+.yt-item-tmpl .views-btn-wrapper:hover .count
+{
+    color:#b7b7b7;
+}
+
+.yt-item-tmpl .likes-btn-wrapper:hover .icon-likes
+{
+    background-position:-30px -30px;
+
+    opacity: 1;
+    -webkit-transition: opacity 0.25s ease-out;
+       -moz-transition: opacity 0.25s ease-out;
+        -ms-transition: opacity 0.25s ease-out;
+         -o-transition: opacity 0.25s ease-out;
+            transition: opacity 0.25s ease-out;
+
+}
+
+.yt-item-tmpl .dislikes-btn-wrapper:hover .icon-dislikes
+{
+    background-position:-60px -30px;
+
+    opacity: 1;
+    -webkit-transition: opacity 0.25s ease-out;
+       -moz-transition: opacity 0.25s ease-out;
+        -ms-transition: opacity 0.25s ease-out;
+         -o-transition: opacity 0.25s ease-out;
+            transition: opacity 0.25s ease-out;
+
+}
+
+.yt-item-tmpl .icon-message
+{
+    background-position:-150px -60px;
+    opacity: 1;
+    -webkit-transition: opacity 0.25s ease-out;
+       -moz-transition: opacity 0.25s ease-out;
+        -ms-transition: opacity 0.25s ease-out;
+         -o-transition: opacity 0.25s ease-out;
+            transition: opacity 0.25s ease-out;
+
+}
+
+.yt-item-tmpl .icon-message:hover
+{
+    background-position:-150px -90px;
+    color:#de00ff;
+    opacity: 1;
+}
+
+
+.yt-item-tmpl .message-btn-wrapper:hover .icon-messages
+{
+    background-position:-150px -30px;
+
+    opacity: 1;
+    -webkit-transition: opacity 0.25s ease-out;
+       -moz-transition: opacity 0.25s ease-out;
+        -ms-transition: opacity 0.25s ease-out;
+         -o-transition: opacity 0.25s ease-out;
+            transition: opacity 0.25s ease-out;
+
+}
+
+.yt-item-tmpl .yt-item-comment
+{
+    padding:5px;
+    background-color:#fff;
+    border-top:solid 1px #ccc;
+    border-bottom:solid 1px #eee;
+}
+
+.yt-item-tmpl .yt-item-comment:hover
+{
+    color:#333;
+}
+.yt-item-tmpl .comment-author-container{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.yt-item-comment .comment-author-container a{
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.yt-item-tmpl .comment-container{
+    /*max-width:158px;*/
+    width:100%;
+    display:inline-block;
+}
+
+.yt-item-tmpl .comment-container .comment-author-link
+{
+    text-decoration:none;
+    font-weight:bold;
+    font-size:12pt;
+    color:#4499fe;
+}
+.yt-item-tmpl .comment-container .comment-author-link:hover
+{
+    color:#de00ff;
+}
+.yt-item-tmpl .comment-text
+{
+    margin:0px;
+    display:inline;
+}
+
+.yt-item-tmpl .edit-menu
+{
+    float:right;
+    z-index:20;
+    margin-top:10px;
+}
+
+.yt-item-tmpl .icon-edit
+{
+    opacity: 0;
+    margin-right:-8px;
+    margin-top:-3px;
+    margin-left:0px;
+    -webkit-transition: opacity 0.25s ease-out;
+       -moz-transition: opacity 0.25s ease-out;
+        -ms-transition: opacity 0.25s ease-out;
+         -o-transition: opacity 0.25s ease-out;
+            transition: opacity 0.25s ease-out;
+}
+
+.yt-item-tmpl .icon-edit:hover
+{
+    background-position:-30px -90px;
+    opacity: 1;
+}
+
+.yt-item-tmpl .yt-item-comment .yt-item-comment-text:hover .icon-edit
+{
+    opacity: 1;
+}
+
+.yt-item-tmpl .edit-dropdown-menu
+{
+    float:right;
+
+    z-index:13;
+    background-color:#fff;
+    display:inline-block;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -moz-border-radius: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    min-width:150px;
+    border:solid 1px #ccc;
+    box-shadow: 3px 3px 4px #ccc;
+    padding:20px;
+
+    opacity: 1;
+
+    display:none;
+    margin-top:-3px;
+    position:absolute;
+
+    right:0;
+
+}
+
+.yt-item-tmpl .edit-dropdown-menu:hover
+{
+
+}
+.yt-item-tmpl .edit-dropdown-menu li a
+{
+    text-decoration:none;
+    margin-top:5px;
+    margin-bottom:5px;
+    line-height:30px;
+    font-size:16px;
+    -webkit-transition: all 0.25s ease-out;
+       -moz-transition: all 0.25s ease-out;
+        -ms-transition: all 0.25s ease-out;
+         -o-transition: all 0.25s ease-out;
+            transition: all 0.25s ease-out;
+
+}
+.yt-item-tmpl .edit-dropdown-menu li a:hover
+{
+    color:#de00ff;
+
+}
+
+.yt-item-tmpl .icon-white-edit
+{
+    background-position:-60px -60px;
+    z-index:10;
+    position:absolute;
+    right:0;
+    opacity: 0;
+    -webkit-transition: all 0.25s ease-out;
+       -moz-transition: all 0.25s ease-out;
+        -ms-transition: all 0.25s ease-out;
+         -o-transition: all 0.25s ease-out;
+            transition: all 0.25s ease-out;
+}
+
+.yt-item-tmpl:hover .icon-white-edit{
+    opacity: 1;
+}
+
+.yt-item-tmpl .yt-item-author
+{
+    background:none;
+    position:absolute;
+    z-index:10;
+    opacity: 0;
+    margin:5px;
+    width:50px;
+    height:50px;
+    left:-20px;
+    -webkit-transition: all 0.25s ease-out;
+       -moz-transition: all 0.25s ease-out;
+        -ms-transition: all 0.25s ease-out;
+         -o-transition: all 0.25s ease-out;
+            transition: all 0.25s ease-out;
+
+
+    -webkit-filter: brightness(10) blur(6px);
+       -moz-filter: brightness(10) blur(6px);
+        -ms-filter: brightness(10) blur(6px);
+         -o-filter: brightness(10) blur(6px);
+            filter: brightness(10) blur(6px);
+
+}
+
+.yt-item-tmpl .yt-item-author:hover
+{
+    opacity: 1;
+    left:0px;
+    -webkit-filter: brightness(1) blur(0px);
+       -moz-filter: brightness(1) blur(0px);
+        -ms-filter: brightness(1) blur(0px);
+         -o-filter: brightness(1) blur(0px);
+            filter: brightness(1) blur(0px);
+}
+
+.yt-item-tmpl:hover .yt-item-author{
+    opacity: 1;
+    left:0px;
+    /*border-radius: 100%; */
+    -webkit-filter: brightness(1) blur(0px);
+       -moz-filter: brightness(1) blur(0px);
+        -ms-filter: brightness(1) blur(0px);
+         -o-filter: brightness(1) blur(0px);
+            filter: brightness(1) blur(0px);
+}
+
+
+
+
+.yt-item-tmpl .yt-item-thumbnail
+{
+    min-width:250px;
+    min-height:150px;
+    width:100%;
+    height:auto;
+    display:inline-block;
+    background-color:#333;
+    vertical-align:top;
+    z-index:5px;
+    background-color:#000;
+    -webkit-transition: all 0.25s ease-out;
+       -moz-transition: all 0.25s ease-out;
+        -ms-transition: all 0.25s ease-out;
+         -o-transition: all 0.25s ease-out;
+            transition: all 0.25s ease-out;
+}
+
+.yt-item-tmpl:hover .yt-item-thumbnail
+{
+/*
+    -webkit-filter: brightness(3) blur(1.5px);
+       -moz-filter: brightness(3) blur(1.5px);
+        -ms-filter: brightness(3) blur(1.5px);
+         -o-filter: brightness(3) blur(1.5px);
+            filter: brightness(3) blur(1.5px);
+*/
+}
+
+/*
+.yt-item-tmpl  .yt-item-metadata .yt-item-title:hover
+{
+    color: #de00ff;
+    -webkit-transition: all 0.25s ease-out;
+       -moz-transition: all 0.25s ease-out;
+        -ms-transition: all 0.25s ease-out;
+         -o-transition: all 0.25s ease-out;
+            transition: all 0.25s ease-out;
+}
+*/
+.yt-item-tmpl .yt-item-title, .yt-item-tmpl .yt-item-title:visited
+{
+    font-weight:600;
+    color:#4499FE;
+    cursor: pointer;
+    text-decoration:none;
+}
+
+.yt-item-tmpl .yt-item-metadata
+{
+    margin-top:-3px;
+
+    float:left;
+    display:inline-block;
+
+    min-height:30px;
+    height:auto;
+    min-width:248px;
+    width:100%;
+    background-color:#eee;
+}
+
+.yt-item-tmpl .yt-item-metadata .yt-item-summary
+{
+    background-color:#fff;
+    border-bottom:1px solid #ccc;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align : left;
+}
+
+.yt-item-tmpl .yt-item-metadata .yt-item-summary a
+{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display:block;
+    width:230px;
+}
+
+.yt-item-tmpl .yt-item-metadata-thumbnail
+{
+    width:50px;
+    height:50px;
+    display:inline-block;
+    background-color:#ccc;
+}
+
+.yt-item-tmpl .yt-item-metadata-author
+{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.yt-item-tmpl .play-wrapper
+{
+    display:inline-block;
+    background-color:#ccc;
+    right:0;
+    z-index:15;
+    position:absolute;
+}
+
+
+.yt-item-tmpl .comment-author
+{
+    width:50px;
+    height:50px;
+    border:none;
+    display:inline-block;
+    -webkit-border-radius: 50%;
+    -khtml-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+
+}
+
+
+.yt-item-comment .yt-item-comment-text .comment-container pre
+{
+		white-space: pre-wrap;
+		background-color:#fff;
+
+
+		color: inherit;
+		border: initial;
+		padding: initial;
+		font-family: inherit;
+		/*font-size: inherit;*/
+		font-size: 14px;
+		text-shadow: 0px 1px 0px #fff;
+}

@@ -1,0 +1,254 @@
+<script id="big-post-and-comments-item-tmpl"  type="text/x-jquery-tmpl">
+    <div id="big-post-${pid}" class="big-post-item-tmpl box">
+        <input id="pid" value="${pid}" type="hidden" />
+        <input id="userid" value="${userid}" type="hidden" />
+        <input id="full_name" value="${full_name}" type="hidden" />
+        <input id="is_author" value="${is_author}" type="hidden" />
+        <input id="is_admin" value="${is_admin}" type="hidden" />
+        <input id="profile_url" value="${profile_url}" type="hidden" />
+        <input id="catagory" value="${catagory}" type="hidden" />
+        <input id="catagorys" value="${catagory}" type="hidden" />
+
+        <input id="total_comments" value="${total_comments}" type="hidden" />
+        <input id="total_replies_2_post" value="${total_replies_2_post}" type="hidden" />
+        <input id="total_replies_2_comments" value="${total_replies_2_comments}" type="hidden" />
+
+
+        <input id="total_likes" value="${total_likes}" type="hidden" />
+        <input id="total_dislikes" value="${total_dislikes}" type="hidden" />
+
+        <input id="user_likes_post" value="${total_likes_post}" type="hidden" />
+        <input id="user_dislikes_post" value="${total_dislikes_post}" type="hidden" />
+
+        <input id="keywords" value="${keywords}" type="hidden" />
+        <input id="date_created" value="${date_created}" type="hidden" />
+        <input id="download_url" value="${post_url}" type="hidden" />
+
+        <input id="total_views" value="${total_views}" type="hidden" />
+        <input id="total_unique_users" value="${total_unique_users}" type="hidden" />
+        <input id="total_followers" value="${total_followers}" type="hidden" />
+
+        <input id="host" value="${host}" type="hidden" />
+        <input id="embed_width" value="${embed_width}" type="hidden" />
+        <input id="embed_height" value="${embed_height}" type="hidden"  />
+
+        <input id="title" value="${title}" type="hidden"  />
+        <input id="metadata_title" value="${metadata_title}" type="hidden"  />
+        <input id="description" value="${description}" type="hidden"  />
+        <input id="metadata_description" value="${metadata_description}" type="hidden"  />
+        <input id="description_short" value="${description_short}" type="hidden"  />
+        <input id="keywords" value="${keywords}" type="hidden"  />
+        <input id="thumbnail_url" value="${thumbnail_url}" type="hidden"  />
+        <input id="metadata_thumbnail_url" value="${metadata_thumbnail_url}" type="hidden"  />
+        <input id="metadata_video_url" value="${metadata_thumbnail_url}" type="hidden"  />
+        <input id="metadata_date" value="${metadata_date}" type="hidden"  />
+        <input id="metadata_request_url" value="${metadata_request_url}" type="hidden"  />
+        <input id="metadata_site_name" value="${metadata_site_name}" type="hidden"  />
+        <input id="metadata_locale" value="${metadata_locale}" type="hidden"  />
+        <input id="metadata_url" value="${metadata_url}" type="hidden"  />
+        <input id="content" value="${content}" type="hidden"  />
+
+
+        <div id="pid-${pid}" class="big-post-item-thumbnail-container">
+            <a href="/profile/${userid}" alt="${full_name}">
+              <img class="big-post-item-author" src="${profile_url}" />
+            </a>
+
+            {{if is_author }}
+                <button class="icon-white-edit" ></button>
+                <ul class="edit-dropdown-menu" >
+                    <li><a href="#action-edit-post-metadata">Edit</a></li>
+                </ul>
+            {{/if}}
+            <!--a href="${metadata_url}"><img class="thumbnail-img" src="${thumbnail_url}" class="big-post-item-thumbnail" /></a-->
+            <div id="/pid-${pid}-container" class="post-iframe-container">
+              <a href="/p/${pid}"><button class="play-icon" ></button></a>
+              <img class="thumbnail-img" src="${thumbnail_url}" class="big-post-item-thumbnail" />
+            </div>
+        </div>
+
+        <div class="big-post-item-metadata">
+
+            <div class="big-post-item-summary">
+
+                <div class="author_info">
+                  <a href="/profile/${userid}" alt="${full_name}">
+                    <img class="big-post-item-author-info" src="${profile_url}" />
+                    <span>${full_name}</span>
+                  </a>
+
+                </div>
+
+                <div class="big-post-item-title-container">
+                  <a href="${metadata_request_url}" class="big-post-item-title">${metadata_title}</a>
+                </div>
+
+                <div id="descriptionContent" class="big-post-item-description collapse long-text ">
+                    <pre style="word-break: normal;">${metadata_description}</pre>
+                </div>
+                <div style="text-align:center">
+                    <a href="#descriptionContent" data-bs-toggle="collapse" class="collapsed">
+                        <span class="readMore">SHOW MORE</span>
+                        <span class="readLess">SHOW LESS</span>
+                    </a>
+                </div>
+
+
+            </div>
+
+            <div class="big-post-item-actions" >
+
+                  <div class="views-btn-wrapper" >
+                      <button class="icon-views" data-bs-toggle="collapse"></button>
+                      <div class="count">${total_views}</div>
+                  </div>
+
+                {{if allow_embed_code == "true"}}
+                    <div class="embed-btn-wrapper" >
+                        <button class="icon-embed" data-bs-toggle="collapse" data-bs-target="#embed-code-${pid}"></button>
+                    </div>
+                {{/if}}
+
+
+                {{if is_loggedin == "true"}}
+
+                    <div id="post-likes-${pid}" class="likes-btn-wrapper">
+                        <button class="icon-likes" ></button>
+                        <div class="count">${total_likes}</div>
+                    </div>
+
+                    <div id="post-dislikes-${pid}" class="dislikes-btn-wrapper">
+                        <button class="icon-dislikes" ></button>
+                        <div class="count">${total_dislikes}</div>
+                    </div>
+
+                    <div id="post-message-${pid}" class="message-btn-wrapper" >
+                        <button class="icon-message" data-bs-toggle="collapse" data-bs-target="#post-comment-post-${pid}"></button>
+                        <div class="count" data-bs-toggle="collapse" data-bs-target="#post-comment-post-${pid}">${total_comments}</div>
+                    </div>
+
+                    <div class="follow-btn-wrapper">
+                        <button class="icon-follow" ></button>
+                        <div class="count">${total_followers}</div>
+                    </div>
+
+                    <div id="post-comment-post-${pid}" class="comment-wrapper" >
+                        <textarea placeholder="Add a public comment..."></textarea>
+                    </div>
+
+                {{/if}}
+
+                {{if allow_embed_code == "true"}}
+                    <div id="embed-code-${pid}" class="embed-wrapper collapsed clearfix" >
+                        <textarea value=''><iframe src="http://${host}/post/embed/${pid}" width="${embed_width}" height="${embed_height}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></textarea>
+                    </div>
+                {{/if}}
+
+            </div>
+        </div>
+
+        {{if is_loggedin=="true"}}
+            <div id="big-post-${pid}-comment" class="big-post-item-comments">
+                {{tmpl(comments) "#big-post-item-comment-tmpl"}}
+            </div>
+        {{/if}}
+
+        {{if total_replies_2_post > 5 && is_loggedin=="true" }}
+            <div class="comments-actions" align="center">
+              <a href="#" class="action-more">More Comments</a>
+            </div>
+        {{/if}}
+
+    </div>
+</script>
+
+<script id="big-post-item-comment-tmpl"  type="text/x-jquery-tmpl">
+    <div id="comment-${comment_uid}" class="big-post-item-comment" >
+        <input id="comment_id" value="${comment_uid}" type="hidden" />
+        <input id="userid" value="${userid}" type="hidden" />
+        <input id="pid" value="${pid}" type="hidden" />
+        <input id="date_created" value="${date_created}" type="hidden" />
+        <input id="author_id" value="${author_id}" type="hidden" />
+        <input id="profile_url" value="${profile_url}" type="hidden" />
+        <input id="first_name" value="${first_name}" type="hidden" />
+        <input id="last_name" value="${last_name}" type="hidden" />
+        <input id="full_name" value="${full_name}" type="hidden" />
+        <input id="is_users_comment" value="${is_users_comment}" type="hidden" />
+        <input id="is_author" value="${is_author}" type="hidden" />
+        <input id="is_loggedin" value="${is_loggedin}" type="hidden" />
+        <input id="total_likes" value="${total_likes}" type="hidden" />
+        <input id="total_dislikes" value="${total_dislikes}" type="hidden" />
+
+        <input id="total_replies" value="${total_replies}" type="hidden" />
+        <!--input id="total_replies_2_post" value="${total_replies_2_post}" type="hidden" />
+        <input id="total_replies_2_comments" value="${total_replies_2_comments}" type="hidden" /-->
+
+        <input id="content" value="${content}" type="hidden"  />
+        <input id="content_short" value="${content_short}" type="hidden"  />
+
+        <div class="big-post-item-comment-text">
+
+            {{if is_author == true }}
+                <div id="comment-edit-menu-${comment_uid}" class="edit-menu">
+                    <input id="pid" value="${pid}" type="hidden" />
+                    <input id="comment_id" value="${comment_uid}" type="hidden" />
+                    <button class="icon-edit" ></button>
+                    <ul id="edit-dropdown-menu-${comment_uid}" class="edit-dropdown-menu">
+                        <li><a tabindex="-1" href="#action-edit-comment">Edit</a></li>
+                        <li><a tabindex="-2" href="#action-delete-comment">Delete</a></li>
+                    </ul>
+                </div>
+            {{/if}}
+            <div class="comment-container">
+                <div class="comment-author-container">
+                    <a href="/profile/${userid}" alt="${full_name} profile.">
+                        <img class="comment-author" src="${profile_url}" />
+                    </a>
+                </div>
+                <p class="comment-text">
+                  <a class="comment-author-link" href="/profile/${userid}" alt="${full_name} wrote:">${full_name}:</a>
+                  <pre style="word-break: normal;">${content}</pre>
+                </p>
+            </div>
+
+
+        </div>
+
+        <div class="post-item-comment-actions" >
+
+            <div id="comment-likes-${comment_uid}" class="likes-btn-wrapper">
+                <button class="icon-likes" ></button>
+                <div class="count">${total_likes}</div>
+            </div>
+
+            <div id="comment-dislikes-${comment_uid}" class="dislikes-btn-wrapper">
+                <button class="icon-dislikes" ></button>
+                <div class="count">${total_dislikes}</div>
+            </div>
+
+            <div class="reply-btn-wrapper">
+                <button class="icon-reply" data-bs-toggle="collapse" data-bs-target="#comment-reply-${comment_uid}" ></button>
+                <div class="count" data-bs-toggle="collapse" data-bs-target="#comment-reply-${comment_uid}">Reply</div>
+            </div>
+
+            <div id="comment-reply-${comment_uid}" class="comment-wrapper collapse " >
+                <textarea placeholder="Add a public reply..."></textarea>
+            </div>
+
+            <div id="comment-replies-${comment_uid}" class="reply-comments-wrapper collapse" ></div>
+
+            <div class="replies-wrapper">
+              {{if total_replies > 0 }}
+                <div class="show-more">View <span class="count">${total_replies}</span> replies</div>
+              {{/if}}
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+</script>

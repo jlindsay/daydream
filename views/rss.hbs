@@ -1,0 +1,27 @@
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss">
+  <channel>
+    <title>domain</title>
+    <link>{{vid}}}</link>
+    <description></description>
+    <language>en-us</language>
+    <item>
+        <title>{{video.title}}</title>
+        <link>http://video.joshdlindsay.com/w/{{vid}}</link>
+        <description>{{video.description}}</description>
+        <enclosure url="{{vide.cdn_url}}" length="{{video.length}}" type="{{video.type}}" />
+        <category>{{video.categorys}}</category>
+        <pubDate>{{video.date_created}}</pubDate>
+        <guid >{{vid}}</guid>
+        <media:thumbnail url="{{video.thumbnail_url}}" width="" height="" />
+        <media:content url="{{video.cdn_url}}" fileSize="{{video.filesize}}" type="{{video.file_type}}" expression="full" duration="{{video.duration}}" width="{{video.width}}" height="{{video.height}}">
+        <media:title>{{video.title}}</media:title>
+            <media:keywords>{{video.keywords}}</media:keywords>
+            <media:thumbnail url="{{video.thumbnail_url}}" width="" height="" />
+            <media:player url="" width="" height="" />
+            <media:category scheme=""></media:category>
+            <media:text type="plain"></media:text>
+            <media:hash algo="md5"></media:hash>
+            <media:copyright url=""></media:copyright>
+        </media:content>
+    </item></channel>
+</rss>

@@ -1,0 +1,15 @@
+<script id="home-feed-navigation-tmpl" type="text/x-jquery-tmpl">
+<div class="pagination">
+    <ul>
+        <li><a href="#">Prev</a></li>
+        {{each items}}
+            {{if items.length === 0 }}
+                <li class="active"><a href="#">${label}</a></li>
+            {{else}}
+                <li><a href="#">${label}</a></li>
+            {{/if}}
+        {{/each}}
+        <li><a href="#">Next</a></li>
+    </ul>
+  </div>
+</script>

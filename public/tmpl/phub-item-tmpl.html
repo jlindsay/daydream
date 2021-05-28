@@ -1,0 +1,52 @@
+<script id="phub-item-tmpl"  type="text/x-jquery-tmpl">
+    <div id="phub-${id}" class="phub-item-tmpl box phubcard">
+
+        <input id="url" value="${url}" type="hidden" />
+        <input id="title" value="${title}" type="hidden" />
+        <input id="description" value="${description}" type="hidden" />
+        <input id="thumbnail_url" value="${thumbnail_url}" type="hidden" />
+
+
+        <div class="phub-item-thumbnail-container">
+
+            <a href="${url}"><button class="play-icon" ></button></a>
+
+            <a href="${url}">
+              <div>
+                <img class="thumbnail-img" src="${thumbnail_url}" class="phub-item-thumbnail" />
+              </div>
+            </a>
+
+        </div>
+
+
+        <div class="phub-item-metadata">
+            <div class="phub-item-actions" >
+                <div class="phub-item-summary">
+
+                    <div id="phub-item-title-${id}" class="phub-item-title">
+                        <button class="icon-edit" ></button>
+                        <ul id="phub-title-edit-dropdown-menu-${id}" class="edit-dropdown-menu">
+                            <li><a tabindex="-1" href="#action-edit-title">Edit</a></li>
+                        </ul>
+                        <a href="${link}" class="phub-item-title">${title}</a>
+                    </div>
+
+                    <div id="phub-item-description-${id}" class="phub-item-description">
+                        <button class="icon-edit" ></button>
+                        <ul id="phub-description-edit-dropdown-menu-${id}" class="edit-dropdown-menu">
+                            <li><a tabindex="-1" href="#action-edit-description">Edit</a></li>
+                        </ul>
+                        <pre style="word-break: break-word;">${description}</pre>
+                    </div>
+
+                    <div id="actions-container" class="float-end">
+                      <button id="post-btn" type="button" class="btn btn-primary">Post</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+</script>

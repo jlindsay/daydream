@@ -1,0 +1,21 @@
+.whiteout
+{
+  -webkit-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+   -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+       transition: all 0.25s ease-out;
+
+  background: rgba(225, 225, 225, .80);
+}
+
+.whiteout .overlay
+{
+  -webkit-transition: all 0.25s ease-out;
+  -moz-transition: all 0.25s ease-out;
+   -ms-transition: all 0.25s ease-out;
+    -o-transition: all 0.25s ease-out;
+       transition: all 0.25s ease-out;
+
+  background: rgba(255, 255, 255, .50);
+}

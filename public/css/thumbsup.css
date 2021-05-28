@@ -1,0 +1,46 @@
+
+.thumbsup
+{
+    pointer-events: none;
+    position: absolute;
+    bottom:0px;
+    top:0px;
+    left:0;
+    right:0;
+    background-color: rgba(0,0,0,0.5);
+    text-align: center;
+    vertical-align: middle;
+    z-index: 10;
+
+    opacity:0;
+
+    -webkit-transition: opacity 0.25s ease-out;
+       -moz-transition: opacity 0.25s ease-out;
+        -ms-transition: opacity 0.25s ease-out;
+         -o-transition: opacity 0.25s ease-out;
+            transition: opacity 0.25s ease-out;
+
+    -webkit-filter: brightness(3) blur(2px);
+       -moz-filter: brightness(3) blur(2px);
+        -ms-filter: brightness(3) blur(2px);
+         -o-filter: brightness(3) blur(2px);
+            filter: brightness(3) blur(2px);
+
+}
+
+.thumbsup img
+{
+    -webkit-filter: hue-rotate(120deg) saturate(1.5);
+    filter: hue-rotate(120deg) saturate(1.5);
+}
+
+.thumbsup-on
+{
+    opacity:1;
+    -webkit-filter: brightness(1) blur(0px);
+       -moz-filter: brightness(1) blur(0px);
+        -ms-filter: brightness(1) blur(0px);
+         -o-filter: brightness(1) blur(0px);
+            filter: brightness(1) blur(0px);
+
+}

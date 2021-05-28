@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* CSS Document */
+
+.focusField
+{
+    border:solid 2px #ffffff;
+    background:#ffffff;
+    color:#555555;
+}
+
+.idleField
+{
+    background:#ffffff;
+    color: #ccc;
+    border: solid 2px #DFDFDF;
+}
+
+.search-custom-box
+{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.search-custom-box form, .search-custom-box .search-custom-input
+{
+    margin:0px;
+}
+
+.search-custom-input
+{
+    width:250px;
+    line-height:30px;
+    font-size:18px;
+    padding-right:10px;
+    padding-left:10px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border:solid 1px #ccc;
+
+}
+
+
+
+.search-title{
+    padding:10px;
+    font-weight:normal;
+    font-size:36pt;
+    text-shadow: 0px 1px 0px white;
+    text-align:center;
+    font-family:"Times New Roman",Georgia,Serif;
+
+}

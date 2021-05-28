@@ -1,0 +1,267 @@
+<style>
+    body
+    {
+      -webkit-box-shadow: inset -1px 0px 86px 35px rgba(0,0,0,0.67);
+      -moz-box-shadow: inset -1px 0px 86px 35px rgba(0,0,0,0.67);
+      box-shadow: inset -1px 0px 86px 35px rgba(0,0,0,0.67);
+    }
+
+    .center,
+    .center-below,
+    .center-above {
+        top:250px;
+    }
+
+</style>
+
+<div class="top-right">
+    <div class="actions" style="margin-top:20px;margin-right:20px;">
+    {{#if user.is_loggedin }}
+      <a href="/logout">
+        <span class="material-icons">logout</span>
+        logout
+      </a>
+      <a id="user_account" href="#user_account" >
+          Hey {{user.first_name}}<img class="profile_photo" src="{{user.profile_url}}" />
+      </a>
+
+    {{else}}
+        <!--a href="/signup">signup</a>
+        <a href="/login">login</a-->
+    {{/if}}
+    </div>
+</div>
+
+
+<div class="top-left">
+    <div class="actions" style="margin-top:20px;margin-left:20px;">
+        <a href="/" alt="home" >
+          <span class="material-icons" style="color:#fff; text-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6); ">home</span>
+        </a>
+    </div>
+</div>
+
+
+<div class="bottom-left">
+</div>
+
+<div class="bottom-right">
+</div>
+
+
+
+<div class="center">
+    <div id="main-message" style="opacity: 1;">
+      <div id="greeting" style="opacity: 1;">
+          <h1 style="font-size:64px;color:#fff;">Howdy, Stranger.</h1>
+      </div>
+    </div>
+    <div class="actions">
+        <form  name="signup" action="/signup" method="post" >
+                <h2 id="signup-status" style="color:#ffffff;margin-bottom:50px;">Lets Signup!</h2>
+
+                <div>
+                  <i class="glyphicon glyphicon-user" name="password-icon" style="margin-left:25px;"></i>
+                  <input name="first_name" type="search" autocomplete="on" value="" placeholder="First name" ><br/>
+                  <i class="glyphicon glyphicon-user" name="password-icon" style="margin-left:25px;"></i>
+                  <input name="last_name" type="search" autocomplete="on" value="" placeholder="Last name" ><br/>
+                </div>
+
+                <div>
+                  <i class="glyphicon glyphicon-envelope" name="password-icon" style="margin-left:25px;"></i>
+                  <input name="email" type="search" autocomplete="on" value="" placeholder="email" ><br/>
+                  <!--i class="glyphicon glyphicon-phone" name="password-icon" style="margin-left:25px;"></i>
+                  <input name="phone_number" type="search" autocomplete="on" value="" placeholder="Phone Number" ><br/-->
+                </div>
+
+                <div>
+
+                  <i class="glyphicon glyphicon-user"></i>
+                  <input name="username" type="search" autocomplete="on" value="" placeholder="userid" ><br/>
+                  <i class="glyphicon glyphicon-lock" name="password-icon" style="margin-left:25px;"></i>
+                  <input name="password" type="password" autocomplete="on" value="" placeholder="password"  ><br/>
+                </div>
+
+                <button id="submit" class="btn btn-large btn-primary" type="submit">Signup</button>
+
+            </form>
+        </div>
+</div>
+
+
+
+<script>
+    var _vm;
+
+    $(function(e) {
+        initUI();
+    });
+
+    function initUI()
+    {
+        _vm = new VideoManager();
+        initBGB();
+    }
+
+    function initBGB()
+    {
+      if( Modernizr.touch ) {
+          _vm.init404BG();
+      }else{
+          _vm.init404BVG();
+      }
+    }
+
+    var _password=''
+    var _username=''
+
+    function signupUser( $config )
+    {
+      //  console.log("VideoPlayer.getVideo($vid, $config), "+ $vid , $config );
+        console.log("signupUser():", ", config:", $config )
+        _username = $config.username;
+        _password = $config.password;
+
+        $.ajax({
+          url: "/signup?",
+          dataType: 'json',
+          cache: false,
+          type: "POST",
+          data: {
+              action : "signup",
+              username : $config.username,
+              password : $config.password,
+              first_name : $config.first_name,
+              last_name : $config.last_name,
+              email : $config.email,
+              type:"json",
+          },
+          success: function($info){
+              console.log("signupUser($config):success:info:", $info );
+              var _user = $info.user;
+              if($info.status=="success"){
+                $config.success( $info.data );
+              }else{
+                $config.error( $info )
+              }
+
+          },
+          error: function(e){
+              console.log("signupUser($config):error:e:", e );
+              try{
+                  $config.error(e);
+              }catch(e){
+
+              }
+          }
+        })
+
+    }
+
+    $("form[name='signup'] #submit").click(function(e){
+        e.preventDefault();
+        console.log("submit():", e)
+        signupUser({ first_name:  $("form[name='signup'] input[name='first_name'").val(),
+                     last_name:   $("form[name='signup'] input[name='last_name'").val(),
+                     email:       $("form[name='signup'] input[name='email'").val(),
+                     password:    $("form[name='signup'] input[name='password'").val(),
+                     username:    $("form[name='signup'] input[name='username'").val(),
+
+                    success: function(e){
+                        console.log("signupUser:success()data:",e);
+                        $("form[name='signup'] #signup-status").html("success")
+                        var user = e.data;
+                        //console.log(user, e)
+                        //autoLogin( _username, _password, {} )
+                        window.location.href = "/login"
+                    },
+                    error: function(e){
+                      console.log("signupUser:error()",e)
+                      $("form[name='signup'] #signup-status").html("status:"+e.status + ":error:" + e.message)
+
+                    }
+                  }
+        )
+    })
+
+
+    // Wait for the DOM to be ready
+    $(function() {
+      // Initialize form validation on the registration form.
+      // It has the name attribute "registration"
+      $("form[name='signup']").validate({
+        // Specify validation rules
+        rules: {
+          // The key name on the left side is the name attribute
+          // of an input field. Validation rules are defined
+          // on the right side
+          first_name: "required",
+          last_name: "required",
+          userid:"required",
+          email: {
+            required: true,
+            // Specify that email should be validated
+            // by the built-in "email" rule
+            email: true
+          },
+          password: {
+            required: true,
+            minlength: 5
+          }
+        },
+        // Specify validation error messages
+        messages: {
+          first_name: "Please enter your First Name",
+          last_name: "Please enter your Last Name",
+          password: {
+            required: "Please provide a password",
+            minlength: "Your password must be at least 5 characters long"
+          },
+          email: "Please enter a valid email address"
+        },
+        // Make sure the form is submitted to the destination defined
+        // in the "action" attribute of the form when valid
+        submitHandler: function(form) {
+          form.submit();
+        }
+      });
+    });
+
+
+
+    /*
+        function autoLogin( username, password, config )
+        {
+          //  console.log("VideoPlayer.getVideo($vid, $config), "+ $vid , $config );
+            console.log("autoLogin():config:", config )
+            $.ajax({
+              url: "/login",
+              dataType: 'json',
+              cache: false,
+              type: "POST",
+              data: {
+                  action : "login",
+                  username : _username,
+                  password : _password,
+                  type:"json",
+              },
+              success: function($info){
+                  console.log("autoLogin($config):success:info:", $info );
+                  window.location.href = "/"
+
+
+              },
+              error: function(e){
+                  console.log("autoLogin($config):error:e:", e );
+                  try{
+                      $config.error(e);
+                  }catch(e){
+
+                  }
+              }
+            })
+
+        }
+
+    */
+</script>

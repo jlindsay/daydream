@@ -1,0 +1,105 @@
+<!-- Error 404 -->
+<style>
+    body
+    {
+      -webkit-box-shadow: inset -1px 0px 86px 35px rgba(0,0,0,0.67);
+      -moz-box-shadow: inset -1px 0px 86px 35px rgba(0,0,0,0.67);
+      box-shadow: inset -1px 0px 86px 35px rgba(0,0,0,0.67);
+    }
+
+    .center, .center-below, .center-above {
+        top:200px;
+    }
+
+</style>
+
+<div class="top-right">
+    <div class="actions">
+    {{#if user.is_loggedin }}
+        <a id="user_account" href="#user_account" >
+            Hey {{user.first_name}}<img class="profile_photo" src="{{user.profile_url}}" />
+        </a>
+    {{else}}
+        <a href="/signup">signup</a>
+        <a href="/login">login</a>
+    {{/if}}
+    </div>
+</div>
+
+
+<div class="top-left">
+    <div class="actions">
+        <a href="/" alt="home" >
+            <i class="glyphicon glyphicon-home" style="color:#fff; text-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6); "></i>
+        </a>
+    </div>
+</div>
+
+
+<div class="bottom-left">
+</div>
+
+<div class="bottom-right">
+</div>
+
+<div class="center" style="">
+    <div id="main-message" style="opacity: 1;">
+      <div class="actions">
+        <h1 style="font-size:64px;color:#fff;"><a href="/">Sorry, this post is not available.</a></h1>
+      </div>
+    </div>
+    <div class="actions">
+            <form action="/" style="display:inline-block;">
+                <i class="glyphicon glyphicon-search" style="color:#fff; text-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6); "></i>
+                <input type="search" autocomplete="on" name="q" placeholder="Search?" style="background:none; color:#fff; border:1px solid #fff; box-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6);; text-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6); display:inline-block;" >
+            </form>
+        </div>
+</div>
+
+
+<script>
+
+    $(function(e) {
+        initUI();
+    });
+
+    var _vm;
+    var _nfm;
+    var _userid = '{{user.userid}}';
+    var _posts=[];
+    var _dateUtils = new DateUtils();
+    var _page_count = 0;
+    var _limit = 10;
+    var _offset = 0;
+    var _is_loading = false;
+    var _isFiltered;
+
+    var is_loggedin     = '{{user.is_loggedin}}';
+    var is_admin        = '{{user.is_admin}}';
+    var is_staff        = '{{user.is_staff}}';
+    var is_moderator    = '{{user.is_moderator}}';
+
+    function initUI()
+    {
+        _vm = new VideoManager();
+        _nfm = new NewsFeedManager();
+        initBGB();
+        renderMessage($("#message"), "404" );
+    }
+
+    function initBGB()
+    {
+        if( Modernizr.touch ) {
+            _vm.init404BG();
+        }else{
+            _vm.init404BVG();
+        }
+    }
+
+    function renderMessage( elm, msg )
+    {
+        $(elm).fadeOut("fast", function(e){
+            $(elm).html(msg).fadeIn("fast");
+        })
+    }
+</script>

@@ -1,0 +1,127 @@
+<script id="comment-item-tmpl" type="text/x-jquery-tmpl">
+    <div id="comment-item-${comment_id}" class="comment-item status-${status} box">
+        <input id="userid" value="${userid}" type="hidden"  />
+        <input id="vid" value="${vid}" type="hidden"  />
+        <input id="comment_id" value="${comment_id}" type="hidden"  />
+        <input id="parent_comment_id" value="${parent_comment_id}" type="hidden"  />
+        <input id="status" value="${status}" type="hidden"  />
+        <input id="type" value="${type}" type="hidden"  />
+        <input id="comment" value="${content}" type="hidden"  />
+
+        <input id="is_users_comment" value="${is_users_comment}" type="hidden" />
+        <input id="is_author" value="${is_author}" type="hidden" />
+        <input id="is_loggedin" value="${is_loggedin}" type="hidden" />
+
+        <input id="date_created" value="${date_created}" type="hidden"  />
+        <input id="days_old" value="${days_old}" type="hidden"  />
+        <input id="months_old" value="${months_old}"  type="hidden"  />
+        <input id="years_old"  value="${years_old}" type="hidden"  />
+
+        <input id="total_comments" value="${total_comments}" type="hidden"  />
+        <input id="total_replies_2_video" value="${total_replies_2_video}" type="hidden"  />
+        <input id="total_replies_2_comments" value="${total_replies_2_comments}" type="hidden"  />
+
+        <input id="total_likes" value="${total_likes}" type="hidden"  />
+        <input id="total_dislikes" value="${total_dislikes}"  type="hidden"  />
+        <input id="total_replies" value="${total_replies}" type="hidden"  />
+
+        <div>
+
+            <div class="comment-metadata">
+
+                <div id="comment-edit-menu-${comment_id}" class="edit-menu">
+                    <button class="icon-edit" ></button>
+                    <ul id="edit-dropdown-menu-${comment_id}" class="edit-dropdown-menu">
+                        {{if is_author == true }}
+                        <li><a tabindex="-1" href="#action-edit-comment">Edit</a></li>
+                        {{/if}}
+
+                        {{if status == "unread" }}
+                        <li><a tabindex="-2" href="#action-mark-as-read">Mark as Read</a></li>
+                        <li><a tabindex="-3" href="#action-mark-as-unread" class="collapse">Mark as Unread</a></li>
+                        {{else}}
+                        <li><a tabindex="-2" href="#action-mark-as-read" class="collapse">Mark as Read</a></li>
+                        <li><a tabindex="-3" href="#action-mark-as-unread"">Mark as Unread</a></li>
+                        {{/if}}
+                        <li><a tabindex="-4" href="#action-delete-comment">Delete</a></li>
+                    </ul>
+                </div>
+
+
+
+                <div class="profile-picture-wrapper">
+                  <a href="/profile/${author_id}"><img src="${profile_url}" class="comment-author-img" /></a>
+                </div>
+
+                <div class="profile-info-wrapper">
+                  <span class="author-name" style="color:#4499FE;">${full_name}</span>
+                  <span> •
+                  {{if days_old < 7 && months_old < 12 && years_old < 1}}
+                    ${days_old} days ago
+                  {{/if}}
+                  {{if months_old < 12 && days_old > 7 && years_old < 1 }}
+                    ${months_old} months ago
+                  {{/if}}
+                  {{if months_old > 12 && years_old >= 1 }}
+                    ${years_old} years ago
+                  {{/if}}
+
+                </div>
+
+                <div class="video-content-wrapper">
+                  <a href="/w/${vid}">
+                  <div class="comment-video-thumbnail">
+                      <img src='${thumbnail_url}' />
+                  </div>
+                  </a><br/>
+                  <a href="/w/${vid}">${title}</a></span>
+                </div>
+
+                <div id="comment-${comment_id}" class="comment-content">
+                    <pre>${content}</pre>
+                </div>
+
+
+
+            </div>
+
+
+            <div class="comment-item-actions" >
+                <div id="comment-likes-${comment_id}" class="likes-btn-wrapper">
+                    <button class="icon-likes" ></button>
+                    <div class="count">${total_likes}</div>
+                </div>
+
+                <div id="comment-dislikes-${comment_id}" class="dislikes-btn-wrapper">
+                    <button class="icon-dislikes" ></button>
+                    <div class="count">${total_dislikes}</div>
+                </div>
+                  {{if total_replies > 0 }}
+                      <div id="comment-message-${comment_id}" class="message-btn-wrapper" >
+                          <button class="icon-message" data-bs-toggle="collapse" data-bs-target="#comment-post-${comment_id}"></button>
+                          <div class="count" data-bs-toggle="collapse" data-bs-target="#comment-post-${comment_id}">${total_replies}</div>
+                      </div>
+                  {{/if}}
+                <div class="reply-btn-wrapper">
+                    <button class="icon-reply" data-bs-toggle="collapse" data-bs-target="#comment-reply-${comment_id}" ></button>
+                    <div class="count" data-bs-toggle="collapse" data-bs-target="#comment-reply-${comment_id}">Reply</div>
+                </div>
+
+                <div id="comment-reply-${comment_id}" class="comment-wrapper collapse " >
+                    <textarea placeholder="Add a public reply..."></textarea>
+                </div>
+
+            </div>
+
+            <div id="comment-replies-${comment_id}" class="reply-comments-wrapper collapse" ></div>
+
+            <div id="comment-replies-wrapper-${comment_id}" class="replies-wrapper">
+              {{if total_replies > 0 }}
+                <div class="show-more">View <span class="count">${total_replies}</span> replies</div>
+              {{/if}}
+            </div>
+
+        </div>
+
+    </div>
+</script>

@@ -1,0 +1,104 @@
+<style>
+    body
+    {
+      -webkit-box-shadow: inset -1px 0px 86px 35px rgba(0,0,0,0.67);
+      -moz-box-shadow: inset -1px 0px 86px 35px rgba(0,0,0,0.67);
+      box-shadow: inset -1px 0px 86px 35px rgba(0,0,0,0.67);
+    }
+
+    .center, .center-below, .center-above {
+        top:200px;
+    }
+
+</style>
+
+<div class="top-right">
+    <div class="actions" style="margin-top:20px;margin-right:20px;">
+    {{#if user.is_loggedin }}
+      <a href="/logout">
+        <span class="material-icons">logout</span>
+        logout
+      </a>
+      <a id="user_account" href="#user_account" >
+          Hey {{user.first_name}}<img class="profile_photo" src="{{user.profile_url}}" />
+      </a>
+
+    {{else}}
+        <!--a href="/signup">signup</a>
+        <a href="/login">login</a-->
+    {{/if}}
+    </div>
+</div>
+
+
+<div class="top-left">
+    <div class="actions" style="margin-top:20px;margin-left:20px;">
+        <a href="/" alt="home" >
+          <span class="material-icons" style="color:#fff; text-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6); ">home</span>
+        </a>
+    </div>
+</div>
+
+
+<div class="bottom-left">
+</div>
+
+<div class="bottom-right">
+</div>
+
+
+
+<div class="center">
+    <div id="main-message" style="opacity: 1;">
+      <div id="greeting" style="opacity: 1;">
+          <h1 style="font-size:64px;color:#fff;">Howdy, Stranger.</h1>
+      </div>
+    </div>
+    <div class="actions">
+        <form  action="/login" method="post" >
+                <h2 style="color:#ffffff;margin-bottom:50px;">Please Login</h2>
+
+                <input type="hidden" name="userid" value="{{userid}}">
+                <i class="glyphicon glyphicon-user"></i>
+                <input name="username" type="login" autocomplete="on" placeholder="username"  >
+
+                <i class="glyphicon glyphicon-lock" name="password-icon" style="margin-left:25px;"></i>
+                <input name="password" type="password" autocomplete="on" placeholder=""  >
+
+                <button class="btn btn-large btn-primary" type="submit">Login</button><br>
+            </form>
+        </div>
+</div>
+
+
+
+
+<!--script src="/bower/background-video/jquery.backgroundvideo.js"></script>
+<script src="/bower/jquery-backstretch/jquery.backstretch.js"></script>
+<script src="/bower/masonry/dist/masonry.pkgd.js"></script>
+<script src="/bower/imagesloaded/imagesloaded.pkgd.js"></script>
+<script src="/js/jquery/jquery.tmpl.js"></script>
+<script src="/js/VideoManager.js"></script-->
+
+<script>
+    var _vm;
+
+    $(function(e) {
+        initUI();
+    });
+
+    function initUI()
+    {
+        _vm = new VideoManager();
+        initBGB();
+    }
+
+    function initBGB()
+    {
+      if( Modernizr.touch ) {
+          _vm.init404BG();
+      }else{
+          _vm.init404BVG();
+      }
+    }
+</script>

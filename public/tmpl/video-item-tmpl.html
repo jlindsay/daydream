@@ -1,0 +1,41 @@
+<script id="fallowing-item-tmpl" type="text/x-jquery-tmpl">
+    <div id="video-${uid}" class="video-item-tmpl box">
+        <input id="vid" type="hidden" value="${uid}"/>
+        <input id="userid" type="hidden" value="${userid}"/>
+        <input id="is_author" type="hidden" value="${is_author}"/>
+        <input id="is_admin" type="hidden" value="${is_admin}"/>
+        <input id="profile_url" type="hidden" value="${profile_url}"/>
+        <div id="vid-${uid}" class="video-item-thumbnail-container">
+            <a href="/profile/${userid}" alt="${fulle_name}"><img class="video-item-author" src="${profile_url}" /></a>
+            <a href="/w/${uid}"><button class="play-icon" ></button></a>
+            {{if is_author == "true"}}
+                <button class="icon-white-edit" ></button>
+                <ul class="edit-dropdown-menu" >
+                    <li><a href="#action-edit-video-metadata">edit information</a></li>
+                    <li><a href="#action-delete-video">delete</a></li>
+                </ul>
+            {{/if}}
+            <a href="/w/${uid}"><img src="${thumbnail_url}" class="video-item-thumbnail" /></a>
+        </div>
+
+        <div class="video-item-metadata">
+            <div class="video-item-summary">
+                <div><a href="/w/${uid}" class="video-item-title">${title}</a></div>
+                <div class="video-item-description">${description}</div>
+            </div>
+            <div class="video-item-actions" >
+                <div class="likes-btn-wrapper">
+                    <button class="icon-likes" ></button>
+                    <div class="count">${total_likes}</div>
+                </div>
+                <div class="message-btn-wrapper" >
+                    <button class="icon-message" data-bs-toggle="collapse" data-bs-target="#comment-post-${uid}"></button>
+                    <div class="count">${total_comments}</div>
+                </div>
+
+                <div id="comment-post-${uid}" class="comment-wrapper collapse clearfix" >
+                    <textarea placeholder="What's up?"></textarea>
+                </div>
+            </div>
+        </div>
+</script>

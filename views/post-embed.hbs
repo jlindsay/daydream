@@ -1,0 +1,24 @@
+<div class="post-area" style="height:100%;"></div>
+<style>
+iframe html, body{
+  margin:0px;
+  padding:0px;
+  border:0px;
+}
+</style>
+
+<script type="text/javascript">
+    var _pid = '{{pid}}'
+    var _host = '{{host}}';
+      //  _host = window.location.hostname + ( ( window.location.port != 80)? ":" + window.location.port : "" );
+    var _post = {{{json post}}};
+
+
+    //console.log("embed:videplayer...");
+    var _nfm = new NewsFeedManager();
+    var embed_code = _nfm.getOGSEmbedCode( _pid, _post );
+        console.log("post-embed:embed_code:", embed_code )
+        $(".post-area").html(embed_code);
+        $(".post-area").animate({opacity: 1});
+
+</script>

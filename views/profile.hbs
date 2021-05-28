@@ -1,0 +1,252 @@
+<style>
+    @import url( "/css/profile_info.css" );
+</style>
+
+<div class="top-right">
+    <div class="actions" style="margin-top:20px;margin-right:20px;">
+    {{#if user.is_loggedin }}
+        <a href="/logout">
+          <span class="material-icons">logout</span>
+          logout
+        </a>
+        <a id="user_account" href="#user_account" >
+            Hey {{user.first_name}}<img class="profile_photo" src="{{user.profile_url}}" />
+        </a>
+    {{else}}
+        <a href="/signup" >
+          <span class="material-icons">login</span>
+          signup
+        </a>
+        <a href="/login">
+          <span class="material-icons">login</span>
+          login
+        </a>
+    {{/if}}
+    </div>
+</div>
+
+
+<div class="top-left">
+    <div class="actions" style="margin-top:20px;margin-left:20px;">
+
+        <a href="/" alt="home" >
+          <span class="material-icons">home</span>
+        </a>
+
+    </div>
+</div>
+
+
+<div class="bottom-left">
+    <!--
+        stuff goes here...
+    -->
+</div>
+
+<div class="bottom-right">
+    <!--
+        stuff goes here...
+    -->
+</div>
+
+<div class="hero" style="color:#fff;min-height:300px;">
+    <div class="center">
+        <div id="main-message" style="opacity: 1;">
+            <div class="profile_info">
+                <img class="main_profile_photo" src="{{user_profile_info.profile_url}}" />
+            </div>
+            <h1 style="font-size:64px;">{{user_profile_info.full_name}}</h1>
+        </div>
+
+        <div style="color:#fff;font-weight:900;">
+          <a style="color:#fff;text-decoration:none;" href="#followers">followers:{{user_profile_info.total_followers}}</a>
+          <a style="color:#fff;text-decoration:none;" href="#following">following:{{user_profile_info.total_following}}</a>
+        </div>
+
+    </div>
+</div>
+
+    <div class="actions" style="text-align:center;padding:15px;">
+
+        <a id="my-news-feed" href="#my-news-feed">
+          <i class="glyphicon glyphicon-film" class="icon-shadow"></i>
+          My Posts
+        </a>
+
+        <a id="my-videos" href="#my-videos">
+          <i class="glyphicon glyphicon-film" class="icon-shadow"></i>
+          My Videos
+        </a>
+
+    </div>
+
+<div class="row-fluid" style="background: rgba(255, 255, 255);background: rgba(255, 255, 255, .80);">
+    <div class="dashboard-blocks">
+        <div class="block block-1"></div>
+        <div class="block block-2"></div>
+        <div class="block block-3"></div>
+        <div class="block block-4"></div>
+        <div class="block block-5"></div>
+    </div>
+
+    <div class="videos-unit"  style="background: rgba(255, 255, 255);background: rgba(255, 255, 255, .5);-moz-border-radius: 5px; border-radius: 5px; width:930px; margin-left:auto; margin-right:auto; min-height:400px; margin-top:30px; bottom:0px; height:100%;">
+        <h1 id="title" style="display:inline-block;">title goes here...</h1>
+        <!--div class="actions float-end" >
+            <span >
+                <span class="material-icons" style="color:#fff; text-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6); margin-right:-28px;">search</span>
+                <input id="filterVideos" class="filter" type="search" placeholder="Filter?" style="background:none; color:#fff; border:1px solid #fff; box-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6);; text-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6); display:inline-block;" >
+                <i id="remove-filter" class="glyphicon glyphicon-remove" style="color:#fff; text-shadow: 0 0 4px rgba(0,0,0,0.6),0 -1px 1px rgba(0,0,0,0.6); margin-left:-35px; "></i>
+            </span>
+
+        </div-->
+
+        <div id="search-results" class="video-items" style="min-height:100%;clear:both;">search results...</div>
+
+        <div style="margin-top:20px;"><a id="back-to-top" href="#search-resutls" class="btn big-btn primary-btn">back to top</a></div>
+    </div>
+</div>
+
+<div id="edit-metadata-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit</h5>
+        <button type="button" class="btn btn-close btn-light" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+
+      </div>
+      <div class="dashboard-blocks">
+          <div class="block block-1"></div>
+          <div class="block block-2"></div>
+          <div class="block block-3"></div>
+          <div class="block block-4"></div>
+          <div class="block block-5"></div>
+      </div>
+      <div class="modal-body">
+
+        <input id="vid" type="hidden" class="form-control" value="" >
+
+        <div class="form-group">
+          <label id="title" for="title-input">Title</label>
+          <input id="title-input" type="text" class="form-control" placeholder="title..." style="width: 100%" >
+        </div>
+
+        <div class="form-group">
+            <label for="description-input">Description</label>
+            <textarea id="description-input" class="form-control" placeholder="Description..."  rows="7" style=";"></textarea>
+        </div>
+
+
+        <div class="form-group">
+          <label id="keywords" for="keywords-input">Keywords</label>
+          <input id="keywords-input" type="text" class="form-control" placeholder="keywords..." >
+        </div>
+
+        <div class="form-group">
+          <label id="is_public" for="is-public-input">Public</label>
+          <input id="is-public-input" type="checkbox" class="form-control" placeholder="keywords..." >
+        </div>
+
+        <div class="form-group">
+          <label id="thumbnail" for="thumbnail-img">thumbnail</label><br/>
+          <img id="thumbnail-img" src="" style="max-width:100px; max-height:150px;" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="edit-metadata-modal-cancel-btn" type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button id="edit-metadata-modal-save-btn" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+
+    var _user_profile_id    = '{{user_profile_info.userid}}';
+
+    var _userid             =   '{{user.userid}}';
+    var _is_loggedin        = ( '{{user.is_loggedin}}' )? true : false;
+    var _is_admin           = ( '{{user.is_admin}}' )? true : false;
+    var _is_staff           = ( '{{user.is_staff}}' )? true : false;
+    var _is_moderator       = ( '{{user.is_moderator}}' )? true : false;
+
+    var _vm = new VideoManager();
+    var _newsfeed;
+    var _state  = 'my-news-feed';
+
+    var _is_user_profile = Boolean( _user_profile_id == _userid );
+
+    $(document).ready(function(){
+        console.log('init()')
+
+        _url = $.url( $(document).location );
+        _hash = $(location).attr('hash').split("#")[1];
+
+        _q = _url.param().q;
+        _state = parseHashState();
+
+        initBGB();
+        initActions();
+
+        _newsfeed = $('#search-results').newsfeed( _user_profile_id, { state          : _state,
+                                                                       show_post_ui   : _is_user_profile   })
+    })
+
+    function initActions()
+    {
+        console.log("initActions()");
+        $(".actions a").on("click",function(e){
+                //e.preventDefault();
+            var elm = $(e.target).closest("a");
+                $(".actions a").removeClass("active");
+                elm.addClass("active");
+                //console.log("elm:", elm, ", href:",  $(elm).attr("href") );
+            var state = $(elm).attr("href").split("#").join("");
+                //console.log("debug:state:",state)
+                _newsfeed.focus(state);
+        });
+
+
+        $("#user_account").click( function(e){
+            e.preventDefault();
+            //showUserOptions();
+        });
+
+    }
+
+    function initBGB()
+    {
+        if( Modernizr.touch ) {
+            _vm.initBG();
+        }else{
+            _vm.initBGV();
+        }
+    }
+
+
+        function parseHashState()
+        {
+          var hash = $(location).attr('hash').split("#")[1];
+          var state = _state;
+
+          switch(hash)
+          {
+              case "my-videos":
+                  state = hash;
+                  break;
+              case "search":
+                  state = hash;
+                  break;
+              case "my-news-feed":
+              default:
+                  state = "my-news-feed";
+                  break;
+
+          }
+          return state;
+        }
+
+
+</script>

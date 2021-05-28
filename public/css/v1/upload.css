@@ -1,0 +1,45 @@
+.drop-zone{
+	border:2px #666 solid;
+	min-height:75px;
+	background-color:#eeeeee;
+}
+
+.file-list
+{
+
+}
+
+
+#progress-bar
+{
+	width:400px;
+	height:20px;
+/*	background-color:#cccccc;	*/
+	display:inline-block;
+	border:1px solid #333;
+
+	background-color:#333333;	
+/*	
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;	
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+*/	
+}
+
+#progress-bar-buffer
+{
+	width:20px;	
+	height:20px;
+/*	background-color:#ae463b;	*/
+	display:inline-block;
+	
+	background: #ccc;
+/*
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;	
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+*/	 
+	
+}

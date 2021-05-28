@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/favicon/favicon-144px.png">
+    <!-- For iPhone with high-resolution Retina display: -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/favicon/favicon-114px.png">
+    <!-- For first- and second-generation iPad: -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/favicon/favicon-72px.png">
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <link rel="apple-touch-icon-precomposed" href="/favicon/favicon.png">
+    <link rel="icon" href="/favicon/favicon.ico">
+
+    <!-- metadata for sharing or serarch engines -->
+    {{#if title }}
+    <title>{{title}}</title>
+    <meta name="title" content="{{title}}" />
+    <meta property="og:title" content="{{title}}" />
+    {{/if}}
+
+
+
+
+    {{#if description }}
+    <meta name="description" content="{{description}}" />
+    <meta property="og:description" content="{{description}}" />
+    {{/if}}
+
+
+    {{#if thumbnail_url }}
+    <link rel="image_src" href="{{thumbnail_url}}"/>
+    <meta property="og:image" content="{{thumbnail_url}}" />
+    <!--meta property="og:image" content="{{thumbnail_url}}" /-->
+    {{/if}}
+
+    {{#if video_width }}
+    <meta name="video_width" content="{{video_width}}" />
+    <meta name="og:video:width" content="{{video_width}}" />
+    {{/if}}
+
+    {{#if video_height }}
+    <meta name="video_height" content="{{video_height}}" />
+    <meta name="og:video:height" content="{{video_height}}" />
+    {{/if}}
+
+    <!--meta property="og:video" content="http://{{host}}/swf/videoplayer.swf?vid={{vid}}"/-->
+    {{#if embed_url }}
+    <meta name="og:video:type" content="video/mp4" />
+    <meta name="video_type" content="video/mp4" />
+    <meta property="og:video" content="{{embed_url}}"/>
+    {{/if}}
+    <!--meta property="og:video:secure_url" content="{{video_url}}"/-->
+    {{#if video_url }}
+      <meta name="og:video:type" content="video/mp4" />
+      <meta name="video_type" content="video/mp4" />
+      <meta property="og:video" content="{{embed_url}}"/>
+    {{/if}}
+
+
+<!--twitter metadata -->
+
+    <meta name="twitter:card" content="player">
+    <meta name="twitter:site" content="@lindayfilm">
+    {{#if embed_url }}
+    <meta name="twitter:url" content="{{embed_url}}?r=twitter">
+    {{/if}}
+
+
+    {{#if title }}
+    <meta name="twitter:title" content="{{title}}">
+    {{/if}}
+
+
+    {{#if description }}
+    <meta name="twitter:description" content="{{description}}">
+    {{/if}}
+
+    {{#if thumbnail_url }}
+    <meta name="twitter:image" content="{{thumbnail_url}}?r=twitter">
+    {{/if}}
+
+    <meta name="twitter:app:name:iphone" content="LindsayFilm">
+    <meta name="twitter:app:id:iphone" content="">
+
+    <meta name="twitter:app:name:ipad" content="LindsayFilm">
+    <meta name="twitter:app:id:ipad" content="">
+
+    {{#if embed_url }}
+    <meta name="twitter:app:url:iphone" content="{{embed_url}}?r=twitter">
+    <meta name="twitter:app:url:ipad" content="{{embed_url}}?r=twitter">
+    {{/if}}
+
+    <meta name="twitter:app:name:googleplay" content="LindsayFilm">
+    <meta name="twitter:app:id:googleplay" content="com.google.android.lindayfilm">
+
+    {{#if embed_url }}
+    <meta name="twitter:app:url:googleplay" content="{{embed_url}}?r=twitter">
+    <meta name="twitter:player" content="{{embed_url}}">
+    {{/if}}
+
+    <meta name="twitter:player:width" content="1280">
+    <meta name="twitter:player:height" content="720">
+
+
+    <!-- end metadata -->
+
+    <link rel='stylesheet' href='/css/main.css' />
+    <link rel='stylesheet' href='/bower/bootstrap-toggle/css/bootstrap-toggle.css' />
+    <link rel='stylesheet' href='/bower/dropzone/dist/dropzone.css' />
+
+    <script src="/bower/jquery/dist/jquery.js"></script>
+    <script src="/bower/modernizr/modernizr.js"></script>
+    <!--script src="/bower/bootstrap/dist/js/bootstrap.min.js"></script-->
+    <script src="/bower/boostrap/dist/js/bootstrap.bundle.js"></script>
+
+    <script src="/bower/jquery-backstretch/jquery.backstretch.js"></script>
+    <script src="/js/background-video/jquery.backgroundvideo.js"></script>
+    <script src="/bower/bootstrap-toggle/js/bootstrap-toggle.js"></script>
+    <script src="/bower/dropzone/dist/dropzone.js"></script>
+    <script src="/bower/masonry/dist/masonry.pkgd.js"></script>
+    <script src="/bower/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script src="/js/jquery/jquery.fileDownload.js"></script>
+    <script src="/js/jquery/jquery.tmpl.js"></script>
+    <script src="/bower/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/bower/purl/purl.js"></script>
+    <script src="/bower/jquery.cookie/jquery.cookie.js"></script>
+
+
+
+    <script src="/js/Utils.js"></script>
+    <script src="/js/NewsManager.js"></script>
+    <script src="/js/SearchManager.js"></script>
+    <script src="/js/VideoManager.js"></script>
+    <script src="/js/VideoPlayer.js"></script>
+    <script src="/js/NewsFeedManager.js"></script>
+    <script src="/js/NotificationManager.js"></script>
+    <script src="/js/newsfeed.jquery.js"></script>
+
+
+
+    <!-- Google Analytics -->
+    <!--script type='text/javascript' src='https://partner.googleadservices.com/gampad/google_service.js'></script>
+    <script type='text/javascript'>
+        GS_googleAddAdSenseService("ca-pub-1385994184650855");
+        GS_googleEnableAllServices();
+    </script>
+    <script type='text/javascript'>
+        GA_googleAddSlot("ca-pub-1385994184650855", "video_home_160x600");
+    </script>
+    <script type='text/javascript'>
+        GA_googleFetchAds();
+    </script-->
+    <!-- end Google Analuytics -->
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N808JYKT7G"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-N808JYKT7G');
+    </script>
+  </head>
+  <body>
+    {{{body}}}
+  </body>
+
+</html>

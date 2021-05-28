@@ -1,0 +1,110 @@
+.side-nav .settings-icon-btn{
+    background:url("/images/icons.png") no-repeat ;
+    background-position: -00px -200px;
+/*    background-color:#ff0000; */
+    color:#eeeeee; 
+    width:30px;
+    height:30px;
+    border:none;
+    display:inline-block;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding-left:20px;
+
+}
+
+.side-nav .settings-icon-btn:hover {
+    background-position:-0px -230px;
+/*    background-color:#fff;    */
+    color:#ffffff;
+}
+
+.side-nav
+{
+    float:left;
+    display:inline-block;
+   
+}
+.side-nav .toggle-icon-btn
+{
+    vertical-align:top;
+    background:none;
+    border:none;
+    display:inline-block;
+    
+    background:url("/images/icons.png") no-repeat ;
+    background-position: -30px -200px;
+/*    background-color:#ff0000; */
+    color:#eeeeee; 
+    width:30px;
+    height:30px;
+    border:none;
+    display:inline-block;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding-left:20px;
+}
+
+.side-nav .toggle-icon-btn:hover {
+    background-position:-30px -230px;
+/*    background-color:#fff;    */
+    color:#ffffff;
+}
+
+#sidenav-items{
+    display:inline-block;
+}
+#sidenav-items .menu lu li
+{
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+
+}
+
+#sidenav-items .menu lu li a
+{
+    font-weight:bold;
+    text-decoration:none;
+}
+#sidenav-items .menu lu li a:hover
+{
+/*    color:#   */
+}
+
+.collapse {
+  height: auto;
+  width: auto;
+}
+
+.collapse.height {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: height 0.35s ease;
+  -moz-transition: height 0.35s ease;
+  -o-transition: height 0.35s ease;
+  transition: height 0.35s ease;
+}
+
+.collapse.width {
+  position: relative;
+  width: 0;
+  overflow: hidden;
+  -webkit-transition: width 0.35s ease;
+  -moz-transition: width 0.35s ease;
+  -o-transition: width 0.35s ease;
+  transition: width 0.35s ease;
+}
+
+.collapse.in.width {
+  width: auto;
+}
+
+.collapse.in.height {
+  height: auto;
+}
