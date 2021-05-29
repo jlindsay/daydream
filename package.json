@@ -24,7 +24,7 @@
     "cors": "^2.7.1",
     "debug": "~2.1.1",
     "express": "~4.17.1",
-    "express-hbs": "^0.8.4",
+    "express-hbs": "^2.4.0",
     "express-http-proxy": "^0.6.0",
     "express-session": "^1.11.1",
     "font-awesome": "^4.3.0",
