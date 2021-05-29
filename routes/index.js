@@ -676,4 +676,18 @@ router.get('/ogs', function(req, res, next) {
 });
 
 
+//OEmbed Route
+router.get('/chat', ensureLoggedIn('/login'), function(req, res, next) {
+      var user  = { first_name:"Stranger", last_name:"unknown", userid:null, is_admin:false};
+
+      if( req.session.passport.user ){
+          user = req.session.passport.user || { first_name:"anonymous", last_name:"unknown", userid:'anonymous', is_admin:false};
+      }
+
+      res.render('chat-bootstrap', { title  : 'Chat.io',
+                                     user   : user });
+
+});
+
+
 module.exports = router;
