@@ -77,9 +77,20 @@ $(function() {
           $messages = _ui_elm.find("#chat-content")
           $messages.empty()
           $('.user-avatar').attr('src', _user.profile_url )
+          
+          var _card_loading;
+
+          _ui_elm.find("a.publisher-btn").click(function(e){
+                  e.preventDefault();
+              var elm = $(e.target)
+              var msg = $inputMessage.val();
+              //var elm.closest(".publisher").find()
+              console.log("click():msg:", msg)
+              sendMessage( msg , _card_metadata );
+          })
 
           // Keyboard events
-          var _card_loading;
+
           $(window).keydown(function($e)
           {
               //console.log("$.fn.chat::keydown:");
@@ -348,15 +359,10 @@ $(function() {
                                   </div> \
                                   <div class='publisher bt-1 border-light'>  \
                                       <img class='avatar avatar-xs user-avatar' src='https://img.icons8.com/color/36/000000/administrator-male.png' alt='...'>  \
-                                      <input class='publisher-input' type='text' placeholder='Write something'>  \
-                                      <span class='publisher-btn file-group'>  \
-                                        <i class='fa fa-paperclip file-browser'></i>  \
-                                        <input type='file'> </span>  \
-                                        <a class='publisher-btn' href='#' data-abc='true'>  \
-                                          <i class='fa fa-smile'></i></a>  \
-                                          <a class='publisher-btn text-info' href='#' data-abc='true'>  \
-                                            <i class='fa fa-paper-plane'></i>  \
-                                          </a>  \
+                                      <input class='publisher-input' type='text' style='border-radius: 4px;border:solid 1px #eee;background-color:#fff' placeholder='Whats up?'>  \
+                                      <a class='publisher-btn' href='#' data-abc='true'>  \
+                                        <span class='material-icons'>send</span>   \
+                                      </a>  \
                                     </div>  \
                               </div>  \
                           </div>  \
