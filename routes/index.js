@@ -626,13 +626,21 @@ router.get('/oembed_ogs', function(req, res, next) {
           }
       }
 
-      ogs( options, function($error, $results, $response){
-          updateCount("ogs", $error, $results )
-      })
+      try{
+          ogs( options, function($error, $results, $response){
+              updateCount("ogs", $error, $results )
+          })
+      }catch(e){
+          updateCount("ogs", e, null )
+      }
 
-      oembed.fetch(url, { maxwidth: 1920 }, function($error, $results) {
-          updateCount( "oembed", $error, $results )
-      });
+      try{
+        oembed.fetch(url, { maxwidth: 1920 }, function($error, $results) {
+            updateCount( "oembed", $error, $results )
+        });
+      }catch(e){
+          updateCount("oembed", e, null )
+      }
 
 });
 

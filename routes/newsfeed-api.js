@@ -267,9 +267,8 @@ router.get( '/', function( req, res, next ){
                 break;
 
             case "get-post":
-                console.log("newsfeed-api::get-post:pid:", _pid);
+                //console.log("newsfeed-api::get-post:pid:", _pid);
                 _nfm.getPost( _userid, _pid, config, function( $data ){
-                    console.log("$data:", $data)
                     res.json( { "status"    : "success",
                                 "userid"    : _userid,
                                 "pid"       : _pid,
@@ -318,7 +317,7 @@ router.get( '/', function( req, res, next ){
               //example: http://localhost:3000/post-api?action=post-liked&pid=AimbDb&userid=JDL007&liked=1
               _nfm.postLiked( _userid, _pid, _liked, config, function(data){
                   _nfm.getPostLikes( _userid, _pid, _limit, _offset, config, function(data){
-                    
+
                       res.json( { "status"            : "success",
                                    "action"           : _action,
                                    "userid"           : _userid,
