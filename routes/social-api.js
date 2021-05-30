@@ -37,32 +37,26 @@ router.get( '/', function( req, res, next ){
 
         var _userid                 = req.query.userid ? trim( req.query.userid ) : null;
         var _profile_id             = req.query.profile_id ? trim( req.query.profile_id ) : null;
-        var _friend                 = req.query.profile_id ? trim( req.query.friend ) : null;
-        var _friends                = req.query.profile_id ? trim( req.query.friends ) : null;
 
-//        var _comment                = req.query.comment ? trim( req.query.comment_uid ) : null;
-//        var _comment_uid            = req.query.comment_uid ? trim( req.query.vid ) : null;
-//        var _setid                  = req.query.setid ? trim( req.query.setid ) : null;
+
+        var _frined                 = req.query.frined ? trim( req.query.frined ) : null;
+        var _frineds                = req.query.frineds ? trim( req.query.frineds ) : null;
 
         var _liked                  = req.query.liked ? trim( req.query.liked ) : null;
         var _keywords               = req.query.keywords ? trim( req.query.keywords ) : null;
         var _q                      = req.query.q ? trim( req.query.q ) : null;
 
         var _limit                  = req.query.limit ? trim( req.query.limit ) : null;
-        var _comments_limit       = req.query.comments_limit ? trim( req.query._comments_limit ) : null;
-        var _likes_limit          = req.query.likes_limit ? trim( req.query._likes_limit ) : null;
+        var _comments_limit         = req.query.comments_limit ? trim( req.query._comments_limit ) : null;
+        var _likes_limit            = req.query.likes_limit ? trim( req.query._likes_limit ) : null;
 
         var _offset                 = req.query.offset ? trim( req.query.offset ) : null;
         var _comments_offset        = req.query.comments_offset ? trim( req.query.comments_offset ) : null;
         var _likes_offset           = req.query.likes_offset ? trim( req.query.likes_offset ) : null;
 
         var _sort_by                = req.query.sort_by ? trim( req.query.sort_by ) : "DESC";
-//        var _comments_sorts_by      = req.query.comments_sort_by ? trim( req.query.comments_sort_by ) : "DESC";
-//        var _likes_sorts_by         = req.query.likes_sort_by ? trim( req.query.likes_sort_by ) : "DESC";
 
         var _order_by               = req.query.order_by ? trim( req.query.order_by ) : "date_created";
-//        var _comments_order_by    = req.query.comments_order_by ? trim( req.query.comments_order_by ) : "date_created";
-//        var _likes_order_by       = req.query.likes_order_by ? trim( req.query.likes_order_by ) : "date_created";
 
         var _to_userid              = req.query.to_userid? trim( req.query.to_userid ): null;
         var _from_userid            = req.query.from_userid? trim( req.query.from_userid ) : null;
@@ -76,8 +70,6 @@ router.get( '/', function( req, res, next ){
 
         var _uid                    = req.query.uid? trim( req.query.uid ) : null;
 
-        var _favorit                = req.query.favorit? trim( req.query.favorit ) : null;
-//        var _favorit              = req.query.favorit? trim( req.query.getUserFavoriteVideos ) : null;
 
         var _rank                   = req.query.rank? trim( req.query.rank ): null;
         var _metadata               = req.query.metadata? trim( req.query.metadata ) : null;
@@ -114,9 +106,9 @@ router.get( '/', function( req, res, next ){
 
         switch( String( _action ) )
         {
-            case "get-contacts":
-                _um.getUserContacts( _userid, _limit, _offset, _config, function($data){
-                    console.log("get-contacts:success:data:", $data );
+            case "get-frined":
+                _um.getUserFrined( _userid, _limit, _offset, _config, function($data){
+                    console.log("get-frined:success:data:", $data );
                     res.json( { "status" : "success",
                                 "action" : _action,
                                 "userid" : _userid,
@@ -128,42 +120,134 @@ router.get( '/', function( req, res, next ){
                 });
                 break;
 
-            case "remove-friend":
-                _um.removeFriend( _userid, _friend, config, function($data){
-                    console.log("remove-friend:success:data:", $data );
+
+            case "get-frineds":
+                _um.getUserFrineds( _userid, _limit, _offset, config, function($data){
+                    //console.log("get-frineds:success:data:", $data );
                     res.json( { "status" : "success",
                                 "action" : _action,
                                 "userid" : _userid,
-                                "friend" : _friend,
+                                "limit"  : _limit,
+                                "offset" : _offset,
                                 "data"   : $data
                         });
 
                 });
                 break;
-            case "add-friend":
-                _um.addFriend( _userid, _friend, config, function($data){
-                    console.log("add-friend:success:data:", $data );
-                    res.json( { "status" : "success",
-                                "action" : _action,
-                                "userid" : _userid,
-                                "friend" : _friend,
-                                "data"   : $data
+
+            case "remove-frined":
+                _um.removeFrined( _userid, _frined_id, config, function($data){
+                    //console.log("remove-frined:success:data:", $data );
+                    res.json( { "status"     : "success",
+                                "action"     : _action,
+                                "userid"     : _userid,
+                                "frined_id"  : _frined_id,
+                                "data"       : $data
                         });
 
                 });
                 break;
-            case "add-friends":
-                _um.addFriends( _userid, _friends, config, function($data){
-                    console.log("add-friends:success:data:", $data );
-                    res.json( { "status" : "success",
-                                "action" : _action,
-                                "userid" : _userid,
-                                "friends": _friends,
-                                "data"   : $data
+
+            case "add-frined":
+                _um.addFrined( _userid, _frined_id, config, function($data){
+                    //console.log("create-friend:success:data:", $data );
+                    res.json( { "status"     : "success",
+                                "action"     : _action,
+                                "userid"     : _userid,
+                                "frined_id"  : _frined_id,
+                                "data"       : $data
                         });
 
                 });
                 break;
+
+            case "get-user":
+            case "get-user-info":
+//                console.log("get-user:");
+                _um.getUserInfo( _userid, function($data){
+                    res.json( { "status"     : "success",
+                                "action"     : _action,
+                                "userid"     : _userid,
+                                "data"       : $data
+                        });
+
+                });
+                break;
+
+
+/*
+            case "get-user-following":
+                _mm.getUserfollowing( _userid, function(data){
+                    res.json( { "status" : "success",
+                                     "action" : _action,
+                                     "userid" : _userid,
+                                     "limit" : _limit,
+                                     "offset" : _offset,
+                                     "data"   : data
+                        });
+                    });
+                break;
+
+            case "get-user-followers":
+                _mm.getUserfollowers( _userid, function(data){
+                    res.json( { "status" : "success",
+                                     "action" : _action,
+                                     "userid" : _userid,
+                                     "limit" : _limit,
+                                     "offset" : _offset,
+                                     "data"   : data
+                        });
+                    });
+                break;
+
+            case "get-user-follow-stats":
+                _mm.getUsersfollowStats(_userid), function(data){
+                    res.json( { "status" : "success",
+                                     "action" : _action,
+                                     "userid" : _userid,
+                                     "data"   : array( 'total_followers': _mm.total_followers,
+                                                        'total_following': _mm.total_following )
+                        });
+                    });
+                break;
+
+            case "is-user-follower":
+                // isUserfollower(_userid, _follower_userid);
+                _mm.isUserfollower( _userid, _follower_userid, function(data){
+                    res.json( { "status" : "success",
+                                     "action" : _action,
+                                     "userid" : _userid,
+                                     "follower_userid" : _follower_userid,
+                                     "is_user_follower" : _mm.is_user_follower,
+                                     "data"   : data
+                        });
+                    });
+                break;
+
+             case "unfollow-user":
+                _mm.unfollowUser( _userid, _follower_userid, function(data){
+                    res.json( { "status" : "success",
+                                     "action" : _action,
+                                     "userid" : _userid,
+                                     "follower_userid" : _follower_userid,
+                                     "data"   : data
+                        });
+                    });
+                break;
+
+             case "follow-user":
+                _mm.followUser( _userid, _follower_userid, function(data){
+                    res.json( { "status" : "success",
+                                     "action" : _action,
+                                     "userid" : _userid,
+                                     "follower_userid" : _follower_userid,
+                                     "data"   : data
+                        });
+                    });
+                break;
+*/
+
+
 /*
 
 
@@ -202,75 +286,7 @@ router.get( '/', function( req, res, next ){
             break;
             // follower(s)/following commands
 
-        case "get-user-following":
-            _mm.getUserfollowing( _userid, function(data){
-                res.json( { "status" : "success",
-                                 "action" : _action,
-                                 "userid" : _userid,
-                                 "limit" : _limit,
-                                 "offset" : _offset,
-                                 "data"   : data
-                    });
-                });
-            break;
 
-        case "get-user-followers":
-            _mm.getUserfollowers( _userid, function(data){
-                res.json( { "status" : "success",
-                                 "action" : _action,
-                                 "userid" : _userid,
-                                 "limit" : _limit,
-                                 "offset" : _offset,
-                                 "data"   : data
-                    });
-                });
-            break;
-
-        case "get-user-follow-stats":
-            _mm.getUsersfollowStats(_userid), function(data){
-                res.json( { "status" : "success",
-                                 "action" : _action,
-                                 "userid" : _userid,
-                                 "data"   : array( 'total_followers': _mm.total_followers,
-                                                    'total_following': _mm.total_following )
-                    });
-                });
-            break;
-
-        case "is-user-follower":
-            // isUserfollower(_userid, _follower_userid);
-            _mm.isUserfollower( _userid, _follower_userid, function(data){
-                res.json( { "status" : "success",
-                                 "action" : _action,
-                                 "userid" : _userid,
-                                 "follower_userid" : _follower_userid,
-                                 "is_user_follower" : _mm.is_user_follower,
-                                 "data"   : data
-                    });
-                });
-            break;
-
-         case "unfollow-user":
-            _mm.unfollowUser( _userid, _follower_userid, function(data){
-                res.json( { "status" : "success",
-                                 "action" : _action,
-                                 "userid" : _userid,
-                                 "follower_userid" : _follower_userid,
-                                 "data"   : data
-                    });
-                });
-            break;
-
-         case "follow-user":
-            _mm.followUser( _userid, _follower_userid, function(data){
-                res.json( { "status" : "success",
-                                 "action" : _action,
-                                 "userid" : _userid,
-                                 "follower_userid" : _follower_userid,
-                                 "data"   : data
-                    });
-                });
-            break;
 
 */
             default:

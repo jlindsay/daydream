@@ -317,3 +317,21 @@ textarea {
 {
   padding:10px;
 }
+
+#contacts-content .contact{
+    border-top: #fff 1px solid;
+    border-bottom: #ccc 1px solid;
+    padding:6px;
+    background-color:#eee;
+}
+
+#contacts-content .contact img{
+  margin-left: 10px;
+}
+
+#contacts-content .contact a {
+    font-weight: 600;
+    color: #4499FE;
+    cursor: pointer;
+    text-decoration: none;
+}

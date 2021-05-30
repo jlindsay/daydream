@@ -22,38 +22,74 @@ $(function() {
 
        var _config      = $config ? $config : {};
        var _userid      = $userid ? $userid : null;
-       var _users;
+       var _friends   = []
+       var _freinds = []
+       var _friends_hash = {}
        //var _username;
        var _connected = false;
        var _is_typing = false;
        var _lastTypingTime;
 
        var _ui;
+       var $chat;
+       var $friends;
        var $messages;
        var $inputMessage;
+       var $userAvatar;
+
        var $card;
        var _card_metadata;
 
        var _nfm = new NewsFeedManager();
+       var _chat = new ChatManager();
 
        var TYPING_TIMER_LENGTH = 400;
+       var DEFAULT_LIMIT = 10;
 
            init( $userid, $config )
-
-
+/*
+      function login()
+      {
+        console.log("login():fix me: login needs to be implimented...")
+      }
+*/
       function init( $userid, $config )
       {
           console.log("$.fn.chat::userid: ", $userid, ", config:", $config);
           _config      = $config ? $config : {};
           _userid      = $userid ? $userid : null;
 
-          //_userid = 'JACK01'
-          _user   = lookupUser(_userid)
+          initUI()
 
+          getUserInfo( _userid, function($userInfo){
+              console.log("$.fn.chat::getUserInfo:success:userInfo:", $userInfo);
+              _user = $userInfo;
+              $userAvatar.attr('src', _user.profile_url )
+              console.log("$userAvatar:",$userAvatar, ", profile_url:", _user.profile_url )
+              _socket.emit('add-user', _user );
+              try{
+                  _config.onGetUserInfo(_user);
+              }catch(e){}
+
+              getUserFrineds(_userid, function($friends){
+                  console.log("$.fn.chat::getUserFrineds:success:friends:", $friends);
+                  _friends = $friends;
+                  _friends_hash = convert2hash($friends)
+                  try{
+                      _config.onGetUserFrineds(_friends);
+                  }catch(e){}
+                  renderFriends()
+
+                  ready();
+              })
+          })
+
+/*
+          _user   = lookupUser( _userid )
           _socket.emit('add-user', _user );
 
           initUI()
-
+*/
           //sample conversation...
 /*
           log( _userid, "chat-message", "Hello Locke", $config)
@@ -64,23 +100,50 @@ $(function() {
 */
       }
 
+      function renderFriends()
+      {
+          console.log("$.fn.chat::renderFriends()");
+          var html = '';
+          for( var i=0; i< _friends.length;  i++ )
+          {
+              var friend = _friends[i]
+                  html += "<div class='contact' >\
+                              <a href='#'>\
+                              <img class='avatar avatar-xs user-avatar' src='${profile_url}' />\
+                              <span>${full_name}</span>\
+                              </a>\
+                           </div>".split("${profile_url}").join(friend.profile_url )
+                                  .split("${full_name}").join(friend.full_name )
+          }
+
+          $friends.find('#contacts-content').html(html)
+      }
+
       function initUI()
       {
-          _elm.empty().html( createUI() )
+          console.log("$.fn.chat::initUI()");
 
-          _ui_elm        = _elm.find('#chat-container')
-          $inputMessage  = _ui_elm.find("input.publisher-input")
-          //$input.empty();
+          _elm.empty()
+              .append( createContactsUI() )
+              .append( createUI() )
 
-          $card = _ui_elm.find(".card-preview")
+          $friends       = _elm.find('#friends-container')
+          $chat          = _elm.find('#chat-container')
 
-          $messages = _ui_elm.find("#chat-content")
+          $inputMessage  = $chat.find("input.publisher-input")
+
+          $card = $chat.find(".card-preview")
+
+          $messages = $chat.find("#chat-content")
           $messages.empty()
-          $('.user-avatar').attr('src', _user.profile_url )
 
+          $userAvatar = $chat.find(".user-avatar")
+/*
+          $('.user-avatar').attr('src', _user.profile_url )
+*/
           var _card_loading;
 
-          _ui_elm.find("a.publisher-btn").click(function(e){
+          $chat.find("a.publisher-btn").click(function(e){
                   e.preventDefault();
               var elm = $(e.target)
               var msg = $inputMessage.val();
@@ -107,6 +170,7 @@ $(function() {
                   $card.addClass("is-open")
                   $card.fadeIn();
               })
+
               // When the client hits ENTER on their keyboard
               if ($e.which === 13) {
                   if( _user ){
@@ -166,13 +230,8 @@ $(function() {
            }
       }
 
-
       function sendMessage($msg, $metadata)
       {
-        //var message = $inputMessage.val();
-        // Prevent markup from being injected into the message
-            //message = cleanInput(message);
-        // if there is a non-empty message and a _socket connection
 
         if( $msg && _connected ){
             $inputMessage.val('');
@@ -182,7 +241,6 @@ $(function() {
             _socket.emit('new-message', { user:_user, message: $msg, card : $metadata });
         }
       }
-
 
       function log( $userid, $type, $msg, $data )
       {
@@ -218,6 +276,11 @@ $(function() {
           $messages.append( html )
 
           $messages.scrollTop($messages[0].scrollHeight);
+
+          try{
+              _config.onChatMessage($userid, $type, $msg, $data)
+          }catch(e){}
+
       }
 
       function addParticipantsMessage( $data, $config)
@@ -232,7 +295,6 @@ $(function() {
 
           log( _userid, "client-message" , message, $config);
       }
-
 
       //listen to the socket messages
       _socket.on('login', function(data)
@@ -305,8 +367,9 @@ $(function() {
 
       function chatMessage( $userid, $msg, $config)
       {
-          console.log("chatMessage:msg:", $msg, ", config:", $config )
+          console.log("$.fn.chat::chatMessage::userid:", $userid, ", msg:", $msg, ", config:", $config )
           var user = lookupUser($userid)
+          console.log(user)
 
           var html = "<div class='media media-chat'>   \
                         <img class='avatar' src='" + user.profile_url + "' alt='"+ user.first_name +"'>   \
@@ -371,262 +434,86 @@ $(function() {
                   </div>  \
                 </div>  \
               "
-      }
+       }
 
-/*
-      // Sets the client's username
-      function setUsername()
-      {
-          _username = cleanInput( $usernameInput.val().trim() );
-
-        // If the username is valid
-        if( _username ) {
-            $loginPage.fadeOut();
-            $chatPage.show();
-            $loginPage.off('click');
-            $currentInput = $inputMessage.focus();
-
-            // Tell the server your username
-            _socket.emit('add-user', _username);
+       function createContactsUI()
+       {
+           return "  \
+                 <div id='friends-container' class='page-content page-container' >  \
+                   <div class='padding'>  \
+                       <div class='row container d-flex justify-content-center'>  \
+                           <div class='col-md-6'>  \
+                               <div class='card card-bordered'>  \
+                                   <div class='card-header'>  \
+                                       <h4 class='card-title'><strong>Friends</strong></h4>  \
+                                       <!--a class='btn btn-xs btn-secondary' href='#' data-abc='true'>Let's Chat App</a-->  \
+                                   </div>  \
+                                   <div id='contacts-content' class='ps-container ps-theme-default ps-active-y' style='overflow-y: scroll !important; height:400px !important;'>  \
+                                               <span>...</span>\
+                                   </div>  \
+                                   <div class='publisher bt-1 border-light'>  \
+                                   </div>  \
+                               </div>  \
+                           </div>  \
+                       </div>  \
+                   </div>  \
+                 </div>  \
+               "
         }
-      }
 
-      // Prevents input from having injected markup
-      function cleanInput(input)
-      {
-          return $('<div/>').text(input).html();
-      }
-*/
-//      var $currentInput = $usernameInput.focus();
-/*
-      function addParticipantsMessage(data)
-      {
-        var message = '';
-        if (data.numUsers === 1) {
-            message += `there's 1 participant`;
-        } else {
-            message += `there are ${data.numUsers} participants`;
-        }
-        log(message);
-      }
-*/
-
-
-/*
-      // Sends a chat message
-      function sendMessage (){
-        var message = $inputMessage.val();
-        // Prevent markup from being injected into the message
-            message = cleanInput(message);
-        // if there is a non-empty message and a _socket connection
-        if( message && connected ){
-            $inputMessage.val('');
-            addChatMessage({ _username, message });
-            // tell server to execute 'new message' and send along one parameter
-            _socket.emit('new-message', message);
-        }
-      }
-
-
-       // Log a message
-       function log (message, options)
+       function lookupUser($userid)
        {
-         var $el = $('<li>').addClass('log').text(message);
-         addMessageElement($el, options);
-       }
-
-       // Adds the visual chat message to the message list
-       function addChatMessage(data, options)
-       {
-           console.log("$.fn.chat::addChatMessage: ", data, ", options:", options);
-           // Don't fade the message in if there is an 'X was typing'
-           var  $typingMessages = getTypingMessages(data);\
-
-           if ($typingMessages.length !== 0) {
-             options.fade = false;
-             $typingMessages.remove();
+           if( _userid == $userid ){
+             return _user;
            }
 
-           var $usernameDiv = $('<span class="username"/>')
-               .text(data.username)
-               .css('color', getUsernameColor(data.username));
-
-           var $messageBodyDiv = $('<span class="messageBody">')
-              .text(data.message);
-
-           var typingClass = data.typing ? 'typing' : '';
-           var $messageDiv = $('<li class="message"/>')
-               .data('username', data.username)
-               .addClass(typingClass)
-               .append($usernameDiv, $messageBodyDiv);
-
-               addMessageElement($messageDiv, options);
+           return _friends_hash[$userid]
        }
 
-       // Adds the visual chat typing message
-       function addChatTyping(data)
+       function getUserInfo($userid, $cb)
        {
-         console.log("$.fn.chat::addChatTyping: ", data);
-         data.typing = true;
-         data.message = 'is typing';
-         addChatMessage(data);
+             console.log("$.fn.chat::getUserInfo():userid:", $userid);
+             $config = $config || {};
+         var limit  = $config.limit  || DEFAULT_LIMIT;
+         var offset = $config.offset || 0;
+             _chat.getUserInfo($userid, { success: $cb })
        }
 
-       // Removes the visual chat typing message
-       function removeChatTyping(data)
+       function getUserFrineds($userid, $cb)
        {
-           getTypingMessages(data).fadeOut(function () {
-              $(this).remove();
-           });
+               console.log("$.fn.chat::getFrineds():userid:", $userid);
+               $config = $config || {};
+           var limit  = $config.limit  || DEFAULT_LIMIT;
+           var offset = $config.offset || 0;
+               _chat.getUserFrineds($userid, { limit:limit,
+                                                 offset: offset,
+                                                 success: $cb})
        }
 
-       function addMessageElement(el, options)
+       function ready()
        {
-           console.log("$.fn.chat::addMessageElement:el:", el, ", options:", options);
-           var $el = $(el);
-           // Setup default options
-           if (!options) {
-             options = {};
+           try{
+               _config.onReady();
+           }catch(e){
+               console.log("ready.error:", e);
            }
-           if (typeof options.fade === 'undefined') {
-             options.fade = true;
-           }
-           if (typeof options.prepend === 'undefined') {
-             options.prepend = false;
-           }
-
-           // Apply options
-           if (options.fade) {
-             $el.hide().fadeIn(FADE_TIME);
-           }
-           if (options.prepend) {
-             $messages.prepend($el);
-           } else {
-             $messages.append($el);
-           }
-
-           $messages[0].scrollTop = $messages[0].scrollHeight;
        }
 
-       // Updates the typing event
-       function updateTyping()
+       function convert2hash($friends)
        {
-            console.log("$.fn.chat::updateTyping:el:", el, ", options:", options);
-            if (connected) {
-               if (!typing) {
-                   typing = true;
-                   _socket.emit('typing');
-               }
-               lastTypingTime = (new Date()).getTime();
-
-               setTimeout( function(){
-                   var typingTimer = ( new Date()).getTime();
-                   var timeDiff = typingTimer - lastTypingTime;
-
-                   if (timeDiff >= TYPING_TIMER_LENGTH && typing) {
-                     _socket.emit('stop-typing');
-                     typing = false;
-                   }
-
-               }, TYPING_TIMER_LENGTH);
-
-            }
+           var hash = {};
+           for(var i=0;i<$friends.length;i++){
+               var friend = $friends[i]
+               hash[friend.userid] = friend;
+           }
+           return hash;
        }
 
-       // Gets the 'X is typing' messages of a user
-       function getTypingMessages(data)
-       {
-         console.log("$.fn.chat::getTypingMessages:data:", data);
-         return $('.typing.message').filter(function (i) {
-           return $(this).data('username') === data.username;
-         });
-       }
-
-       // Gets the color of a username through our hash function
-       function getUsernameColor($username)
-       {
-          console.log("$.fn.chat::getUsernameColor:username:", $username);
-          // Compute hash code
-          var hash = 7;
-          for (var i = 0; i < $username.length; i++) {
-            hash = $username.charCodeAt(i) + (hash << 5) - hash;
-          }
-          // Calculate color
-          var index = Math.abs(hash % COLORS.length);
-          return COLORS[index];
-       }
-
-       // Keyboard events
-
-       $(window).keydown(function(e)
-       {
-         console.log("$.fn.chat::keydown:");
-         // Auto-focus the current input when a key is typed
-         if (!(e.ctrlKey || e.metaKey || e.altKey)) {
-           $('currentInput').focus();
+       return {
+//            login           : login,
+            lookupUser      : lookupUser,
+            getUserFrineds  : getUserFrineds
          }
-         // When the client hits ENTER on their keyboard
-         if (e.which === 13) {
-           if (_username) {
-             sendMessage();
-             _socket.emit('stop-typing');
-             typing = false;
-           } else {
-             setUsername();
-           }
-         }
-       });
-
-       $('inputMessage').on('input', function(e) {
-          console.log("$.fn.chat::input:");
-          updateTyping();
-       });
-
-       // Click events
-
-       // Focus input when clicking anywhere on login page
-       $('loginPage').click( function(e){
-          console.log("$.fn.chat::loginPage:click()");
-          $('currentInput').focus();
-       });
-
-       // Focus input when clicking on the message input's border
-       $('inputMessage').click(function(e) {
-          console.log("$.fn.chat::inputMessage:click()");
-          $('inputMessage').focus();
-       });
-*/
-       // _socket events
-
-       // Whenever the server emits 'login', log the login message
-
-
-
-       function lookupUser($userid){
-
-           _users = { "JDL007" : { userid       : "JDL007",
-                                   username     : "jlindsay",
-                                   first_name   : "Joshua",
-                                   last_name    : "Lindsay",
-                                   full_name    : "Joshua Lindsay",
-                                   profile_url  : 'https://media.lindsayfilm.com/content/jlindsay/josh_lindsay.jpg' },
-
-                      "JACK01" : { userid       : "JACK01",
-                                   username     : "jack",
-                                   first_name   : "Jack",
-                                   last_name    : "Shephard",
-                                   full_name    : "Jack Shephard",
-                                   profile_url  : 'https://media.lindsayfilm.com/content/jlindsay/jack-sheapard.png' },
-
-                      "L0CK01" : { userid       : "L0CK01",
-                                   username     : "locke",
-                                   first_name   : "John",
-                                   last_name    : "Locke",
-                                   full_name    : "John Locke",
-                                   profile_url  : 'https://media.lindsayfilm.com/content/jlindsay/john-locke.png' } }
-
-           return _users[$userid]
-       }
 
    }
 });

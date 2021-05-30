@@ -34,6 +34,8 @@ function UserManager()
   	var _is_moderator   = "false";
   	var _is_staff       = "false";
 
+    var DEFAULT_LIMIT = 10;
+
     function login( username, password, onSuccess, onFailed )
     {
         //NOTE: were using a SQL query, instead of the other method(s) like getUserByUsername, because we need to access the password, were as those other methods, specifically ommit the password.
@@ -105,7 +107,7 @@ function UserManager()
           cb( msg )
 
         }
-        console.log("moving on")
+
 
         var SQL = "INSERT INTO users   \
                     ( username, uid, first_name, last_name, email, password, is_active, date_created, last_modified )   \
@@ -145,9 +147,14 @@ function UserManager()
 
     }
 
-    function getUser( userid, cb )
+    function getUserInfo( $userid, $cb )
     {
-        getUserByUserid( userid, cb );
+        getUserByUserid( $userid, $cb );
+    }
+
+    function getUser( $userid, $cb )
+    {
+        getUserByUserid( $userid, $cb );
     }
 
     function getUserProfileInfo(userid, cb)
@@ -180,44 +187,64 @@ function UserManager()
                 });
     }
 
-    function getUserByUserid( userid, cb )
+    function getUserByUserid( $userid, $cb )
     {
-            console.log("UserManager:login():userid:", userid );
-            userid          = utils.addslashes( trim( userid ) );
+//            console.log("UserManager:getUserByUserid():userid:", $userid );
+            $userid          = utils.addslashes( trim( $userid ) );
 
-        var SQL = "SELECT users.uid AS userid, users.username, users.profile_url, users.first_name, users.last_name, users.level, CONCAT( users.first_name, ' ' , users.last_name) AS full_name  \
+        var SQL = "SELECT users.uid AS userid, \
+                          users.username, \
+                          users.profile_url, \
+                          users.first_name, \
+                          users.last_name, \
+                          users.level, \
+                          CONCAT( users.first_name, ' ' , users.last_name) AS full_name , \
+                          (SELECT COUNT(*) FROM followers WHERE followers.userid = uid ) AS total_following,       \
+  		                    (SELECT COUNT(*) FROM followers WHERE followers.follower_userid = uid  ) AS total_followers     \
                 FROM users \
                         WHERE users.uid = '{{userid}}' \
-            ;".split("{{userid}}").join( userid );
+            ;".split("{{userid}}").join( $userid );
 
-            query( SQL, function(user){
+            //console.log("SQL:", SQL)
+
+            query( SQL, function($data){
+                    var user =$data[0]
+//                    console.log("user:",user)
                     user.is_loggedin    = "true";
                     user.is_admin       = "false";
                     user.is_moderator   = "false";
                     user.is_staff       = "false";
-                    cb(user);
+
+                    $cb(user);
             } );
     }
 
-    function getUserByUsername( username, cb )
+    function getUserByUsername( $username, $cb )
     {
-            console.log("UserManager:getUserByUsername():username:",username );
-            username        = utils.addslashes( trim( username ) );
+            console.log("UserManager:getUserByUsername():username:",$username );
+            $username        = utils.addslashes( trim( $username ) );
 
-        var SQL = "SELECT users.uid AS userid, users.username, users.profile_url, users.first_name, users.last_name, users.level, CONCAT( users.first_name, ' ' , users.last_name) AS full_name  \
+        var SQL = "SELECT users.uid AS userid, \
+                          users.username, \
+                          users.profile_url, \
+                          users.first_name, \
+                          users.last_name, \
+                          users.level, \
+                          CONCAT( users.first_name, ' ' , users.last_name) AS full_name , \
+                          (SELECT COUNT(*) FROM followers WHERE followers.userid = uid ) AS total_following,       \
+  		                    (SELECT COUNT(*) FROM followers WHERE followers.follower_userid = uid  ) AS total_followers     \
                 FROM users \
                         WHERE users.username = '{{username}}' \
-            ;".split("{{username}}").join( username )
+            ;".split("{{username}}").join( $username )
 
-            query( SQL, function(user){
+            query( SQL, function($user){
                     user.is_loggedin    = "true";
                     user.is_admin       = "false";
                     user.is_moderator   = "false";
                     user.is_staff       = "false";
-                    cb(user);
+                    $cb($user);
             } );
     }
-
 
     function addFriends( userid, friends, config, cb)
     {
@@ -237,22 +264,31 @@ function UserManager()
       cb({status:"error", description:"needs to be implimented"})
     }
 
-    function getUserContacts( userid, limit, offset, config, cb )
+    function getUserFrineds( $userid, $limit, $offset, $config, $cb )
     {
-        console.log("UserManager:getUserContacts:", userid, limit, offset, config, cb );
-        userid   = trim( userid );
-        limit    = trim( limit );
-        offset   = trim( offset );
+        //console.log("UserManager:getUserFrineds:", $userid, $limit, $offset, $config );
 
-        var SQL = "SELECT first_name,last_name,username,friend_uid, username   \
+        $userid   = trim( $userid );
+        $limit    = $limit ? trim( $limit ) : DEFAULT_LIMIT;
+        $offset   = $offset? trim( $offset ) : 0;
+
+        var SQL = "SELECT users.uid AS userid, \
+                          users.profile_url, \
+                          users.first_name, \
+                          users.last_name, \
+                          users.level, \
+                          users.username,   \
+                          CONCAT( users.first_name, ' ' , users.last_name) AS full_name,  \
+                          ( SELECT COUNT(*) FROM followers WHERE followers.userid = users.uid ) AS total_followers    \
                       FROM friends   \
-                            JOIN users on friends.friend_uid = users.uid    \
-                              WHERE friends.uid = '"+ userid +"' AND friends.friend_uid != '"+ userid +"';";
+                            JOIN users ON friends.friend_uid = users.uid    \
+                              WHERE friends.uid = '${userid}'  \
+                    ;".split("${userid}").join($userid)
 
-            console.log("SQL:", SQL )
+            //console.log("SQL:", SQL )
 
-            query( SQL, function(contacts){
-                    cb(user);
+            query( SQL, function($data){
+                  $cb($data);
             } );
     }
 
@@ -295,11 +331,14 @@ function UserManager()
         getUserByUserid     : getUserByUserid,
         getUserByUsername   : getUserByUsername,
         doesUsernameExists  : doesUsernameExists,
+
         getUser             : getUser,
+        getUserInfo         : getUserInfo,
+
         addFriend           : addFriend,
         addFriends          : addFriends,
         removeFriend        : removeFriend,
-        getUserContacts     : getUserContacts,
+        getUserFrineds      : getUserFrineds,
         getAnonymousUser    : getAnonymousUser,
         getUserProfileInfo  : getUserProfileInfo,
         query               : query    };

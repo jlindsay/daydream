@@ -69,62 +69,11 @@
           </div>
       </div>
 
-
-      <!--div id="page-content" class="page-content page-container" >
-        <div class="padding">
-            <div class="row container d-flex justify-content-center">
-                <div class="col-md-6">
-                    <div class="card card-bordered">
-                        <div class="card-header">
-                            <h4 class="card-title"><strong>Chat</strong></h4>
-                        </div>
-                        <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
-                            <div class="media media-chat">
-                                <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                                <div class="media-body">
-                                    <p>Hi</p>
-                                    <p>How are you ...???</p>
-                                    <p>What are you doing tomorrow?<br> Can we come up a bar?</p>
-                                    <p class="meta"><time datetime="2018">23:58</time></p>
-                                </div>
-                            </div>
-
-                            <div class="media media-meta-day">Today</div>
-
-                            <div class="media media-chat media-chat-reverse">
-                                <div class="media-body">
-                                    <p>Hiii, I'm good.</p>
-                                    <p>How are you doing?</p>
-                                    <p>Long time no see! Tomorrow office. will be free on sunday.</p>
-                                    <p class="meta"><time datetime="2018">00:06</time></p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="publisher bt-1 border-light">
-                            <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                            <input class="publisher-input" type="text" placeholder="Write something">
-                            <span class="publisher-btn file-group">
-                              <i class="fa fa-paperclip file-browser"></i>
-                              <input type="file"> </span>
-                              <a class="publisher-btn" href="#" data-abc="true">
-                                <i class="fa fa-smile"></i></a>
-                                <a class="publisher-btn text-info" href="#" data-abc="true">
-                                  <i class="fa fa-paper-plane"></i>
-                                </a>
-                          </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div-->
-
       <div id="chat">
         chat...
       </div>
 
 </div>
-
 
 
 <style>
@@ -142,9 +91,9 @@
 <link rel='stylesheet' href='/css/chat-bootstrap.css' />
 
 <script src="/bower/socket.io/client-dist/socket.io.min.js"></script>
-<script src="/js/chat.jquery.js"></script>
+<script src="/js/ChatManager.js"></script>
 <script src="/js/NewsFeedManager.js"></script>
-
+<script src="/js/chat.jquery.js"></script>
 
 <script>
 
@@ -161,8 +110,20 @@
     function initUI(e)
     {
         console.log("initUI()");
-        $("#chat").chat( _userid, {} )
-        
+        $("#chat").chat( _userid, { onReady: function(){
+                                        //console.log("Ready()")
+                                    },
+                                    onGetUserInfo:function($user){
+                                        //console.log("onGetUserInfo():user:", $user)
+                                    },
+                                    onGetUserFrineds:function(_friends){
+                                        //console.log("onGetUserFrineds():friends:", $friends)
+                                    },
+                                    onMessage : function($userid, $type, $msg, $data){
+                                        //console.log("onChatMessage():userid:", $userid, ", type:", $type, ", msg:" ,$msg, ", metadata:",$metadata )
+                                    }
+        })
+
     }
 
     function initBGB()
