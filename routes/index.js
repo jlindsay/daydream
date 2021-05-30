@@ -595,15 +595,22 @@ router.get('/oembed_ogs', function(req, res, next) {
 
       var count = 0;
       var count_total = 2;
+
       function updateCount( $type, $error, $data )
       {
           //console.log("updateCount():$type:", $type );
 
-          //if( $error ){ console.log("error:",$error) }
+          if( $error ){
+              console.log("$type:", $type, ", error:",$error)
+           }
 
-          if( $type == "ogs" ){ _ogs_data = $data; }
+          if( $type == "ogs" ){
+            _ogs_data = $data || $error;
+          }
 
-          if( $type == "oembed" ){ _oembed_data = $data; }
+          if( $type == "oembed" ){
+            _oembed_data = $data || $error;
+          }
 
           count++
           //console.log("count:",count);

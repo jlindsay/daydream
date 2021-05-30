@@ -359,7 +359,7 @@ function NewsFeedManager()
 
     function getPost( $userid, $pid, $config, $cb )
     {
-            console.log("NewsFeedManager:getPost():userid,", $userid, ", pid:", $pid );
+            //console.log("NewsFeedManager:getPost():userid,", $userid, ", pid:", $pid );
 
             $userid =  $userid? utils.addslashes( trim( $userid ) ) : null;
             $pid    =  $pid? utils.addslashes( trim( $pid ) ) : null;
@@ -391,7 +391,7 @@ function NewsFeedManager()
 
     function getPostAbsolute(userid, pid, config, cb )
     {
-            console.log("NewsFeedManager:getPost():userid,", userid, ", pid:", pid );
+            //console.log("NewsFeedManager:getPost():userid,", userid, ", pid:", pid );
             userid = userid? trim( userid ) : null;
             pid    = pid? trim( pid ) : null;
 

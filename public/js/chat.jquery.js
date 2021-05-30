@@ -77,7 +77,7 @@ $(function() {
           $messages = _ui_elm.find("#chat-content")
           $messages.empty()
           $('.user-avatar').attr('src', _user.profile_url )
-          
+
           var _card_loading;
 
           _ui_elm.find("a.publisher-btn").click(function(e){
@@ -317,10 +317,11 @@ $(function() {
                 if( $config && $config.card ){
 
                     html +=  "<p class='card-message'> \
-                                  <img src='${thumbnail_url}' />   \
+                                  <a href='${request_url}'><img src='${thumbnail_url}' /></a>   \
                                   <span class='title'>${title}</span>   \
                                 </p>".split("${title}").join($config.card.title)
                                       .split("${thumbnail_url}").join($config.card.thumbnail_url)
+                                      .split("${request_url}").join($config.card.request_url)
 
                 }
 
