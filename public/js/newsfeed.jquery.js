@@ -4274,20 +4274,24 @@
         //just show a image or something
         function HouseNewsfeedAd(){
 
-            var ads = [ ad_url  : "https://video.lindsayfilm.com/w/PC0142?ref=ads-newsfeed",
-                        img_url : "https://media.lindsayfilm.com/videos/podcast/ads/houseAds/Ads_just_kidding.png",
-                        ad_url  : "https://video.lindsayfilm.com/w/PC0001?ref=ads-newsfeed",
-                        img_url : "https://media.lindsayfilm.com/videos/podcast/ads/houseAds/Ads_mind_control.png",
-                        ad_url  : "https://video.lindsayfilm.com/w/PC0134?ref=ads-newsfeed",
-                        img_url : "https://media.lindsayfilm.com/videos/podcast/ads/houseAds/Ads_pied_piperl.png"]
+            var ads = [ { ad_url  : "https://video.lindsayfilm.com/w/PC0142?ref=ads-newsfeed",
+                          img_url : "https://media.lindsayfilm.com/videos/podcast/ads/houseAds/Ads_just_kidding.png"},
 
-            var r = Math.floor( Math.random() s* ads.length );
+                        { ad_url  : "https://video.lindsayfilm.com/w/PC0001?ref=ads-newsfeed",
+                          img_url : "https://media.lindsayfilm.com/videos/podcast/ads/houseAds/Ads_mind_control.png"},
+
+                        { ad_url  : "https://video.lindsayfilm.com/w/PC0134?ref=ads-newsfeed",
+                          img_url : "https://media.lindsayfilm.com/videos/podcast/ads/houseAds/Ads_pied_piperl.png"}]
+
+            var r = Math.floor( Math.random() * ads.length );
             var ad = ads[r]
 
-            return '<div class="box postcard videocard">  \
+            var html = '<div class="box postcard videocard">  \
                         <a hre="${ad_url}"><img src="${img_url}" /></a>  \
-                    </div>'.split("${img_url}").join(ad.ad_url)
-                           .split("${ad_url}").join(ad_url)
+                    </div>'.split("${img_url}").join(ad.img_url)
+                           .split("${ad_url}").join(ad.ad_url)
+
+                return html;
         }
 
         //this is being placed in the newsfeeds
