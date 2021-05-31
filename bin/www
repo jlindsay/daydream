@@ -102,6 +102,10 @@ io.on('connection', function(socket){
 
   var addedUser = false;
 
+
+  var chatID = socket.id
+  console.log("chatID:", chatID)
+
   // Chatroom
   var numUsers = 0;
 
@@ -115,6 +119,9 @@ io.on('connection', function(socket){
   // when the client emits 'add user', this listens and executes
   socket.on('add-user', function(user){
     if (addedUser) return;
+
+    var chatID = socket.id
+    console.log("user:", user.userid, ", chatID:", chatID)
 
     // we store the username in the socket session for this client
     socket.user = user;
