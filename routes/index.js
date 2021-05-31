@@ -613,12 +613,11 @@ router.get('/oembed_ogs', function(req, res, next) {
           }
 
           count++
-          //console.log("count:",count);
+
           if( count >= count_total ){
-              //console.log("count:",count, ", count_total:", count_total);
+
               res.json({ status : 'success',
                          action : 'get-oembed-ogs',
-//                         count  : count,
                          url    : url,
                          ogs    : _ogs_data,
                          oembed : _oembed_data
@@ -626,21 +625,15 @@ router.get('/oembed_ogs', function(req, res, next) {
           }
       }
 
-      try{
-          ogs( options, function($error, $results, $response){
-              updateCount("ogs", $error, $results )
-          })
-      }catch(e){
-          updateCount("ogs", e, null )
-      }
 
-      try{
-        oembed.fetch(url, { maxwidth: 1920 }, function($error, $results) {
-            updateCount( "oembed", $error, $results )
-        });
-      }catch(e){
-          updateCount("oembed", e, null )
-      }
+      ogs( options, function($error, $results, $response){
+          updateCount("ogs", $error, $results )
+      })
+
+      oembed.fetch(url, { maxwidth: 1920 }, function($error, $results) {
+          updateCount( "oembed", $error, $results )
+      });
+
 
 });
 
