@@ -92,7 +92,7 @@
             _pid    = $config.pid    || _pid;
             _vid    = $config.vid    || _vid;
 
-            _allowAds = $config.allowAds || _allowAds;
+            _allowAds = false;//$config.allowAds || _allowAds;
             _show_house_ads = $config.show_house_ads || _show_house_ads;
 
             _interval = $config.interval || _interval;
@@ -4270,12 +4270,12 @@
 */
           return GoogleInNewsfeedAd()
         }
-
+/*
         //just show a image or something
         function HouseAd(){
             return ''
         }
-
+*/
         //this is being placed in the newsfeeds
         function GoogleInNewsfeedAd()
         {
