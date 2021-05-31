@@ -124,13 +124,13 @@
     {{else}}
 
         <div id="nav" class="actions" style="text-align:center;padding:15px;">
-          <a id="news-feed" href="#news-feed">
-            <span class="material-icons" class="icon-shadow">feed</span>
-            NewsFeed
-          </a>
           <a id="new-videos" href="#new-videos">
             <span class="material-icons" class="icon-shadow">smart_display</span>
             New Videos
+          </a>
+          <a id="news-feed" href="#news-feed">
+            <span class="material-icons" class="icon-shadow">feed</span>
+            NewsFeed
           </a>
         </div>
     {{/if}}
@@ -186,8 +186,8 @@
 
 <style>
 a:focus, a:hover {
-outline: none;
-border: none;
+  outline: none;
+  border: none;
 }
 
 </style>
@@ -255,7 +255,7 @@ border: none;
     {
       //  console.log("initActions()");
         $("#nav.actions a").on("click",function(e){
-                e.preventDefault();
+                //e.preventDefault();
             var elm = $(e.target).closest("a");
                 $("#nav.actions a").removeClass("active");
                 elm.addClass("active");
@@ -277,7 +277,7 @@ border: none;
             var nid = elm.attr("href").split("#").join('')
 
             _newsfeed.markNoteAsRead( _userid, nid, {success:function($data){
-              console.log("markNoteAsRead:success:data:", $data);
+              //console.log("markNoteAsRead:success:data:", $data);
               elm.remove();
             }})
         })
@@ -291,8 +291,7 @@ border: none;
         }else{
             _vm.initBGV();
         }
-    }
-
+    }w
 
     function parseHashState()
     {
@@ -336,7 +335,6 @@ border: none;
         }
         return state;
     }
-
 
 </script>
 

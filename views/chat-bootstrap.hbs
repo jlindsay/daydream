@@ -104,6 +104,7 @@
     var _is_moderator         = ( '{{user.is_moderator}}' )? true : false;
 
     var _nfm = new NewsFeedManager();
+    var _vm = new VideoManager();
 
         $(initUI);
 
@@ -123,6 +124,8 @@
                                         //console.log("onChatMessage():userid:", $userid, ", type:", $type, ", msg:" ,$msg, ", metadata:",$metadata )
                                     }
         })
+
+        //initBGB();
 
     }
 
