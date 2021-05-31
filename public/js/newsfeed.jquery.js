@@ -4279,16 +4279,18 @@
         //this is being placed in the newsfeeds
         function GoogleInNewsfeedAd()
         {
-          return '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>  \
-              <ins class="adsbygoogle"  \
-                   style="display:block"  \
-                   data-ad-format="fluid"  \
-                   data-ad-layout-key="-5p+cg-g-6j+kl"  \
-                   data-ad-client="ca-pub-1385994184650855"  \
-                   data-ad-slot="3522369812"></ins>  \
-              <script>  \
-                   (adsbygoogle = window.adsbygoogle || []).push({});  \
-              </script>'
+          return '<div class="box postcard videocard">  \
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>  \
+                      <ins class="adsbygoogle"  \
+                           style="display:block"  \
+                           data-ad-format="fluid"  \
+                           data-ad-layout-key="-5p+cg-g-6j+kl"  \
+                           data-ad-client="ca-pub-1385994184650855"  \
+                           data-ad-slot="3522369812"></ins>  \
+                      <script>  \
+                           (adsbygoogle = window.adsbygoogle || []).push({});  \
+                      </script>  \
+                  </div>'
         }
 
         //we may want to place this in the video description
