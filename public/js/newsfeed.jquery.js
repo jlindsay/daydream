@@ -92,7 +92,7 @@
             _pid    = $config.pid    || _pid;
             _vid    = $config.vid    || _vid;
 
-            _allowAds       = $config.allowAds || _allowAds;
+            _allowAds       = false//$config.allowAds || _allowAds;
             _show_house_ads = $config.show_house_ads || _show_house_ads;
 
             _interval       = $config.interval || _interval;
@@ -601,7 +601,9 @@
                      //console.log('a::', a )
                 _elms.append(post_elms)
 
-
+                if( _allowAds ){
+                    _elms.append( NewsfeedAds() )
+                }
 
                 _elms.find(".postcard").removeClass("postcard")
                 var thumb = _elms.find(".post-item-thumbnail-container")
@@ -614,10 +616,6 @@
                      //console.log("_nfposts_elm:imagesLoaded():_is_loading:",_is_loading);
                      _elms.find(".post-item-tmpl .post-item-thumbnail-container .thumbnail-img").animate({opacity: 1});
 //                     resizeSearchResults();
-
-                      if( _allowAds ){
-                          _elms.append( NewsfeedAds() )
-                      }
 
                      _is_loading = false;
                  });
@@ -754,6 +752,9 @@
 
                  }
 
+                 if( _allowAds ){
+                     _video_posts_elm.append( NewsfeedAds() )
+                 }
 
                  resizeSearchResults();
 
@@ -763,14 +764,11 @@
                  }
 */
                  _video_posts_elm.masonry( 'appended', elms );
+                 _video_posts_elm.masonry( 'prepend', elms );
 
                  _video_posts_elm.imagesLoaded(function(){
                      //console.log("_elms:imagesLoaded():_is_loading:",_is_loading);
                      _video_posts_elm.find(".video-item-tmpl .video-item-thumbnail-container .thumbnail-img").animate({opacity: 1});
-
-                     if( _allowAds ){
-                         _elms.append( NewsfeedAds() )
-                     }
 
                      resizeSearchResults();
                      _is_loading = false;
@@ -4287,9 +4285,11 @@
             var ad = ads[r]
 
             var html = '<div class="box postcard videocard">  \
-                        <a hre="${ad_url}"><img src="${img_url}" /></a>  \
-                    </div>'.split("${img_url}").join(ad.img_url)
-                           .split("${ad_url}").join(ad.ad_url)
+                            <a hre="${ad_url}">\
+                              <img src="${img_url}" />  \
+                            </a>  \
+                        </div>'.split("${img_url}").join(ad.img_url)
+                               .split("${ad_url}").join(ad.ad_url)
 
                 return html;
         }
@@ -4297,8 +4297,7 @@
         //this is being placed in the newsfeeds
         function GoogleInNewsfeedAd()
         {
-          return '<div class="box postcard videocard">  \
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>  \
+          return '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>  \
                       <ins class="adsbygoogle"  \
                            style="display:block"  \
                            data-ad-format="fluid"  \
@@ -4307,8 +4306,7 @@
                            data-ad-slot="3522369812"></ins>  \
                       <script>  \
                            (adsbygoogle = window.adsbygoogle || []).push({});  \
-                      </script>  \
-                  </div>'
+                      </script>'
         }
 
         //we may want to place this in the video description
