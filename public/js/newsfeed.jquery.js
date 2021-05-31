@@ -36,6 +36,9 @@
          var _state       = 'news-feed';
          var _q;
 
+         var _allowAds = false;
+         var _show_house_ads = false;
+
          var _ui_is_tile = true;
          var _ui_is_list = false;
          var _show_post_ui = true;
@@ -89,7 +92,10 @@
             _pid    = $config.pid    || _pid;
             _vid    = $config.vid    || _vid;
 
-            _interval = $config.interval    || _interval;
+            _allowAds = $config.allowAds || _allowAds;
+            _show_house_ads = $config.show_house_ads || _show_house_ads;
+
+            _interval = $config.interval || _interval;
             _onNotes = $config.onNotes || null;
 
             _notes.init({ userid:_userid,
@@ -594,6 +600,9 @@
              // a = post_elms.find(".postcard").removeClass("postcard")
                      //console.log('a::', a )
                 _elms.append(post_elms)
+
+
+
                 _elms.find(".postcard").removeClass("postcard")
                 var thumb = _elms.find(".post-item-thumbnail-container")
                 injectPostIframe( thumb, _pid, _post )
@@ -605,6 +614,11 @@
                      //console.log("_nfposts_elm:imagesLoaded():_is_loading:",_is_loading);
                      _elms.find(".post-item-tmpl .post-item-thumbnail-container .thumbnail-img").animate({opacity: 1});
 //                     resizeSearchResults();
+
+                      if( _allowAds ){
+                          _elms.append( GoogleInNewsfeedAd() )
+                      }
+
                      _is_loading = false;
                  });
 
@@ -737,7 +751,9 @@
                     _video_posts_elm.prepend(elms).masonry( 'reloadItems' );
                  }else{
                     _video_posts_elm.append(elms);
+
                  }
+
 
                  resizeSearchResults();
 
@@ -751,6 +767,11 @@
                  _video_posts_elm.imagesLoaded(function(){
                      //console.log("_elms:imagesLoaded():_is_loading:",_is_loading);
                      _video_posts_elm.find(".video-item-tmpl .video-item-thumbnail-container .thumbnail-img").animate({opacity: 1});
+
+                     if( _allowAds ){
+                         _elms.append( GoogleInNewsfeedAd() )
+                     }
+
                      resizeSearchResults();
                      _is_loading = false;
                  });
@@ -4238,6 +4259,57 @@
         {
             console.log("$.newsfeed::markNoteAsUnread():userid:",userid,", nid:", $nid)
             _notes.markNoteAsUnread($userid, $nid, $config )
+        }
+
+        function Ads()
+        {
+/*
+          if( _show_house_ads ){
+            return HouseAd()
+          }
+*/
+          return GoogleInNewsfeedAd()
+        }
+
+        //just show a image or something
+        function HouseAd(){
+            return ''
+        }
+
+        //this is being placed in the newsfeeds
+        function GoogleInNewsfeedAd()
+        {
+          return '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>  \
+              <ins class="adsbygoogle"  \
+                   style="display:block"  \
+                   data-ad-format="fluid"  \
+                   data-ad-layout-key="-5p+cg-g-6j+kl"  \
+                   data-ad-client="ca-pub-1385994184650855"  \
+                   data-ad-slot="3522369812"></ins>  \
+              <script>  \
+                   (adsbygoogle = window.adsbygoogle || []).push({});  \
+              </script>'
+        }
+
+        //we may want to place this in the video description
+        function GoogleInArticalAd()
+        {
+          return '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>  \
+                    <ins class="adsbygoogle"  \
+                         style="display:block; text-align:center;"  \
+                         data-ad-layout="in-article"  \
+                         data-ad-format="fluid"  \
+                         data-ad-client="ca-pub-1385994184650855"  \
+                         data-ad-slot="2122777796"></ins>  \
+                    <script>  \
+                         (adsbygoogle = window.adsbygoogle || []).push({});  \
+                    </script>'
+        }
+
+        function GoogleSearchAd()
+        {
+          return '<script async src="https://cse.google.com/cse.js?cx=e331d49f1e2e30ed1"></script>  \
+                  <div class="gcse-search"></div>'
         }
 
 

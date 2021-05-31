@@ -207,6 +207,9 @@ border: none;
     var _hash;
     var _q;
 
+    var _allowAds = true;
+    var _show_house_ads = false;
+
     var _show_post_ui = Boolean( _is_loggedin )
 
     $(document).ready(initUI);
@@ -225,10 +228,12 @@ border: none;
         initBGB();
         initActions();
 
-        _newsfeed = $('#search-results').newsfeed( _userid, { state         : _state,
-                                                              show_post_ui  : _show_post_ui,
-                                                              interval      : _interval,
-                                                              onNotes       : onNotes })
+        _newsfeed = $('#search-results').newsfeed( _userid, { state          : _state,
+                                                              show_post_ui   : _show_post_ui,
+                                                              interval       : _interval,
+                                                              allowAds       : _allowAds,
+                                                              show_house_ads : _show_house_ads,
+                                                              onNotes        : onNotes })
     }
 
     function onNotes($e,$notes)
