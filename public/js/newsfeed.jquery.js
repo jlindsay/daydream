@@ -92,11 +92,11 @@
             _pid    = $config.pid    || _pid;
             _vid    = $config.vid    || _vid;
 
-            _allowAds = false;//$config.allowAds || _allowAds;
+            _allowAds       = $config.allowAds || _allowAds;
             _show_house_ads = $config.show_house_ads || _show_house_ads;
 
-            _interval = $config.interval || _interval;
-            _onNotes = $config.onNotes || null;
+            _interval       = $config.interval || _interval;
+            _onNotes        = $config.onNotes || null;
 
             _notes.init({ userid:_userid,
                           interval:_interval,
@@ -616,7 +616,7 @@
 //                     resizeSearchResults();
 
                       if( _allowAds ){
-                          _elms.append( GoogleInNewsfeedAd() )
+                          _elms.append( NewsfeedAds() )
                       }
 
                      _is_loading = false;
@@ -769,7 +769,7 @@
                      _video_posts_elm.find(".video-item-tmpl .video-item-thumbnail-container .thumbnail-img").animate({opacity: 1});
 
                      if( _allowAds ){
-                         _elms.append( GoogleInNewsfeedAd() )
+                         _elms.append( NewsfeedAds() )
                      }
 
                      resizeSearchResults();
@@ -4261,21 +4261,35 @@
             _notes.markNoteAsUnread($userid, $nid, $config )
         }
 
-        function Ads()
+        function NewsfeedAds()
         {
-/*
+
           if( _show_house_ads ){
-            return HouseAd()
+            return HouseNewsfeedAd()
           }
-*/
+
           return GoogleInNewsfeedAd()
         }
-/*
+
         //just show a image or something
-        function HouseAd(){
-            return ''
+        function HouseNewsfeedAd(){
+
+            var ads = [ url : "https://video.lindsayfilm.com/w/PC0142?ref=ads-newsfeed",
+                        img : "https://media.lindsayfilm.com/videos/podcast/ads/houseAds/Ads_just_kidding.png",
+                        url : "https://video.lindsayfilm.com/w/PC0001?ref=ads-newsfeed",
+                        img : "https://media.lindsayfilm.com/videos/podcast/ads/houseAds/Ads_mind_control.png",
+                        url : "https://video.lindsayfilm.com/w/PC0134?ref=ads-newsfeed",
+                        img : "https://media.lindsayfilm.com/videos/podcast/ads/houseAds/Ads_pied_piperl.png"]
+
+            var r = Math.floor( Math.random() s* ads.length );
+            var ad = ads[r]
+
+            return '<div class="box postcard videocard">  \
+                        <a hre="${url}"><img src="${ad}" /></a>  \
+                    </div>'.split("${ad}").join(ad)
+                           .split("${url}").join(url)
         }
-*/
+
         //this is being placed in the newsfeeds
         function GoogleInNewsfeedAd()
         {
