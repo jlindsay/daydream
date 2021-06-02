@@ -1,0 +1,231 @@
+<script id="profile-and-posts-tmpl"  type="text/x-jquery-tmpl">
+    <div id="profile-${pid}" class="profile-item-tmpl box profilecard">
+        <input id="pid" value="${pid}" type="hidden" />
+        <input id="userid" value="${userid}" type="hidden" />
+        <input id="is_admin" value="${is_admin}" type="hidden" />
+        <input id="is_loggedin" value="${is_loggedin}" type="hidden"  />
+        <input id="profile_url" value="${profile_url}" type="hidden" />
+
+        <input id="keywords" value="${keywords}" type="hidden" />
+        <input id="date_created" value="${date_created}" type="hidden" />
+
+        <input id="first_name" value="${first_name}" type="hidden"  />
+        <input id="last_name" value="${last_name}" type="hidden"  />
+        <input id="full_name" value="${full_name}" type="hidden"  />
+        <input id="about_me" value="${about_me}" type="hidden"  />
+
+        <input id="profile_url" value="${profile_url}" type="hidden"  />
+
+
+        <div id="pid-${pid}" class="profile-item-thumbnail-container">
+            <a href="/profile/${userid}" alt="${full_name}"><img class="profile-item-author" src="${profile_url}" /></a>
+            <a href="/w/${vid}"><button class="play-icon" ></button></a>
+
+                <button class="icon-white-edit" ></button>
+                <ul class="edit-dropdown-menu">
+                    <li><a href="#action-edit-profile-metadata">Edit</a></li>
+                </ul>
+
+            <a href="/w/${vid}">
+              <img class="thumbnail-img" src="${profile_url}" class="profile-item-thumbnail" />
+            </a>
+        </div>
+
+        <div class="profile-item-metadata">
+
+            <div class="profile-item-actions" >
+
+                <div class="profile-item-summary">
+
+                    <div id="profile-item-title-${pid}" class="profile-item-title">
+
+                          <button class="icon-edit" ></button>
+                          <ul id="profile-title-edit-dropdown-menu-${pid}" class="edit-dropdown-menu">
+                              <li><a tabindex="-1" href="#action-edit-title">Edit</a></li>
+                          </ul>
+
+                      <a href="/w/${pid}" class="profile-item-title">${full_name}</a>
+                    </div>
+
+                    <div class="profile-item-description">
+
+                          <button class="icon-edit" ></button>
+                          <ul id="prfoile-description-edit-dropdown-menu-${pid}" class="edit-dropdown-menu">
+                              <li><a tabindex="-1" href="#action-edit-description">Edit</a></li>
+                          </ul>
+
+                      <pre style="word-break: break-word;">${about_me}</pre>
+                    </div>
+
+                </div>
+
+                <!--div class="message-btn-wrapper" >
+                    <button class="unique_users-views" data-bs-toggle="collapse"></button>
+                    <div class="count">${total_unique_users}</div>
+                </div-->
+
+                <!--div class="views-btn-wrapper" >
+                    <button class="icon-views" data-bs-toggle="collapse"></button>
+                    <span class="count">${total_views}</span>
+                </div-->
+
+
+                {{if is_loggedin=="true"}}
+
+                    <div id="post-likes-${pid}" class="likes-btn-wrapper">
+                        <button class="icon-likes" ></button>
+                        <div class="count">${total_likes}</div>
+                    </div>
+
+                    <div id="post-dislikes-${pid}" class="dislikes-btn-wrapper">
+                        <button class="icon-dislikes" ></button>
+                        <div class="count">${total_dislikes}</div>
+                    </div>
+
+                    <div id="post-message-${pid}" class="message-btn-wrapper" >
+                        <button class="icon-message" data-bs-toggle="collapse" data-bs-target="#post-post-${pid}"></button>
+                        <div class="count" data-bs-toggle="collapse" data-bs-target="#post-post-${vid}">${total_replies_2_profile}</div>
+                    </div>
+
+                    <!--div class="follow-btn-wrapper">
+                        <button class="icon-follow" ></button>
+                        <div class="count">${total_followers}</div>
+                    </div-->
+
+                    <div id="post-post-${pid}" class="post-wrapper collapse " >
+                        <textarea placeholder="Add a public post..."></textarea>
+                        <div class="urls collapse"></div>
+                    </div>
+
+                {{/if}}
+            </div>
+        </div>
+        {{if is_loggedin=="true"}}
+            <div id="profile-${pid}-posts" class="profile-item-posts">
+                {{tmpl(posts) "#profile-item-post-tmpl"}}
+            </div>
+        {{/if}}
+
+    </div>
+</script>
+
+<script id="profile-item-post-tmpl"  type="text/x-jquery-tmpl">
+    <div id="post-${post_id}" class="profile-item-post" >
+        <input id="post_id" value="${post_id}" type="hidden" />
+        <input id="userid" value="${userid}" type="hidden" />
+        <input id="pid" value="${vid}" type="hidden" />
+        <input id="date_created" value="${date_created}" type="hidden" />
+        <input id="author_id" value="${author_id}" type="hidden" />
+        <input id="profile_url" value="${profile_url}" type="hidden" />
+        <input id="first_name" value="${first_name}" type="hidden" />
+        <input id="last_name" value="${last_name}" type="hidden" />
+        <input id="full_name" value="${full_name}" type="hidden" />
+
+        <input id="is_loggedin" value="${is_loggedin}" type="hidden" />
+        <input id="total_likes" value="${total_likes}" type="hidden" />
+        <input id="total_dislikes" value="${total_dislikes}" type="hidden" />
+
+        <input id="total_replies" value="${total_replies}" type="hidden" />
+        <input id="total_replies_2_posts" value="${total_replies_2_posts}" type="hidden" /-->
+
+        <input id="content" value="${content}" type="hidden"  />
+        <input id="content_short" value="${content_short}" type="hidden"  />
+
+        <input id="title" value="${metadata_title}" type="hidden"  />
+        <input id="description" value="${metadata_description}" type="hidden"  />
+
+        <input id="thumbnail_url" value="${metadata_thumbnail_url}" type="hidden"  />
+        <input id="metadata_url" value="${metadata_url}" type="hidden"  />
+        <input id="metadata_video_url" value="${metadata_video_url}" type="hidden"  />
+        <input id="metadata_locale" value="${metadata_locale}" type="hidden"  />
+        <input id="metadata_date" value="${metadata_date}" type="hidden"  />
+        <input id="metadata_request_url" value="${metadata_request_url}" type="hidden"  />
+        <input id="metadata_site_name" value="${metadata_site_name}" type="hidden"  />
+
+        <div class="profile-item-post-text">
+            <div class="post-author-container">
+                <a href="/profile/${userid}" alt="${full_name} profile.">
+                    <img class="post-author" src="${profile_url}" />
+                    <span class="post-author-link">${full_name}:</span>
+                </a>
+            </div>
+
+
+                <div id="post-edit-menu-${post_id}" class="edit-menu">
+                    <button class="icon-edit" ></button>
+                    <ul id="edit-dropdown-menu-${post_id}" class="edit-dropdown-menu">
+                        <li><a tabindex="-1" href="#action-edit-post">Edit</a></li>
+                        <li><a tabindex="-3" href="#action-delete-post">Delete</a></li>
+                    </ul>
+                </div>
+
+
+            <div id="post-container-${pid}" class="post-container">
+                  <pre style="word-break: break-word;">${content}</pre>
+            </div>
+
+            {{if metadata_title }}
+                <div id="post-card-${pid}" class="post-card" style='padding:10px;'>
+                    <input id='post_id' value='${pid}' type='hidden' />
+                    <input id='metadata_title' value='${metadata_title}' type='hidden' />
+                    <input id='metadata_title_short' value='${metadata_title_short}' type='hidden' />
+                    <input id='metadata_description' value='${metadata_description}' type='hidden' />
+                    <input id='metadata_description_short' value='${metadata_description_short}' type='hidden' />
+                    <input id='metadata_thumbnail_url' value='${metadata_thumbnail_url}' type='hidden' />
+                    <input id='url' value='${url}' type='hidden' />
+                    <input id='date' value='${date}' type='hidden' />
+
+                    <div class='card mb-3 ' >
+
+                        <div class='row g-0'>
+                            <div class='col-md-4'>
+                                <a href='${metadata_request_url}'><img src='${metadata_thumbnail_url}' alt='${metadata_title}'></a>
+                            </div>
+                            <div class='col-md-8'>
+                                <div class='card-body'>
+                                    <h5 class='card-title' style='text-align:left;'><a href='${metadata_request_url}'>${metadata_title}</a></h5>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+
+                </div>
+            {{/if}}
+
+
+        </div>
+
+        <div class="profile-item-post-actions" >
+
+            <div id="profile-likes-${post_uid}" class="likes-btn-wrapper">
+                <button class="icon-likes" ></button>
+                <div class="count">${total_likes}</div>
+            </div>
+
+            <div id="post-dislikes-${post_id}" class="dislikes-btn-wrapper">
+                <button class="icon-dislikes" ></button>
+                <div class="count">${total_dislikes}</div>
+            </div>
+
+            <div class="reply-btn-wrapper">
+                <button class="icon-reply" data-bs-toggle="collapse" data-bs-target="#post-reply-${post_id}" ></button>
+                <div class="count" data-bs-toggle="collapse" data-bs-target="#post-reply-${postsss_id}">Reply</div>
+            </div>
+
+            <div id="post-reply-${post_id}" class="post-wrapper collapse " >
+                <textarea placeholder="Add a public reply..."></textarea>
+                <div class="urls collapse"></div>
+            </div>
+
+            <div id="post-replies-${post_id}" class="reply-posts-wrapper collapse" ></div>
+
+            <div class="replies-wrapper">
+              {{if total_replies > 0 }}
+                <div class="show-more">View <span class="count">${total_replies}</span> replies</div>
+              {{/if}}
+            </div>
+
+        </div>
+
+    </div>
+</script>
