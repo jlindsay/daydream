@@ -25,6 +25,8 @@ $(function() {
        var _friends   = []
        var _freinds = []
        var _friends_hash = {}
+       var _whosOnline={};
+
        //var _username;
        var _connected = false;
        var _is_typing = false;
@@ -318,6 +320,13 @@ $(function() {
       _socket.on('user-joined', function(data)
       {
           console.log("$.fn.chat::new-message():data:", data)
+          updateWhosOnline( data.user.userid )
+
+          if( isUserFriend(data.user.userid) ){
+            //update contact/friend list status
+            //alert user contact/friend is online
+          }
+          
           log( data.user.userid, "user-joined", data.user.username +" joined", {} );
           //addParticipantsMessage(data);
       });
@@ -326,8 +335,8 @@ $(function() {
       _socket.on('user-left', function(data)
       {
            console.log("$.fn.chat::user-left():data:", data)
-           log(_userid, "stop-typing", data.user.username + " stopped typing")
-           log(_userid, "user-left", data.user.username + " has left")
+           log( _userid, "stop-typing", data.user.username + " stopped typing")
+           log( _userid, "user-left", data.user.username + " has left")
       });
 
       // Whenever the server emits 'typing', show the typing message
@@ -364,6 +373,23 @@ $(function() {
            console.log("$.fn.chat::user-reconnect-error:(e):e:",e)
            log( _userid, "reconnect_error" ,'attempt to reconnect has failed' );
       });
+
+      function whosOnline()
+      {
+          return _whosOnline;
+      }
+
+
+      function updateWhosOnline($userid)
+      {
+          _whosOnline[$userid]
+      }
+
+      function isUserFriend($userid, $data)
+      {
+           console.log( "$.fn.chat::isUserFriend:():userid:", $userid )
+           return Boolean( _friends_hash[$userid] )
+      }
 
       function chatMessage( $userid, $msg, $config)
       {

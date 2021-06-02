@@ -198,13 +198,12 @@
     {
         console.log("initActions()");
         $(".actions a").on("click",function(e){
-                //e.preventDefault();
             var elm = $(e.target).closest("a");
                 $(".actions a").removeClass("active");
                 elm.addClass("active");
                 //console.log("elm:", elm, ", href:",  $(elm).attr("href") );
             var state = $(elm).attr("href").split("#").join("");
-                //console.log("debug:state:",state)
+                console.log("debug:state:",state)
                 _newsfeed.focus(state);
         });
 
@@ -226,27 +225,33 @@
     }
 
 
-        function parseHashState()
-        {
-          var hash = $(location).attr('hash').split("#")[1];
-          var state = _state;
+    function parseHashState()
+    {
+      var hash = $(location).attr('hash').split("#")[1];
+      var state = _state;
 
-          switch(hash)
-          {
-              case "my-videos":
-                  state = hash;
-                  break;
-              case "search":
-                  state = hash;
-                  break;
-              case "my-news-feed":
-              default:
-                  state = "my-news-feed";
-                  break;
+      switch(hash)
+      {
+          case "my-videos":
+              state = hash;
+              break;
+          case "following":
+              state = hash;
+              break;
+          case "followers":
+              state = hash;
+              break;
+          case "search":
+              state = hash;
+              break;
+          case "my-news-feed":
+          default:
+              state = "my-news-feed";
+              break;
 
-          }
-          return state;
-        }
+      }
+      return state;
+    }
 
 
 </script>

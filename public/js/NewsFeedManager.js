@@ -9,6 +9,7 @@
 function NewsFeedManager( $config )
 {
     var self = this;
+
     var _config= $config || {};
     var _userid="";
 
@@ -18,6 +19,9 @@ function NewsFeedManager( $config )
 
     var _post={};
     var _posts=[];
+
+    var _profile={};
+    var _profiles=[];
 
     var _comments=[];
     var _comment=[];
@@ -1074,6 +1078,80 @@ function NewsFeedManager( $config )
     }
 
 
+    function getUserFollowers($userid, $config)
+    {
+        console.log("NewsFeedManager:getUserFollowers(userid:"+$userid+")");
+            $config = $config || {};
+        var limit = $config.limit || cons("DEFAULT_LIMIT");
+        var offset = $config.offset || 0;
+
+        $.ajax({
+              url: cons("NEWSFEED_API_URL"),
+              dataType: 'json',
+              cache: false,
+              data: {
+                action : "get-user-followers",
+                userid : $userid,
+                limit  : limit,
+                offset : offset,
+              },
+             success: function($data){
+                _profiles = $data.data || [] ;
+                try{
+                    $config.success(_profiles);
+                }catch(e){
+                    //
+                }
+            },
+            error : function($data)
+            {
+                try{
+                    $config.success();
+                }catch(e){
+                    //
+                }
+
+            }
+        });
+
+    }
+    function getUserFollowing($userid, $config)
+    {
+      console.log("NewsFeedManager:getUserFollowing(userid:"+$userid+")");
+          $config = $config || {};
+      var limit = $config.limit || cons("DEFAULT_LIMIT");
+      var offset = $config.offset || 0;
+
+      $.ajax({
+            url: cons("NEWSFEED_API_URL"),
+            dataType: 'json',
+            cache: false,
+            data: {
+              action : "get-user-following",
+              userid : $userid,
+              limit  : limit,
+              offset : offset,
+            },
+           success: function($data){
+              _profiles = $data.data || [] ;
+              try{
+                  $config.success(_profiles);
+              }catch(e){
+                  //
+              }
+          },
+          error : function($data)
+          {
+              try{
+                  $config.success();
+              }catch(e){
+                  //
+              }
+
+          }
+        });
+    }
+
 /*
     function getUserWatchHistory($userid, $config)
     {
@@ -1401,6 +1479,9 @@ function NewsFeedManager( $config )
         createCard              : createCard,
         getUserNewsFeed         : getUserNewsFeed,
         getNewsFeed             : getNewsFeed,
+
+        getUserFollowers        : getUserFollowers,
+        getUserFollowing        : getUserFollowing,
 
         shortenText             : shortenText,
         createNewsFeedInput     : createNewsFeedInput,

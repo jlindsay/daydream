@@ -55,6 +55,9 @@
          var _edit_video_metadata_modal;
          var _video_overlay_modal;
 
+         var _profile_ui_elm;
+         var _profile_elm;
+
          var _comments_ui_elm;
          var _comments_elm;
          var _search_elms;
@@ -63,6 +66,8 @@
          var _videos = [];
          var _posts = [];
          var _card_metadata;
+
+         var _profiles=[];
 
          var _delete_post_modal;
          var _edit_post_metadata_modal;
@@ -105,7 +110,6 @@
             if( _onNotes ){
                _notes.listen( _onNotes )
             }
-
 
 /*
             _ui_is_tile = Boolean( $.cookie("_ui_is_tile") );
@@ -191,6 +195,7 @@
                     _vm.getVideo( _userid, _vid,{ success  : initRenderVideo,
                                                    error   : searchError });
                     break;
+
                  case "get-post":
                     _state = state;
                     _is_loading = true;
@@ -200,6 +205,33 @@
                     _nfm.getPost( _userid, _pid,{ success : initRenderPost,
                                                   error   : searchError });
                     break;
+
+                //case "who-follows-me":
+                case "followers":
+                    _state = state;
+                    _is_loading = true;
+                    renderMessage( "#title", "My Followers" );
+                    cleanSearchResults();
+                    initProfilesUI();
+                    _nfm.getUserFollowers( _userid, { offset  : _offset,
+                                                      limit   : _limit,
+                                                      success : initRenderProfiles,
+                                                      error   : searchError });
+                  break;
+
+                //case "who-i-following":
+                case "following":
+                    _state = state;
+                    _is_loading = true;
+                    renderMessage( "#title", "Who I Follow" );
+                    cleanSearchResults();
+                    initProfilesUI();
+                    _nfm.getUserFollowing( _userid, { offset  : _offset,
+                                                      limit   : _limit,
+                                                      success : initRenderProfiles,
+                                                      error   : searchError });
+                  break;
+
                  case "news-feed":
                      _state = state;
                      _is_loading = true;
@@ -360,8 +392,6 @@
              }
          }
 
-
-
          function initCommentsUI()
          {
              console.log("$.newsfeed::initCommentsUI()");
@@ -416,6 +446,31 @@
              }).masonry('bindResize');
          }
 
+        function initProfilesUI()
+        {
+             console.log("$.newsfeed::initProfilesUI()");
+             _elms.empty()
+                  .append( createProfilesContainer() )
+
+             _profile_ui_elm  = _elms.find(".profile-ui")
+             _profile_elm     = _elms.find(".profile-items")
+
+             //_delete_post_modal         = $("#delete-post-modal")
+             //_edit_post_metadata_modal  = $("#edit-post-metadata-modal")
+             //_post_overlay_modal        = $("#view-post-modal")
+
+             //_f_ui_elm.empty().html( createNewsFeedInput() ).show()
+
+             //initFollowersMetadataModal()
+             //initFollowersInputUI(_show_followers_ui)
+
+
+             _profile_elm.find(".profile-content").masonry({ itemSelector : '.box',
+                                                             columnWidth  : 10,
+                                                             isAnimated   : true
+             }).masonry('bindResize');
+         }
+
          function initPostsUI()
          {
              console.log("$.newsfeed::initPostsUI()");
@@ -461,6 +516,31 @@
                  initTemplates();
              });
          }
+
+         /*
+                  function initRenderProfiles($profiles){}
+                  function initRenderFollowing
+         */
+
+        function initRenderProfiles($profiles)
+        {
+            console.log('$.newsfeed::initRenderProfiles:profile:', $profiles);
+            _profiles = $profiles;
+            _profile_elm.empty();//.append("<img src='/img/spinner.gif' />");
+            _profile_ui_elm.empty();
+/*
+            if( !_profiles ){
+               //renderNoVideosMessage();
+            }
+*/
+
+            $.get('/tmpl/profile-and-posts-tmpl.html', function($template) {
+                $('body').append($template);
+                renderProfiles($profiles);
+                initTemplates();
+            });
+        }
+
 
          function initRenderPost($post)
          {
@@ -649,6 +729,62 @@
                  //$(".big-post-item-tmpl .embed-wrapper textarea").html(embed_code);
          }
 
+         function renderProfiles($profiles, $config)
+         {
+             console.log("$.newsfeed::renderProfiles()", $profiles)
+             $config = $config ? $config : {};
+             $config.prepend = $config.prepend? $config.prepend : false;
+
+             if( _profiles.length <= 0 ){
+                 //$("#search-ui").empty().html(html).show()
+                 //_nfposts_elm.empty();
+                 resizeSearchResults();
+             }
+
+             //_profiles = _profiles || []
+             //_profiles = _profiles.concat( $profiles );
+
+              $.each( $profiles, function($i,$val){
+/*
+                 var comments = $val.comments;
+                 $.each( comments, function($j, $comment){
+
+                     if( $comment.content && $comment.content.length > 120 ){
+                         $comment.content = $comment.content.substring(0, 120) + '...';
+                     }
+                  })
+
+                  if( $val.metadata_description && $val.metadata_description.length > 240 ){
+                      $val.metadata_description = $val.metadata_description.substring(0, 240) + '...';
+                  }
+                      $val.date = ($val.date_created) ? _dateUtils.tsToSlashDate( $val.date_created ) : "NA";
+*/
+              });
+
+              var post_elms = $('#profile-and-posts-tmpl').tmpl($profiles);
+                  post_elms.find(".profile-item-post").addClass("profile-post")
+
+                  if( $config.prepend ){
+                      _profile_elm.prepend(post_elms).masonry( 'reloadItems' );
+                  }else{
+                      _profile_elm.append(post_elms)//.masonry( 'reloadItems' );
+                  }
+
+                  resizeSearchResults();
+ /*
+                  if( _isFiltered ){
+                     filterVideos( $("#filterVideos").val() );
+                  }
+ */
+                  _profile_elm.masonry( 'appended', post_elms );
+
+                  _profile_elm.imagesLoaded(function(){
+                      console.log("_profile_elm:imagesLoaded():_is_loading:",_is_loading);
+                      _profile_elm.find(".profile-and-posts-tmpl .profile-item-thumbnail-container .thumbnail-img").animate({opacity: 1});
+                      resizeSearchResults();
+                      _is_loading = false;
+                  });
+         }
 
          function renderNewsFeed($posts,$config)
          {
@@ -732,6 +868,7 @@
                        comment.content = shortenText(comment.content, 120);
                      }
                  })
+
                  if(val.description){
                     val.description = shortenText(val.description, 240);
                  }
@@ -802,24 +939,32 @@
 
          function initSearchResultsVideos($results)
          {
+//             console.log("$.newsfeed::initSearchResultsVideos()");
              renderVideos($results.data)
          }
 
 
          function initTemplates()
          {
-            console.log("$newsfeed:initTemplates");
+            console.log("$.newsfeed::initTemplates");
             cleanTemplate();
             initNewsfeedTemplates();
             initVideoTemplates();
             initCommentsTemplates();
+            initProfilesTemplates();
             updateUIbyState()
+         }
+
+         function initProfilesTemplates()
+         {
+           console.log("$.newsfeed::initProfilesTemplates()");
+           initSearchUI( "tile" )
          }
 
          function initNewsfeedTemplates()
          {
 
-             console.log("initNewsfeedTemplates()");
+             console.log("$.newsfeed::initNewsfeedTemplates()");
 
              initSearchUI( "tile" )
 
@@ -3395,6 +3540,34 @@
                                                       limit  : _limit,
                                                       success: renderNewsFeed });
                       break;
+
+                  case "followers":
+                  //case "who-follows-me":
+                      _state = state;
+                      _is_loading = true;
+                      renderMessage( "#title", "My Followers" );
+                      cleanSearchResults();
+                      initProfilesUI();
+                      _nfm.getUserFollowers( _userid, { offset  : _offset,
+                                                        limit   : _limit,
+                                                        success : renderProfiles,
+                                                        error   : searchError });
+                    break;
+
+                  case "following":
+                  //case "who-i-following":
+                      _state = state;
+                      _is_loading = true;
+                      renderMessage( "#title", "Who I Follow" );
+                      cleanSearchResults();
+                      initProfilesUI();
+                      _nfm.getUserFollowing( _userid, { offset  : _offset,
+                                                        limit   : _limit,
+                                                        success : renderProfiles,
+                                                        error   : searchError });
+                    break;
+
+
                 case "related-posts":
                     _is_loading = true;
                     renderMessage( "#title", "Related Posts" );
@@ -3913,6 +4086,13 @@
          {
            console.log("$.newsfeed::createVideoContainer()");
            return "<div class='video-ui'>ui</div><div class='video-posts'>videos</div>"
+         }
+
+
+         function createProfilesContainer()
+         {
+           console.log("$.newsfeed::createFollowContainer()");
+           return "<div class='profile-ui'>ui</div><div class='profile-items'>profiles</div>"
          }
 
          function creatNewsfeedContainer()

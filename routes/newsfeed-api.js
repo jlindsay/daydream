@@ -196,6 +196,30 @@ router.get( '/', function( req, res, next ){
                 });
 
                 break;
+            case "get-user-followers":
+                _nfm.getUserFollowers( _userid, _limit, _offset, config, function(data){
+                          res.json( { "status"    : "success",
+                                      "userid"    : _userid,
+                                      "action"    : _action,
+                                      "limit"     : _limit,
+                                      "offset"    : _offset,
+                                      "data"      : data
+                          });
+                });
+
+                break;
+            case "get-user-following":
+                _nfm.getUserFollowing( _userid, _limit, _offset, config, function(data){
+                          res.json( { "status"    : "success",
+                                      "userid"    : _userid,
+                                      "action"    : _action,
+                                      "limit"     : _limit,
+                                      "offset"    : _offset,
+                                      "data"      : data
+                          });
+                });
+
+                break;
 
             case "mark-comment-as-read":
                 _nfm.markCommentAsRead( _userid, _comment_id, config, function($data){

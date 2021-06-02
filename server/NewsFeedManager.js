@@ -11,6 +11,7 @@
 function NewsFeedManager()
 {
     var self        = this;
+    var trim        = require('trim');
 //    var _um;      = require('./UserManager');
     var _notes      = require('./NotificationManager');
 
@@ -41,16 +42,18 @@ function NewsFeedManager()
     var _comments = [];
     var _likes  = [];
     var _total_comments = 0;
-
+    var _profiles = [];
     var _limit = 20;
     var _search_resutls;
 
     var DEFAULT_COMMENTS_LIMIT  = 5;
     var DEFAULT_LIKES_LIMIT     = 20;
     var DEFAULT_DISLIKES_LIMIT  = 20;
+    var DEFAULT_POSTS_LIMIT     = 20;
+    var DEFAULT_VIDEOS_LIMIT    = 20;
 
-    var CONTENT_SHORT_LENGTH = 120;
-    var DESCRIPTION_SHORT_LENGTH = 240;
+    var CONTENT_SHORT_LENGTH      = 120;
+    var DESCRIPTION_SHORT_LENGTH  = 240;
 
     function createPost( $userid, $content, $metadata, $cb )
     {
@@ -438,13 +441,14 @@ function NewsFeedManager()
             } );
     }
 
-    function getUserNewsFeed( userid, limit, offset, config, cb )
+    function getUserNewsFeed( $userid, $limit, $offset, $config, $cb )
     {
-//            console.log("NewsFeedManager:getUserNewsFeed():userid,", userid, ", limit:", limit, "offset:", offset );
-            userid  = userid ? trim( userid ) : null;
-            offset  = offset ? trim( offset ) : 0;
-            limit   = limit ? trim( limit ) : 20;
-            //is_loggedin = config.is_loggedin || false;
+            console.log("NewsFeedManager:getUserNewsFeed():userid,", $userid, ", limit:", $limit, "offset:", $offset );
+
+            $userid  = $userid ? $userid  : null;
+            $offset  = $offset ? $offset : 0;
+            $limit   = $limit  ? $limit  : 20;
+
 
             var SQL = "SELECT posts.* , \
                               posts.uid AS pid , \
@@ -464,12 +468,74 @@ function NewsFeedManager()
                             JOIN users ON users.uid = posts.userid  \
                                         WHERE posts.userid = '{{userid}}'  \
                                         ORDER BY posts.date_created DESC LIMIT {{limit}} OFFSET {{offset}}; \
+                    ".split("{{userid}}").join($userid)
+                    .split("{{limit}}").join($limit)
+                    .split("{{offset}}").join($offset);
+
+                queryPosts( $userid, SQL, $config, $cb );//NOTE FIX ME
+
+    }
+
+
+    function getUserFollowers( userid, limit, offset, config, cb )
+    {
+//            console.log("NewsFeedManager:getUserFollowers():userid,", userid, ", limit:", limit, "offset:", offset );
+            userid  = userid ? trim( userid ) : null;
+            offset  = offset ? Number( offset ) : 0;
+            limit   = limit ? Number( limit ) : 20;
+            //is_loggedin = config.is_loggedin || false;
+
+            var SQL = "SELECT users.uid AS userid,  \
+                              users.profile_url,   \
+                              users.first_name,   \
+                              users.last_name,   \
+                              users.level,   \
+                              users.about_me,  \
+                              CONCAT( users.first_name, ' ' , users.last_name ) AS full_name,  \
+                              ( SELECT COUNT(*) FROM followers WHERE followers.userid = users.uid ) AS total_followers,   \
+                              ( SELECT COUNT(*) FROM followers WHERE followers.follower_userid = users.uid ) AS total_following   \
+                        FROM users  \
+                            JOIN followers ON users.uid = followers.userid   \
+                                WHERE users.uid = '{{userid}}'  \
+                                        ORDER BY users.last_name   \
+                                        DESC LIMIT {{limit}} OFFSET {{offset}}; \
                     ".split("{{userid}}").join(userid)
                     .split("{{limit}}").join(limit)
                     .split("{{offset}}").join(offset);
 
-                queryPosts( userid, SQL, config, cb );//NOTE FIX ME
+                console.log("SQL:", SQL )
 
+                queryProfiles( userid, SQL, config, cb );
+    }
+
+    function getUserFollowing( userid, limit, offset, config, cb )
+    {
+//            console.log("NewsFeedManager:getUserFollowing():userid,", userid, ", limit:", limit, "offset:", offset );
+            userid  = userid ? trim( userid ) : null;
+            offset  = offset ? Number( offset ) : 0;
+            limit   = limit ? Number( limit ) : 20;
+            //is_loggedin = config.is_loggedin || false;
+
+            var SQL = "SELECT users.uid AS userid, \
+                              users.profile_url, \
+                              users.first_name, \
+                              users.last_name, \
+                              users.level, \
+                              CONCAT( users.first_name, ' ' , users.last_name ) AS full_name,  \
+                              ( SELECT COUNT(*) FROM followers WHERE followers.userid = users.uid ) AS total_followers,   \
+                              ( SELECT COUNT(*) FROM followers WHERE followers.follower_userid = users.uid ) AS total_following   \
+                        FROM users  \
+                            JOIN followers ON users.uid = followers.userid  \
+                                  WHERE users.uid = '{{userid}}'  \
+                                        ORDER BY users.last_name DESC   \
+                                        LIMIT {{limit}} OFFSET {{offset}}; \
+                    ".split("{{userid}}").join(userid)
+                    .split("{{limit}}").join(limit)
+                    .split("{{offset}}").join(offset);
+
+                console.log("SQL:", SQL )
+
+                queryProfiles( userid, SQL, config, cb );
     }
 
     function getNewsFeed( userid, limit, offset, config, cb )
@@ -1586,6 +1652,39 @@ function NewsFeedManager()
     }
 
 
+    function getUserVideos( userid, limit, offset, config, cb )
+    {
+//            console.log("VideoManager:getVideos():userid,", userid, "limit:", limit, "offset:", offset );
+            userid  = userid? trim(userid) : null;
+            offset  = offset? trim( offset ) : 0;
+            limit   = limit?  limit : 20;
+
+        var SQL = "SELECT videos.* , \
+                          videos.uid AS vid , \
+                          users.uid AS userid, \
+                          users.profile_url, \
+                          users.first_name, \
+                          users.last_name, \
+                          users.level, \
+                          CONCAT( users.first_name, ' ' , users.last_name ) AS full_name,  \
+                          ( SELECT COUNT(*) FROM followers WHERE followers.userid = users.uid ) AS total_followers ,   \
+                          ( SELECT COUNT(*) FROM comments WHERE comments.vid = videos.uid ) AS total_comments, \
+                          ( SELECT COUNT(*) FROM comments WHERE comments.type = 'comment' AND comments.vid = videos.uid ) AS total_replies_2_video , \
+                          ( SELECT COUNT(*) FROM comments WHERE comments.type = 'reply-2-comment' AND comments.vid = videos.uid ) AS total_replies_2_comments , \
+                          ( SELECT COUNT(*) FROM liked WHERE liked.vid = videos.uid AND content_type = 'video' AND liked.status = 'true' ) AS total_likes , \
+                          ( SELECT COUNT(*) FROM liked WHERE liked.vid = videos.uid AND content_type = 'video' AND liked.status = 'false' ) AS total_dislikes \
+                    FROM videos  \
+                        JOIN users ON users.uid = videos.userid  \
+                                    WHERE videos.userid = '{{userid}}'  \
+                                    ORDER BY videos.date_created DESC LIMIT {{limit}} OFFSET {{offset}}; \
+                ".split("{{userid}}").join(userid)
+                .split("{{limit}}").join(limit)
+                .split("{{offset}}").join(offset);
+
+    //                console.log(SQL)
+
+            query( userid, SQL, config, cb );
+    }
 
 
     function queryPosts( $userid, $sql, $config, $cb )
@@ -1651,7 +1750,7 @@ function NewsFeedManager()
                         try{
                             $post_cb( posts );
                         }catch(e){
-                            //console.log("postsManager:queryposts:updateCounter:error:", e);
+                            console.log("postsManager:queryposts:updateCounter:error:", e);
                         }
                     }
                 };
@@ -1722,9 +1821,96 @@ function NewsFeedManager()
             });
     }
 
+    function queryProfiles( userid, sql, config, cb )
+    {
+            console.log("queryProfiles():userid:", userid, ", SQL:",sql );
+            userid  = userid ? trim(userid) : null;
+
+            var profiles = [];
+
+            _con.query( sql )
+            .then(function(rows){
+                if(rows.length <= 0 ){
+                    cb(rows);
+                    return rows;
+                }
+
+                var posts_count     = 0;
+                var videos_count    = 0;
+
+                var config = config || {}
+                var posts_limit  = config.posts_limit   || DEFAULT_POSTS_LIMIT;
+                var videos_limit = config.videos_limit  || DEFAULT_VIDEOS_LIMIT;
+
+                var posts_offset  = config.posts_offset  || 0;
+                var videos_offset = config.videos_offset || 0;
+
+                function updateCounter(type, video, profile_cb )
+                {
+                    //console.log("NewsFeedManager.queryProfiles::updateCounter(type:", type );
+                    if( type == "posts" ){
+                        posts_count++;
+                    }
+
+                    if( type == "videos" )
+                    {
+                        videos_count++
+                    }
+
+                    if( posts_count == rows.length &&
+                        videos_count == rows.length &&
+                        rows.length ){
+                        try{
+                          //  console.log("NewsFeedManager.queryProfiles:updateCounter:comments_count:", posts_count, ", likes_count:", videos_count, "rows.length", rows.length  );
+                            profile_cb( profiles );
+                        }catch(e){
+                            console.log("NewsFeedManager.queryProfiles:updateCounter:error:", e);
+                        }
+                    }
+                };
+
+                _.each( rows, function(row){
+                    var profile = row;
+                        console.log("profile:", profile)
+                        config.user           = config.user || {};
+
+                        profile.is_author     = Boolean( profile.userid == userid );
+
+                        //console.log("NewsFeedManager.queryProfiles:user:", config.user.is_admin)
+                        profile.is_admin      = config.user.is_admin || false;
+                        profile.is_staff      = config.user.is_staff || false;
+                        profile.is_moderator  = config.user.is_moderator || false;
+                        profile.is_loggedin   = config.user.is_loggedin || false;
+
+                        profile.posts = [];
+                        profile.videos = [];
+
+                        profile.total_followers = formatNumberby1k(Number(profile.total_followers));
+                        profile.total_following = formatNumberby1k(Number(profile.total_following));
+
+                        profiles.push( profile );
+                        console.log("profile.userid,",profile.userid,", posts_limit:",posts_limit,", posts_offset:", posts_offset)
+
+                        getUserNewsFeed( profile.userid, 20, posts_offset, config, function($posts){
+                            profile.posts = $posts;
+                            updateCounter("posts", profile, cb );
+                        });
+
+                        getUserVideos( userid, videos_limit, videos_offset, config, function($videos){
+                            profile.videos = $videos;
+                            updateCounter("videos", profile, cb );
+                        });
+
+                })
+            }).catch(function(e){
+                console.log("NewsFeedManager.queryProfiles():error:" , e);
+                cb(e);
+            });
+    }
+
     function query( userid, sql, config, cb )
     {
-    //        console.log("query():userid:", userid, ", SQL:",sql );
+//        console.log("query():userid:", userid, ", SQL:",sql );
         var _query_results = [];
 
         _con.query( sql )
@@ -1760,6 +1946,9 @@ function NewsFeedManager()
 
         getUserNewsFeed         : getUserNewsFeed,
         getNewsFeed             : getNewsFeed,
+
+        getUserFollowers        : getUserFollowers,
+        getUserFollowing        : getUserFollowing,
 
         getPostDislikes         : getPostDislikes,
         getPostCommentDislikes  : getPostCommentDislikes,
