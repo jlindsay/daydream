@@ -7,7 +7,7 @@
         <input id="profile_url" type="hidden" value="${profile_url}"/>
         <div id="vid-${uid}" class="video-item-thumbnail-container">
             <a href="/profile/${userid}" alt="${fulle_name}"><img class="video-item-author" src="${profile_url}" /></a>
-            <a href="/w/${uid}"><button class="play-icon" ></button></a>
+            <a href="/profile/${userid}"><button class="play-icon" ></button></a>
             {{if is_author == "true"}}
                 <button class="icon-white-edit" ></button>
                 <ul class="edit-dropdown-menu" >
@@ -15,12 +15,12 @@
                     <li><a href="#action-delete-video">delete</a></li>
                 </ul>
             {{/if}}
-            <a href="/w/${uid}"><img src="${thumbnail_url}" class="video-item-thumbnail" /></a>
+            <a href="/profile/${userid}"><img src="${thumbnail_url}" class="video-item-thumbnail" /></a>
         </div>
 
         <div class="video-item-metadata">
             <div class="video-item-summary">
-                <div><a href="/w/${uid}" class="video-item-title">${title}</a></div>
+                <div><a href="/profile/${uid}" class="video-item-title">${title}</a></div>
                 <div class="video-item-description">${description}</div>
             </div>
             <div class="video-item-actions" >

@@ -1824,7 +1824,7 @@ function NewsFeedManager()
 
     function queryProfiles( userid, sql, config, cb )
     {
-            console.log("queryProfiles():userid:", userid, ", SQL:",sql );
+//            console.log("queryProfiles():userid:", userid, ", SQL:",sql );
             userid  = userid ? trim(userid) : null;
 
             var profiles = [];
@@ -1865,7 +1865,7 @@ function NewsFeedManager()
                           //  console.log("NewsFeedManager.queryProfiles:updateCounter:comments_count:", posts_count, ", likes_count:", videos_count, "rows.length", rows.length  );
                             profile_cb( profiles );
                         }catch(e){
-                            console.log("NewsFeedManager.queryProfiles:updateCounter:error:", e);
+                            //console.log("NewsFeedManager.queryProfiles:updateCounter:error:", e);
                         }
                     }
                 };
@@ -1904,7 +1904,7 @@ function NewsFeedManager()
 
                 })
             }).catch(function(e){
-                console.log("NewsFeedManager.queryProfiles():error:" , e);
+                //console.log("NewsFeedManager.queryProfiles():error:" , e);
                 cb(e);
             });
     }

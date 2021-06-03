@@ -67,7 +67,7 @@
          var _posts = [];
          var _card_metadata;
 
-         var _profiles=[];
+         var _profiles = [];
 
          var _delete_post_modal;
          var _edit_post_metadata_modal;
@@ -165,6 +165,15 @@
 
                 if( _comments_elm){
                     _comments_elm.masonry({
+                        itemSelector: '.box',
+                        columnWidth: 10,
+                        isAnimated: true,
+                        queue:false
+                    });
+                }
+
+                if( _profile_elm){
+                    _profile_elm.masonry({
                         itemSelector: '.box',
                         columnWidth: 10,
                         isAnimated: true,
@@ -779,7 +788,7 @@
                   _profile_elm.masonry( 'appended', post_elms );
 
                   _profile_elm.imagesLoaded(function(){
-                      console.log("_profile_elm:imagesLoaded():_is_loading:",_is_loading);
+                      //console.log("_profile_elm:imagesLoaded():_is_loading:",_is_loading);
                       _profile_elm.find(".profile-and-posts-tmpl .profile-item-thumbnail-container .thumbnail-img").animate({opacity: 1});
                       resizeSearchResults();
                       _is_loading = false;
@@ -1985,8 +1994,8 @@
                       menu.removeClass("is-open");
                       menu.hide();
               });
-///////////////////////////////////comment///////////////////////////////////
 
+///////////////////////////////////comment///////////////////////////////////
 
              $(document).on("mouseover",".post-item-tmpl .post-item-comment-text .icon-edit", function(e){
                      e.preventDefault();
@@ -3519,7 +3528,7 @@
 
          function updateFeed(action, offset, limit)
          {
-             console.log("updateFeed():action:", action );
+             console.log("updateFeed():action:", action, ", offset:", offset, ", limit:", limit );
              _offset  = offset || 0;
              _limit   = limit || 10;
 
@@ -3543,28 +3552,26 @@
 
                   case "followers":
                   //case "who-follows-me":
-                      _state = state;
+                      //_state = state;
                       _is_loading = true;
                       renderMessage( "#title", "My Followers" );
-                      cleanSearchResults();
-                      initProfilesUI();
+//                      cleanSearchResults();
+//                      initProfilesUI();
                       _nfm.getUserFollowers( _userid, { offset  : _offset,
                                                         limit   : _limit,
-                                                        success : renderProfiles,
-                                                        error   : searchError });
+                                                        success : renderProfiles });
                     break;
 
                   case "following":
                   //case "who-i-following":
-                      _state = state;
+                      //_state = state;
                       _is_loading = true;
                       renderMessage( "#title", "Who I Follow" );
-                      cleanSearchResults();
-                      initProfilesUI();
+//                      cleanSearchResults();
+//                      initProfilesUI();
                       _nfm.getUserFollowing( _userid, { offset  : _offset,
                                                         limit   : _limit,
-                                                        success : renderProfiles,
-                                                        error   : searchError });
+                                                        success : renderProfiles });
                     break;
 
 
@@ -3837,6 +3844,12 @@
             cleanVideoTemplate()
             cleanCommentTempalte()
             cleanNewsFeedTemplate()
+            cleanProfileTemplate()
+         }
+
+         function cleanProfileTemplate()
+         {
+           console.log("$.newsfeed::cleanProfileTemplate()");
          }
 
          function cleanCommentTempalte()
