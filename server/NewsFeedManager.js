@@ -60,6 +60,7 @@ function NewsFeedManager()
 //            console.log( "NewsFeedManager.createPost():userid:", $userid , ", content:", $content, ", $metadata:", $metadata,);
             $userid                   = utils.addslashes( trim( $userid ));
             $content                  = utils.addslashes( trim( $content ));
+
         var date_created              = utils.DBDate();
         var last_modified             = date_created;
         var uid                       = utils.createBase64UUID();
@@ -181,8 +182,8 @@ function NewsFeedManager()
     {
         console.log("NewsFeedManager:add2History:userid:", userid, ", pid:", pid );
 
-        pid             =  utils.addslashes( trim( pid ) );
-        userid          =  ( userid )? utils.addslashes( trim( userid ) ) : null;
+            pid             =  utils.addslashes( trim( pid ) );
+            userid          =  ( userid )? utils.addslashes( trim( userid ) ) : null;
 
         var page               = trim(config.page) || "NA";
         var platform           = 'na';
@@ -443,11 +444,11 @@ function NewsFeedManager()
 
     function getUserNewsFeed( $userid, $limit, $offset, $config, $cb )
     {
-            console.log("NewsFeedManager:getUserNewsFeed():userid,", $userid, ", limit:", $limit, "offset:", $offset );
+//            console.log("NewsFeedManager:getUserNewsFeed():userid,", $userid, ", limit:", $limit, "offset:", $offset );
 
             $userid  = $userid ? $userid  : null;
-            $offset  = $offset ? $offset : 0;
-            $limit   = $limit  ? $limit  : 20;
+            $offset  = $offset ? Number($offset) : 0;
+            $limit   = $limit  ? Number($limit)  : 20;
 
 
             var SQL = "SELECT posts.* , \
@@ -496,7 +497,7 @@ function NewsFeedManager()
                               ( SELECT COUNT(*) FROM followers WHERE followers.follower_userid = users.uid ) AS total_following   \
                         FROM users  \
                             JOIN followers ON users.uid = followers.userid   \
-                                WHERE users.uid = '{{userid}}'  \
+                                WHERE followers.follower_userid = '{{userid}}'  \
                                         ORDER BY users.last_name   \
                                         DESC LIMIT {{limit}} OFFSET {{offset}}; \
                     ".split("{{userid}}").join(userid)
@@ -525,8 +526,8 @@ function NewsFeedManager()
                               ( SELECT COUNT(*) FROM followers WHERE followers.userid = users.uid ) AS total_followers,   \
                               ( SELECT COUNT(*) FROM followers WHERE followers.follower_userid = users.uid ) AS total_following   \
                         FROM users  \
-                            JOIN followers ON users.uid = followers.userid  \
-                                  WHERE users.uid = '{{userid}}'  \
+                            JOIN followers ON users.uid = followers.follower_userid  \
+                                  WHERE followers.userid = '{{userid}}'  \
                                         ORDER BY users.last_name DESC   \
                                         LIMIT {{limit}} OFFSET {{offset}}; \
                     ".split("{{userid}}").join(userid)
@@ -1871,7 +1872,7 @@ function NewsFeedManager()
 
                 _.each( rows, function(row){
                     var profile = row;
-                        console.log("profile:", profile)
+                        //console.log("profile:", profile)
                         config.user           = config.user || {};
 
                         profile.is_author     = Boolean( profile.userid == userid );
@@ -1889,7 +1890,7 @@ function NewsFeedManager()
                         profile.total_following = formatNumberby1k(Number(profile.total_following));
 
                         profiles.push( profile );
-                        console.log("profile.userid,",profile.userid,", posts_limit:",posts_limit,", posts_offset:", posts_offset)
+                        //console.log("profile.userid,",profile.userid,", posts_limit:",posts_limit,", posts_offset:", posts_offset)
 
                         getUserNewsFeed( profile.userid, 20, posts_offset, config, function($posts){
                             profile.posts = $posts;
