@@ -166,7 +166,8 @@ function NotificationManager()
             console.log( "NotificationManager.createNote():userid:", $userid ,
                                                           ", note:", $note,
                                                           ", type:", $type,
-                                                          ", config:", $config);
+                                                          ", config:", $config,
+                                                          ", cb:", $cb);
 
             $userid         = $userid  ? utils.addslashes( trim( $userid ) ) : null;
             $note           = $note    ? utils.addslashes( trim( $note ) ) : null;
