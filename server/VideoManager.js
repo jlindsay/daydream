@@ -1751,7 +1751,7 @@ function VideoManager()
             //console.log("SQL:", SQL );
 
             query( userid, SQL, config, function($data){
-                  _notes.create_VideoLike_note( userid, pid, uid, {}, function($r){
+                  _notes.create_VideoLike_note( userid, vid, uid, {}, function($r){
                     cb($data)
                   })
             });
