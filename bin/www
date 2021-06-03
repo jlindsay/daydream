@@ -94,7 +94,13 @@ function onListening() {
 /**
  * socket.io code is below
  */
+
+//npm i socket.io-encrypt
+var encrypt = require('socket.io-encrypt')
+
 var io  = require('socket.io')(server);
+//encrypt('secret')(socket)
+
 var _um = require('../server/UserManager')
 
 
@@ -125,7 +131,7 @@ io.on('connection', function(socket){
 
     // we store the username in the socket session for this client
     socket.user = user;
-    
+
     ++numUsers;
 
     addedUser = true;
