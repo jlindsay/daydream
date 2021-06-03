@@ -3421,8 +3421,8 @@
 //           $.cookie("_ui_is_tile", _ui_is_tile);
 //           $.cookie("_ui_is_list", _ui_is_list);
 
-           $(".container #container-ui-options #tile-btn").addClass("active")
-           $(".container #container-ui-options #list-btn").removeClass("active")
+           _elms.find(".container #container-ui-options #tile-btn").addClass("active")
+           _elms.find(".container #container-ui-options #list-btn").removeClass("active")
 
            _elms.find(".post-item-tmpl").addClass("postcard")
            _elms.find(".video-item-tmpl").addClass("videocard")
@@ -3440,8 +3440,8 @@
 //           $.cookie("_ui_is_tile", _ui_is_tile);
 //           $.cookie("_ui_is_list", _ui_is_list);
 
-           $(".container #container-ui-options #tile-btn").removeClass("active")
-           $(".container #container-ui-options #list-btn").addClass("active")
+           _elms.find(".container #container-ui-options #tile-btn").removeClass("active")
+           _elms.find(".container #container-ui-options #list-btn").addClass("active")
 
            _elms.find(".post-item-tmpl").removeClass("postcard")
            _elms.find(".video-item-tmpl").removeClass("videocard")

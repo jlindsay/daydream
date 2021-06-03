@@ -36,7 +36,7 @@
 
         <div id="vid-${vid}" class="video-item-thumbnail-container">
             <a href="/profile/${userid}" alt="${full_name}"><img class="video-item-author" src="${profile_url}" /></a>
-            <a href="/w/${vid}?c=${catagory}"><button class="play-icon" ></button></a>
+            <a href="/w/${vid}"><button class="play-icon" ></button></a>
             {{if is_author }}
                 <button class="icon-white-edit" ></button>
                 <ul class="edit-dropdown-menu">
@@ -45,7 +45,7 @@
                     <li><a href="#action-delete-video">Delete</a></li-->
                 </ul>
             {{/if}}
-            <a href="/w/${vid}?c=${catagory}">
+            <a href="/w/${vid}">
               <img class="thumbnail-img" src="${thumbnail_url}" class="video-item-thumbnail" />
             </a>
         </div>
@@ -63,7 +63,7 @@
                               <li><a tabindex="-1" href="#action-edit-title">Edit</a></li>
                           </ul>
                       {{/if}}
-                      <a href="/w/${vid}?c=${catagory}" class="video-item-title">${title}</a>
+                      <a href="/w/${vid}" class="video-item-title">${title}</a>
                     </div>
 
                     <div class="video-item-description">
