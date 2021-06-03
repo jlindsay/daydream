@@ -105,7 +105,7 @@ function NewsFeedManager()
                       //console.log(SQL);
             //queryPosts( $userid, SQL, {}, function($data){
             query( $userid, SQL, {}, function($data){
-                console.log("queryPosts:success:")
+                //console.log("queryPosts:success:")
                 try{
                       $cb({
                           uid           : uid,
@@ -163,8 +163,8 @@ function NewsFeedManager()
 
 
 
-                  console.log( "deletePost:COMMENt_SQL:", COMMENT_SQL )
-                  console.log( "deletePost:LIKE_SQL:", LIKE_SQL )
+                  //console.log( "deletePost:COMMENt_SQL:", COMMENT_SQL )
+                  //console.log( "deletePost:LIKE_SQL:", LIKE_SQL )
 
                   query( $userid, COMMENT_SQL, {}, function( $results ){
                     //console.log( "COMMENT_SQL::$results:", $results );
@@ -504,7 +504,7 @@ function NewsFeedManager()
                     .split("{{limit}}").join(limit)
                     .split("{{offset}}").join(offset);
 
-                console.log("SQL:", SQL )
+                //console.log("SQL:", SQL )
 
                 queryProfiles( userid, SQL, config, cb );
     }
