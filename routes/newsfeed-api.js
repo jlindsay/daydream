@@ -169,7 +169,6 @@ router.get( '/', function( req, res, next ){
 
         switch( String( _action ) )
         {
-
             case "get-newsfeed":
 
                 _nfm.getNewsFeed( _userid, _limit, _offset, config, function(data){
@@ -185,6 +184,7 @@ router.get( '/', function( req, res, next ){
                 break;
 
             case "get-user-newsfeed":
+
                 _nfm.getUserNewsFeed( _userid, _limit, _offset, config, function(data){
                           res.json( { "status"    : "success",
                                       "userid"    : _userid,
@@ -196,7 +196,9 @@ router.get( '/', function( req, res, next ){
                 });
 
                 break;
+
             case "get-user-followers":
+
                 _nfm.getUserFollowers( _userid, _limit, _offset, config, function(data){
                           res.json( { "status"    : "success",
                                       "userid"    : _userid,
@@ -208,7 +210,9 @@ router.get( '/', function( req, res, next ){
                 });
 
                 break;
+
             case "get-user-following":
+
                 _nfm.getUserFollowing( _userid, _limit, _offset, config, function(data){
                           res.json( { "status"    : "success",
                                       "userid"    : _userid,
@@ -234,6 +238,7 @@ router.get( '/', function( req, res, next ){
                 break;
 
             case "mark-comment-as-unread":
+
                 _nfm.markCommentAsUnread( _userid, _comment_id, config, function($data){
                           res.json( { "status"     : "success",
                                       "userid"     : _userid,
@@ -249,7 +254,6 @@ router.get( '/', function( req, res, next ){
             case "create-post":
 
                 _nfm.createPost( _userid, _content, _metadata, function($data){
-
                     _nfm.getPost( _userid, $data.pid, {}, function($post){
                           res.json( { "status"             : "success",
                                       "userid"             : _userid,
@@ -257,9 +261,7 @@ router.get( '/', function( req, res, next ){
                                       "pid"                : $post.pid,
                                       "data"               : $post
                           });
-
                     })
-
                 });
 
                 break;
@@ -279,7 +281,7 @@ router.get( '/', function( req, res, next ){
 
             case "save-post-metadata":
                 //example: http://localhost:3000/post-api?action=save-post-metadata&userid=JDL007&pid=AimZ51
-                console.log("save-post-metadata: metadata", _metadata);
+//                console.log("save-post-metadata: metadata", _metadata);
                 _nfm.savePostMetadata( _userid, _pid, _metadata, config, function($data){
                     res.json( { "status" : "success",
                                 "action" : _action,
@@ -303,23 +305,22 @@ router.get( '/', function( req, res, next ){
                 break;
 
             case "get-posts":
-                _nfm.getPosts( _userid, _pid, config, function(data){
-                    res.json( { "status"    : "success",
-                                "userid"    : _userid,
-                                "pid"       : _pid,
-                                "action"    : _action,
-                                "offset"    : _offset,
-                                "limit"     : _limit,
-                                "data"      : data
-                    });
-                });
+                  _nfm.getPosts( _userid, _pid, config, function(data){
+                      res.json( { "status"    : "success",
+                                  "userid"    : _userid,
+                                  "pid"       : _pid,
+                                  "action"    : _action,
+                                  "offset"    : _offset,
+                                  "limit"     : _limit,
+                                  "data"      : data
+                      });
+                  });
                 break;
 
             case "post-disliked":
                   //example: http://localhost:3000/post-api?action=post-disliked&pid=AimbDb&userid=JDL007&liked=1
                   _nfm.postDisliked( _userid, _pid, _disliked, config, function(data){
                       _nfm.getPostDislikes( _userid, _pid, _limit, _offset, config, function(data){
-
                           res.json( { "status"            : "success",
                                        "action"           : _action,
                                        "userid"           : _userid,
@@ -337,26 +338,24 @@ router.get( '/', function( req, res, next ){
                   break;
 
             case "post-liked":
+                //example: http://localhost:3000/post-api?action=post-liked&pid=AimbDb&userid=JDL007&liked=1
+                _nfm.postLiked( _userid, _pid, _liked, config, function(data){
+                    _nfm.getPostLikes( _userid, _pid, _limit, _offset, config, function(data){
+                        res.json( { "status"            : "success",
+                                     "action"           : _action,
+                                     "userid"           : _userid,
+                                     "pid"              : _pid,
+                                     "liked"            : _liked,
+                                     "limit"            : _limit,
+                                     "offset"           : _offset,
+                                     "total_likes"      :  "na",
+                                     "user_liked_post"  :  "na",
+                                     "data"             :  data
+                        });
+                    });
+                });
 
-              //example: http://localhost:3000/post-api?action=post-liked&pid=AimbDb&userid=JDL007&liked=1
-              _nfm.postLiked( _userid, _pid, _liked, config, function(data){
-                  _nfm.getPostLikes( _userid, _pid, _limit, _offset, config, function(data){
-
-                      res.json( { "status"            : "success",
-                                   "action"           : _action,
-                                   "userid"           : _userid,
-                                   "pid"              : _pid,
-                                   "liked"            : _liked,
-                                   "limit"            : _limit,
-                                   "offset"           : _offset,
-                                   "total_likes"      :  "na",
-                                   "user_liked_post"  :  "na",
-                                   "data"             :  data
-                      });
-                  });
-              });
-
-              break;
+                break;
 
             case "post-total-likes":
               _nfm.getPostTotalLikes( _pid, function(total){
@@ -383,11 +382,8 @@ router.get( '/', function( req, res, next ){
                 break;
 
             case "post-comment-liked":
-
                     _nfm.postCommentLiked( _userid, _pid, _comment_id, _liked, config, function(data){
-
                         _nfm.getPostCommentLikes( _userid, _pid, _comment_id, _limit, _offset, config, function(data){
-
                             res.json( { "status"      : "success",
                                          "action"     : _action,
                                          "userid"     : _userid,
@@ -399,17 +395,13 @@ router.get( '/', function( req, res, next ){
                                          "data"       :  data
                             });
                         });
-
                     });
 
                 break;
 
               case "post-comment-disliked":
-
                     _nfm.postCommentDisliked( _userid, _pid, _comment_id, _disliked, config, function(data){
-
                         _nfm.getPostCommentDislikes( _userid, _pid, _comment_id, _limit, _offset, config, function(data){
-
                             res.json( { "status"         : "success",
                                          "action"        : _action,
                                          "userid"        : _userid,
@@ -421,7 +413,6 @@ router.get( '/', function( req, res, next ){
                                          "data"          :  data
                             });
                         });
-
                     });
                     break;
 
@@ -482,102 +473,95 @@ router.get( '/', function( req, res, next ){
                                    "data"         : data
                       });
                   });
-                  break;
+                    break;
 
+                case "add-2-read-history":
+                    //example: http://localhost:3000/post-api?action=add2History&pid=AimbDb&userid=JDL007
+                    _nfm.add2ReadHistory( _userid, _pid , config, function(data){
+                        res.json( { "status"    : "success",
+                                    "userid"    : _userid,
+                                    "action"    : _action,
+                                    "pid"       : _pid,
+                                    "data"      : data
+                        });
+                    });
+                    break;
 
-                  case "add-2-read-history":
-                      //example: http://localhost:3000/post-api?action=add2History&pid=AimbDb&userid=JDL007
-                      _nfm.add2ReadHistory( _userid, _pid , config, function(data){
-                          res.json( { "status"    : "success",
-                                      "userid"    : _userid,
-                                      "action"    : _action,
-                                      "pid"       : _pid,
-                                      "data"      : data
+                case "post-comment":
+                    _nfm.createComment(_userid, _pid, _comment, _metadata, config, function(data){
+                          res.json( { "status"   : "success",
+                                      "pid"      : _pid,
+                                      "action"   : _action,
+                                      "comment"  : _comment,
+                                      "metadata" : _metadata,
+                                      "userid"   : _userid,
+                                      "data"     : data
                           });
-                      });
-                  break;
+                    });
 
+                break;
 
-                  case "post-comment":
-
-                      _nfm.createComment(_userid, _pid, _comment, _metadata, config, function(data){
-                            res.json( { "status"   : "success",
-                                        "pid"      : _pid,
-                                        "action"   : _action,
-                                        "comment"  : _comment,
-                                        "metadata" : _metadata,
-                                        "userid"   : _userid,
-                                        "data"     : data
+                case "update-comment":
+                    _nfm.updateComment( _userid, _comment_id, _comment, _metadata, config, function(data){
+                        _nfm.getComment( _userid, _comment_id, config, function(data){
+                            res.json( { "status"      : "success",
+                                        "action"      : _action,
+                                        "comment_id"  : _comment_id,
+                                        "comment"     : _comment,
+                                        "userid"      : _userid,
+                                        "data"        : data
                             });
-                      });
+                        });
 
-                  break;
+                    });
+                    break;
 
-                  case "update-comment":
+                case "reply-2-comment":
+                    _nfm.reply2Comment( _userid, _pid, _comment_id, _comment, _metadata, config, function(data){
+                            res.json( { "status"        : "success",
+                                        "userid"        : _userid,
+                                        "pid"           : _pid,
+                                        "comment_id"    : _comment_id,
+                                        "action"        : _action,
+                                        "comment"       : _comment,
+                                        "metadata"      : _metadata,
+                                        "data"          : data
+                            });
+                    });
 
-                      _nfm.updateComment( _userid, _comment_id, _comment, _metadata, config, function(data){
-                          _nfm.getComment( _userid, _comment_id, config, function(data){
-                              res.json( { "status"      : "success",
-                                          "action"      : _action,
-                                          "comment_id"  : _comment_id,
-                                          "comment"     : _comment,
-                                          "userid"      : _userid,
-                                          "data"        : data
-                              });
-                          });
+                    break;
 
-                      });
-                  break;
+                case "get-comment-replies":
+                    _nfm.getCommentReplies( _userid, _comment_id, _limit, _offset, config, function(data){
 
+                            res.json( { "status"        : "success",
+                                        "action"        : _action,
+                                        "userid"        : _userid,
+                                        "comment_id"    : _comment_id,
+                                        "limit"         : _limit,
+                                        "offset"        : _offset,
+                                        "data"          : data
+                            });
+                    });
+                    break;
 
+                case "delete-comment":
+                    _nfm.deleteComment( _userid, _comment_uid, config, function(data){
+                            res.json( { "status"        : "success",
+                                        "action"        : _action,
+                                        "userid"        : _userid,
+                                        "comment_uid"   : _comment_uid,
+                                        "data"          :  data
+                            });
+                    });
+                    break;
 
-                  case "reply-2-comment":
-                      _nfm.reply2Comment( _userid, _pid, _comment_id, _comment, _metadata, config, function(data){
-                              res.json( { "status"        : "success",
-                                          "userid"        : _userid,
-                                          "pid"           : _pid,
-                                          "comment_id"    : _comment_id,
-                                          "action"        : _action,
-                                          "comment"       : _comment,
-                                          "metadata"      : _metadata,
-                                          "data"          : data
-                              });
-                      });
+                default:
+                    _results.status = "error";
+                    _results.error = "unknown-action";
+                    res.json( _results );
 
-                  break;
-
-                  case "get-comment-replies":
-
-                      _nfm.getCommentReplies( _userid, _comment_id, _limit, _offset, config, function(data){
-
-                              res.json( { "status"        : "success",
-                                          "action"        : _action,
-                                          "userid"        : _userid,
-                                          "comment_id"    : _comment_id,
-                                          "limit"         : _limit,
-                                          "offset"        : _offset,
-                                          "data"          : data
-                              });
-                      });
-                  break;
-
-                  case "delete-comment":
-
-                      _nfm.deleteComment( _userid, _comment_uid, config, function(data){
-                              res.json( { "status"        : "success",
-                                          "action"        : _action,
-                                          "userid"        : _userid,
-                                          "comment_uid"   : _comment_uid,
-                                          "data"          :  data
-                              });
-                      });
-                      break;
-
-                  default:
-                      _results.status = "error";
-                      _results.error = "unknown-action";
-                      res.json( _results );
-                      break;
+                    break;
 
         }
 

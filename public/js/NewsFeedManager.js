@@ -650,12 +650,12 @@ function NewsFeedManager( $config )
 
         $.ajax({
              url: cons("NEWSFEED_API_URL"),
-              dataType: 'json',
-            cache: false,
+             dataType: 'json',
+             cache: false,
              data: {
                 action : "get-user-info",
                 uid : $uid,
-            },
+             },
              success: function($data){
                 _user =  $data.data || [] ;
                 try{
@@ -664,9 +664,9 @@ function NewsFeedManager( $config )
                 {
                     //
                 }
-            },
-            error : function($data)
-            {
+             },
+             error : function($data)
+             {
                 try{
                     $config.success();
                 }catch(e){
@@ -696,7 +696,7 @@ function NewsFeedManager( $config )
                 userid    : $userid,
                 limit     : limit,
                 offset    : offset
-            },
+             },
              success: function($data){
                 console.log("NewFeedManager:search:success:data:", $data);
                 //_search_results = $data.data || [] ;
@@ -706,9 +706,9 @@ function NewsFeedManager( $config )
                 }catch(e){
                     //console.log("something is wrong");
                 }
-            },
-            error : function($data)
-            {
+             },
+             error : function($data)
+             {
                 console.log("NewFeedManager:search:error");
                 try{
                     $config.success();
@@ -716,8 +716,8 @@ function NewsFeedManager( $config )
                     //
                 }
 
-            }
-        });
+             }
+         });
     }
 
 
@@ -726,14 +726,14 @@ function NewsFeedManager( $config )
         console.log("NewFeedManager:add2PostReadHistory(userid:"+$userid+ ", pid:",$pid,")" );
         $.ajax({
              url: cons("NEWSFEED_API_URL"),
-              dataType: 'json',
-            cache: false,
+             dataType: 'json',
+             cache: false,
              data: {
                 action : "add-post-2-read-history",
                 userid : $userid,
                 pid : $pid
             },
-             success: function($data){
+            success: function($data){
 //                _user = $data.data || [] ;
 //                $config.success(_user);
             },
@@ -815,7 +815,6 @@ function NewsFeedManager( $config )
                 }
         });
     }
-
 
     function likePostComment( $userid, $pid, $comment_id, $liked, $config )
     {
@@ -920,23 +919,6 @@ function NewsFeedManager( $config )
                 }
         });
     }
-
-    function getEmbedCode( $pid, $post )
-    {   //console.log("location.protocol:", location.protocol)
-        return '<iframe src="'+location.protocol +"//"+ location.host+'/embed/p/'+$pid+'" width="100%" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-        //return '<iframe id="post-content-' + $pid + '" src="' + $src + '" width="100%" height="100%" style="min-height:400px;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-        //return '<iframe src="https://lindsayfilm.com/embed/'+$vid+'" width="100%" height="100%" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>';
-    }
-
-    function getOGSEmbedCode($pid, $post){
-        return '<iframe src="'+$post.metadata_video_url+'" width="100%" height="100%" style="min-height:400px;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
-    }
-
-    function getOpenEmbedCode($pid, $post){
-        return '<iframe src="'+$post.metadata_video_url+'" width="100%" height="100%" style="min-height:400px;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
-    }
-
-
 
     function savePostMetadata($userid, $pid, $metadata, $config )
     {
@@ -1452,6 +1434,21 @@ function NewsFeedManager( $config )
                      </div> \
                    </div> \
                  </div>"
+    }
+
+    function getEmbedCode( $pid, $post )
+    {   //console.log("location.protocol:", location.protocol)
+        return '<iframe src="'+location.protocol +"//"+ location.host+'/embed/p/'+$pid+'" width="100%" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+        //return '<iframe id="post-content-' + $pid + '" src="' + $src + '" width="100%" height="100%" style="min-height:400px;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+        //return '<iframe src="https://lindsayfilm.com/embed/'+$vid+'" width="100%" height="100%" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>';
+    }
+
+    function getOGSEmbedCode($pid, $post){
+        return '<iframe src="'+$post.metadata_video_url+'" width="100%" height="100%" style="min-height:400px;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
+    }
+
+    function getOpenEmbedCode($pid, $post){
+        return '<iframe src="'+$post.metadata_video_url+'" width="100%" height="100%" style="min-height:400px;" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
     }
 
     function shortenText(text, max_char)
