@@ -96,7 +96,7 @@ function onListening() {
  */
 
 //npm i socket.io-encrypt
-var encrypt = require('socket.io-encrypt')
+//var encrypt = require('socket.io-encrypt')
 
 var io  = require('socket.io')(server);
 //encrypt('secret')(socket)
@@ -108,9 +108,8 @@ io.on('connection', function(socket){
 
   var addedUser = false;
 
-
   var chatID = socket.id
-  console.log("chatID:", chatID)
+      //console.log("chatID:", chatID)
 
   // Chatroom
   var numUsers = 0;

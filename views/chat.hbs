@@ -59,35 +59,33 @@
                   <h2>Howdy<span class="period"></span>, <span class="name">{{user.first_name}}.</span></h2>
                   <p>Lets find something else, shall we?</p>
                   <div class="actions">
-                          <form action="/" style="display:inline-block;">
-                              <span class="material-icons">search</span>
-                              <input type="hidden" name="userid" value="{{user.userid}}">
-                              <input type="search" autocomplete="on" name="q" placeholder="Search?">
-                          </form>
-                      </div>
+                      <form action="/" style="display:inline-block;">
+                          <span class="material-icons">search</span>
+                          <input type="hidden" name="userid" value="{{user.userid}}">
+                          <input type="search" autocomplete="on" name="q" placeholder="Search?">
+                      </form>
+                  </div>
               </div>
           </div>
       </div>
 
 
-        <ul class="pages">
-            <li class="chat page">
-              <div class="chatArea">
-                <ul class="messages"></ul>
-              </div>
-              <input class="inputMessage" placeholder="Type here..."/>
-            </li>
-            <li class="login page">
-              <div class="form">
-                <h3 class="title">What's your nickname?</h3>
-                <input class="usernameInput" type="text" maxlength="14" />
-              </div>
-            </li>
-          </ul>
+      <ul class="pages">
+        <li class="chat page">
+          <div class="chatArea">
+            <ul class="messages"></ul>
+          </div>
+          <input class="inputMessage" placeholder="Type here..."/>
+        </li>
+        <li class="login page">
+          <div class="form">
+            <h3 class="title">What's your nickname?</h3>
+            <input class="usernameInput" type="text" maxlength="14" />
+          </div>
+        </li>
+      </ul>
 
 </div>
-
-
 
 <style>
     body{
@@ -106,7 +104,6 @@
 <script src="/bower/socket.io/client-dist/socket.io.min.js"></script>
 <script src="/js/chat.js"></script>
 
-
 <script>
 
     var _userid               =   '{{user.userid}}';
@@ -120,11 +117,6 @@
     function initUI(e)
     {
         console.log("initUI()");
-
-    }
-
-    function createChatContainer(){
-
     }
 
     function initBGB()

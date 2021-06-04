@@ -326,7 +326,7 @@ $(function() {
             //update contact/friend list status
             //alert user contact/friend is online
           }
-          
+
           log( data.user.userid, "user-joined", data.user.username +" joined", {} );
           //addParticipantsMessage(data);
       });
@@ -461,6 +461,7 @@ $(function() {
                 </div>  \
               "
        }
+
 
        function createContactsUI()
        {

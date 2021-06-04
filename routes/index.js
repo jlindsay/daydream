@@ -13,16 +13,16 @@ var fs                  = require('fs');
 var mv                  = require('mv');
 
 var express             = require('express');
-var router  	          = express.Router();
+var router              = express.Router();
 
-var multer  			      = require('multer');
+var multer              = require('multer');
 var sanitize            = require("sanitize-filename");
 
-var _um     	          = require("../server/UserManager");
-var _vm     	          = require("../server/VideoManager");
-var _nfm     	          = require("../server/NewsFeedManager");
-var _sm     	          = require("../server/SearchManager");
-var _qm     	          = require("../server/QueueManager");
+var _um                 = require("../server/UserManager");
+var _vm                 = require("../server/VideoManager");
+var _nfm                = require("../server/NewsFeedManager");
+var _sm                 = require("../server/SearchManager");
+var _qm                 = require("../server/QueueManager");
 var passport            = require('passport');
 var LocalStrategy       = require('passport-local').Strategy;
 var BearerStrategy      = require('passport-http-bearer').Strategy;
