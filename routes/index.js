@@ -174,6 +174,10 @@ router.get('/signup', function(req, res){
     res.render('signup', { title: 'Lindsay Film | signup' });
 });
 
+router.get('/privacy-policy', function(req, res){
+    res.render('privacy-policy', { title: 'Lindsay Film | Privacy Policy' });
+});
+
 //home
 router.get('/home', ensureLoggedIn('/login') , function(req, res){
     if( req.session.passport.user ){
