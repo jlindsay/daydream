@@ -2004,12 +2004,12 @@ function VideoManager( $config )
                         { url : "https://media.lindsayfilm.com/videos/JDL007/HhSyx7/", file_name : "HhSyx7" } ];
 */
                         //apple tv videos
-        var _videos = [ { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "DB_D001_C001_4K_SDR_HEVC.ios" },
-                        { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "DB_D001_C005_4K_HDR_HEVC.ios" },
-                        { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "DB_D008_C010_4K_HDR_HEVC.ios" },
-                        { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "HK_B005_C011_4K_SDR_HEVC.ios" },
-                        { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "LA_A005_C009_4K_SDR_HEVC.ios" },
-                        { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "LA_A006_C008_4K_SDR_HEVC.ios" },
+        var _videos = [ { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "DB_D001_C001_4K_SDR_HEVC" },
+                        { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "DB_D001_C005_4K_HDR_HEVC" },
+                        { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "DB_D008_C010_4K_HDR_HEVC" },
+                        { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "HK_B005_C011_4K_SDR_HEVC" },
+                        { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "LA_A005_C009_4K_SDR_HEVC" },
+                        { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "LA_A006_C008_4K_SDR_HEVC" },
 //                        { url : "https://media.lindsayfilm.com/videos/podcast/apple-tv/", file_name : "LW_L001_C006_4K_HDR_HEVC.ios" }
                        ];
 
