@@ -559,6 +559,7 @@ router.use('/upload/video', ensureLoggedIn('/login'),
 
                                 fs.existsSync( dir ) || fs.mkdirSync( dir );
                                 _vm.create( userid, file, function(video){
+                                    console.log("upload:vm.create():userid:", userid, ", file:", file)
                                     var dest = dir + "/" + video.uid ;//+ "/" + file.name ;
 
                                         fs.existsSync( dest ) || fs.mkdirSync( dest );

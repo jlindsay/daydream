@@ -8,6 +8,7 @@ logs
 node_modules
 public/bower
 bower_components
+uploads/*
 
 #OSX files
 .DS_Store

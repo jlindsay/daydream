@@ -72,6 +72,23 @@ function QueueManager()
 
     function processVideo()
     {
+        console.log("processVideo()")
+        var SQL = "SELECT * FROM video_queue \
+                    JOIN videos ON videos.uid = video_queue.vid  \
+                      WHERE video_queue.status ='0' \
+                          ORDER BY videos.date_created DESC LIMIT 1 ; ";
+        var results = [];
+
+            _con.query( SQL )
+                .then(function(rows){
+                    results = rows;
+                });
+
+        console.log("processVideo:results:.org_video_file::", results.org_video_file )
+        console.log("processVideo:results:.video_dir::", results.video_dir )
+        console.log("processVideo:results:.video_src::", results.video_src )
+        console.log("processVideo:results:.video_url::", results.video_url )
+        //var command = "ffmpeg -i "+ressults.video_file+" -c:v libx264 -c:a aac -vf format=yuv420p -movflags +faststart output.mp4"
 /*
         $SQL = "SELECT * FROM video_queue WHERE status ='0' LIMIT 1;";
 

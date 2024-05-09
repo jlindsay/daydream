@@ -1853,7 +1853,7 @@ function VideoManager()
 
     function create( userid, file, cb )
     {
-//            console.log( "VideoManager.create():userid:", userid, " ,video_src:", video_src );
+            console.log( "VideoManager.create():userid:", userid, " ,video_src:", video_src );
             userid          = utils.addslashes( trim( userid ));
 
         var video_src       = file.path;
